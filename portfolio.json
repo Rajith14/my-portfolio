@@ -1,0 +1,453 @@
+{
+  "totCost": 2083514,
+  "totCur": 2595828.7,
+  "rows": [
+    {
+      "stock": "INDOTECH",
+      "sector": "Transformer",
+      "segment": "NON-SME",
+      "buyDate": "2025-03-17",
+      "buyPrice": 1931,
+      "qty": 103,
+      "cost": 198893,
+      "cmp": 2542,
+      "cur": 261826,
+      "pl": 62933,
+      "plpct": 31.641636457793886,
+      "allocCost": 9.546036167743534,
+      "allocCur": 10.086412866919915
+    },
+    {
+      "stock": "JGCHEM",
+      "sector": "Chemicals",
+      "segment": "NON-SME",
+      "buyDate": "2024-04-15",
+      "buyPrice": 282,
+      "qty": 537,
+      "cost": 151434,
+      "cmp": 429.85,
+      "cur": 230829.45,
+      "pl": 79395.45000000001,
+      "plpct": 52.429078014184405,
+      "allocCost": 7.268201701548442,
+      "allocCur": 8.892322132042072
+    },
+    {
+      "stock": "AARTIPHARM",
+      "sector": "Pharmaceuticals",
+      "segment": "NON-SME",
+      "buyDate": "2025-11-18",
+      "buyPrice": 707,
+      "qty": 277,
+      "cost": 195839,
+      "cmp": 620,
+      "cur": 171740,
+      "pl": -24099,
+      "plpct": -12.305516265912306,
+      "allocCost": 9.399456879099445,
+      "allocCur": 6.615998967882588
+    },
+    {
+      "stock": "ZENTEC",
+      "sector": "Defence",
+      "segment": "NON-SME",
+      "buyDate": "2024-02-06",
+      "buyPrice": 839,
+      "qty": 100,
+      "cost": 83900,
+      "cmp": 1716,
+      "cur": 171600,
+      "pl": 87700,
+      "plpct": 104.52920143027413,
+      "allocCost": 4.026850791499361,
+      "allocCur": 6.610605699829114
+    },
+    {
+      "stock": "HDFCAMC",
+      "sector": "Financial",
+      "segment": "NON-SME",
+      "buyDate": "2023-04-03",
+      "buyPrice": 989,
+      "qty": 66,
+      "cost": 65274,
+      "cmp": 2398.9,
+      "cur": 158327.4,
+      "pl": 93053.4,
+      "plpct": 142.5581395348837,
+      "allocCost": 3.1328803166189427,
+      "allocCur": 6.099300774353869
+    },
+    {
+      "stock": "NMDC",
+      "sector": "Mining",
+      "segment": "NON-SME",
+      "buyDate": "2021-11-30",
+      "buyPrice": 41,
+      "qty": 1695,
+      "cost": 69495,
+      "cmp": 88.75,
+      "cur": 150431.25,
+      "pl": 80936.25,
+      "plpct": 116.46341463414633,
+      "allocCost": 3.3354707479767356,
+      "allocCur": 5.795114677636471
+    },
+    {
+      "stock": "GRAVITA",
+      "sector": "Recycling",
+      "segment": "NON-SME",
+      "buyDate": "2026-03-16",
+      "buyPrice": 1428,
+      "qty": 91,
+      "cost": 129948,
+      "cmp": 1567.7,
+      "cur": 142660.7,
+      "pl": 12712.700000000012,
+      "plpct": 9.782913165266114,
+      "allocCost": 6.236963130557318,
+      "allocCur": 5.4957671128299035
+    },
+    {
+      "stock": "CDSL",
+      "sector": "Financial",
+      "segment": "NON-SME",
+      "buyDate": "2022-10-13",
+      "buyPrice": 609,
+      "qty": 106,
+      "cost": 64554,
+      "cmp": 1192,
+      "cur": 126352,
+      "pl": 61798,
+      "plpct": 95.73070607553366,
+      "allocCost": 3.0983233134022616,
+      "allocCur": 4.867501464946435
+    },
+    {
+      "stock": "YESBANK",
+      "sector": "Banking",
+      "segment": "NON-SME",
+      "buyDate": "2020-08-06",
+      "buyPrice": 18,
+      "qty": 5296,
+      "cost": 95328,
+      "cmp": 22.26,
+      "cur": 117888.96,
+      "pl": 22560.960000000006,
+      "plpct": 23.666666666666675,
+      "allocCost": 4.575347225888571,
+      "allocCur": 4.541476870180224
+    },
+    {
+      "stock": "ACE",
+      "sector": "Engineering",
+      "segment": "NON-SME",
+      "buyDate": "2022-07-14",
+      "buyPrice": 396,
+      "qty": 132,
+      "cost": 52272,
+      "cmp": 891.35,
+      "cur": 117658.2,
+      "pl": 65386.2,
+      "plpct": 125.08838383838383,
+      "allocCost": 2.5088384335310443,
+      "allocCur": 4.532587223494369
+    },
+    {
+      "stock": "ICIL",
+      "sector": "Engineering",
+      "segment": "NON-SME",
+      "buyDate": "2024-04-03",
+      "buyPrice": 378,
+      "qty": 351,
+      "cost": 132678,
+      "cmp": 320.15,
+      "cur": 112372.65,
+      "pl": -20305.350000000006,
+      "plpct": -15.304232804232809,
+      "allocCost": 6.3679917677538995,
+      "allocCur": 4.328970166636958
+    },
+    {
+      "stock": "NSE:HPL",
+      "sector": "Electricals",
+      "segment": "NON-SME",
+      "buyDate": "2022-12-02",
+      "buyPrice": 93,
+      "qty": 300,
+      "cost": 27900,
+      "cmp": 341,
+      "cur": 102300,
+      "pl": 74400,
+      "plpct": 266.66666666666663,
+      "allocCost": 1.3390838746463907,
+      "allocCur": 3.940938013359664
+    },
+    {
+      "stock": "AVANTEL",
+      "sector": "Defence Electronics",
+      "segment": "NON-SME",
+      "buyDate": "2024-10-07",
+      "buyPrice": 140,
+      "qty": 649,
+      "cost": 90860,
+      "cmp": 157,
+      "cur": 101893,
+      "pl": 11033,
+      "plpct": 12.142857142857142,
+      "allocCost": 4.360901822593945,
+      "allocCur": 3.9252590126613516
+    },
+    {
+      "stock": "TDPOWERSYS",
+      "sector": "Engineering",
+      "segment": "NON-SME",
+      "buyDate": "2025-02-11",
+      "buyPrice": 335,
+      "qty": 90,
+      "cost": 30150,
+      "cmp": 1128,
+      "cur": 101520,
+      "pl": 71370,
+      "plpct": 236.71641791044777,
+      "allocCost": 1.447074509698519,
+      "allocCur": 3.910889805633168
+    },
+    {
+      "stock": "PROSTARM",
+      "sector": "Power",
+      "segment": "SME",
+      "buyDate": "2025-07-14",
+      "buyPrice": 180,
+      "qty": 608,
+      "cost": 109440,
+      "cmp": 137.95,
+      "cur": 83873.59999999999,
+      "pl": -25566.40000000001,
+      "plpct": -23.361111111111118,
+      "allocCost": 5.25266448893552,
+      "allocCur": 3.2310914814987592
+    },
+    {
+      "stock": "VALIANTORG",
+      "sector": "Chemicals",
+      "segment": "NON-SME",
+      "buyDate": "2023-10-03",
+      "buyPrice": 410,
+      "qty": 278,
+      "cost": 113980,
+      "cmp": 266,
+      "cur": 73948,
+      "pl": -40032,
+      "plpct": -35.12195121951219,
+      "allocCost": 5.470565592551814,
+      "allocCur": 2.8487241858447745
+    },
+    {
+      "stock": "RELIANCE",
+      "sector": "Oil & Gas",
+      "segment": "NON-SME",
+      "buyDate": "2020-07-15",
+      "buyPrice": 1256,
+      "qty": 58,
+      "cost": 72848,
+      "cmp": 1264.5,
+      "cur": 73341,
+      "pl": 493,
+      "plpct": 0.6767515923566879,
+      "allocCost": 3.496400792123307,
+      "allocCur": 2.8253405164986423
+    },
+    {
+      "stock": "VAIBHAVGBL",
+      "sector": "Jewellery",
+      "segment": "NON-SME",
+      "buyDate": "2022-09-02",
+      "buyPrice": 287,
+      "qty": 324,
+      "cost": 92988,
+      "cmp": 225,
+      "cur": 72900,
+      "pl": -20088,
+      "plpct": -21.602787456445995,
+      "allocCost": 4.463036965434357,
+      "allocCur": 2.8083517221302
+    },
+    {
+      "stock": "NSLNISP",
+      "sector": "Steel",
+      "segment": "NON-SME",
+      "buyDate": "2023-02-20",
+      "buyPrice": 43,
+      "qty": 1516,
+      "cost": 65188,
+      "cmp": 45.74,
+      "cur": 69341.84,
+      "pl": 4153.8399999999965,
+      "plpct": 6.372093023255809,
+      "allocCost": 3.128752674568062,
+      "allocCur": 2.671279503150574
+    },
+    {
+      "stock": "NSE:AWL",
+      "sector": "FMCG",
+      "segment": "NON-SME",
+      "buyDate": "2023-10-03",
+      "buyPrice": 331,
+      "qty": 311,
+      "cost": 102941,
+      "cmp": 185.9,
+      "cur": 57814.9,
+      "pl": -45126.1,
+      "plpct": -43.8368580060423,
+      "allocCost": 4.940739539067172,
+      "allocCur": 2.2272232370340923
+    },
+    {
+      "stock": "BEEKAY",
+      "sector": "Steel",
+      "segment": "NON-SME",
+      "buyDate": "2023-10-03",
+      "buyPrice": 629,
+      "qty": 100,
+      "cost": 62900,
+      "cmp": 399,
+      "cur": 39900,
+      "pl": -23000,
+      "plpct": -36.56597774244833,
+      "allocCost": 3.018938197679497,
+      "allocCur": 1.5370813952399862
+    },
+    {
+      "stock": "JIOFIN",
+      "sector": "Financial",
+      "segment": "NON-SME",
+      "buyDate": "2023-08-21",
+      "buyPrice": 249,
+      "qty": 126,
+      "cost": 31374,
+      "cmp": 228.2,
+      "cur": 28753.199999999997,
+      "pl": -2620.800000000003,
+      "plpct": -8.353413654618484,
+      "allocCost": 1.5058214151668767,
+      "allocCur": 1.1076693928224153
+    },
+    {
+      "stock": "KPITTECH",
+      "sector": "IT Services",
+      "segment": "NON-SME",
+      "buyDate": "2025-05-30",
+      "buyPrice": 1122,
+      "qty": 38,
+      "cost": 42636,
+      "cmp": 739.2,
+      "cur": 28089.600000000002,
+      "pl": -14546.399999999998,
+      "plpct": -34.11764705882352,
+      "allocCost": 2.0463505404811295,
+      "allocCur": 1.0821053022489504
+    },
+    {
+      "stock": "TRANSRAILL",
+      "sector": "Power",
+      "segment": "NON-SME",
+      "buyDate": "2025-11-07",
+      "buyPrice": 694,
+      "qty": 1,
+      "cost": 694,
+      "cmp": 466.95,
+      "cur": 466.95,
+      "pl": -227.05,
+      "plpct": -32.716138328530256,
+      "allocCost": 0.03330911143385645,
+      "allocCur": 0.01798847512549653
+    }
+  ],
+  "bySector": {
+    "Banking": {
+      "cost": 95328,
+      "cur": 117888.96,
+      "n": 1
+    },
+    "Engineering": {
+      "cost": 215100,
+      "cur": 331550.85,
+      "n": 3
+    },
+    "Financial": {
+      "cost": 161202,
+      "cur": 313432.6,
+      "n": 3
+    },
+    "Oil & Gas": {
+      "cost": 72848,
+      "cur": 73341,
+      "n": 1
+    },
+    "Jewellery": {
+      "cost": 92988,
+      "cur": 72900,
+      "n": 1
+    },
+    "Electricals": {
+      "cost": 27900,
+      "cur": 102300,
+      "n": 1
+    },
+    "Mining": {
+      "cost": 69495,
+      "cur": 150431.25,
+      "n": 1
+    },
+    "Steel": {
+      "cost": 128088,
+      "cur": 109241.84,
+      "n": 2
+    },
+    "FMCG": {
+      "cost": 102941,
+      "cur": 57814.9,
+      "n": 1
+    },
+    "Chemicals": {
+      "cost": 265414,
+      "cur": 304777.45,
+      "n": 2
+    },
+    "Defence": {
+      "cost": 83900,
+      "cur": 171600,
+      "n": 1
+    },
+    "Defence Electronics": {
+      "cost": 90860,
+      "cur": 101893,
+      "n": 1
+    },
+    "Transformer": {
+      "cost": 198893,
+      "cur": 261826,
+      "n": 1
+    },
+    "IT Services": {
+      "cost": 42636,
+      "cur": 28089.600000000002,
+      "n": 1
+    },
+    "Power": {
+      "cost": 110134,
+      "cur": 84340.54999999999,
+      "n": 2
+    },
+    "Pharmaceuticals": {
+      "cost": 195839,
+      "cur": 171740,
+      "n": 1
+    },
+    "Recycling": {
+      "cost": 129948,
+      "cur": 142660.7,
+      "n": 1
+    }
+  }
+}
