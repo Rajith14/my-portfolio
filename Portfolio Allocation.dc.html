@@ -75,6 +75,7 @@
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c;">View</span>
         <div style="display:inline-flex; background:#e7e4da; border-radius:8px; padding:3px;">
+          <button onClick="{{ setMomentum }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.momentumBg }}; color:{{ ui.momentumFg }};">Sector momentum</button>
           <button onClick="{{ setBars }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.barsBg }}; color:{{ ui.barsFg }};">Ranked bars</button>
           <button onClick="{{ setBubbles }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.bubblesBg }}; color:{{ ui.bubblesFg }};">Bubbles</button>
           <button onClick="{{ setMap }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.mapBg }}; color:{{ ui.mapFg }};">Treemap</button>
@@ -189,6 +190,49 @@
           </sc-for>
         </div>
 
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isMomentum }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#ffffff; border:1px solid #e6e3d9; border-radius:13px; padding:22px 26px 16px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:15px; font-weight:600;">Best-performing sectors · last 1 month</h2>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#9a978c;">{{ prevAsOfLabel }}</span>
+        </div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#b3b0a6; margin-bottom:18px;">ranked by market price change · value-weighted across each sector's holdings</div>
+
+        <sc-if value="{{ hasMomentum }}" hint-placeholder-val="{{ true }}">
+          <sc-for list="{{ momentumRows }}" as="m" hint-placeholder-count="10">
+            <div style="display:grid; grid-template-columns:38px 200px 1fr 78px 168px; gap:14px; align-items:center; padding:8px 0; border-bottom:1px solid #f3f0e8;">
+              <div style="width:28px; height:28px; border-radius:7px; background:{{ m.rankBg }}; color:{{ m.rankFg }}; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600;">{{ m.rank }}</div>
+              <div style="display:flex; align-items:center; gap:9px; min-width:0;">
+                <span style="width:9px; height:9px; border-radius:2px; background:{{ m.dot }}; flex:none;"></span>
+                <div style="min-width:0;">
+                  <div style="font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ m.name }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#b3b0a6;">{{ m.count }}</div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center;">
+                <div style="flex:1; display:flex; justify-content:flex-end;">
+                  <div style="width:{{ m.leftW }}%; height:15px; background:{{ m.barColor }}; border-radius:3px 0 0 3px;"></div>
+                </div>
+                <div style="width:1px; height:20px; background:#d9d6cc; flex:none;"></div>
+                <div style="flex:1; display:flex; justify-content:flex-start;">
+                  <div style="width:{{ m.rightW }}%; height:15px; background:{{ m.barColor }}; border-radius:0 3px 3px 0;"></div>
+                </div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:600; text-align:right; color:{{ m.momColor }};">{{ m.momFmt }}</div>
+              <div style="font-size:11px; color:#9a978c; text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">top: {{ m.best }}</div>
+            </div>
+          </sc-for>
+        </sc-if>
+
+        <sc-if value="{{ noMomentum }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:34px 28px; background:#faf8f3; border:1px dashed #ddd9cd; border-radius:11px; text-align:center;">
+            <div style="font-size:14px; font-weight:600; margin-bottom:8px;">1-month performance isn't loaded yet</div>
+            <div style="font-size:12.5px; line-height:1.6; color:#6a6760; max-width:520px; margin:0 auto;">This chart needs last month's prices, which the auto-updater fetches. To switch it on once: re-upload the updated <span style="font-family:'IBM Plex Mono',monospace; font-size:11px;">Portfolio&nbsp;Allocation.dc.html</span> and <span style="font-family:'IBM Plex Mono',monospace; font-size:11px;">automation/update_prices.py</span>, then run <b>Actions → Update portfolio prices → Run workflow</b> once. After that it fills in here and refreshes automatically every month.</div>
+          </div>
+        </sc-if>
       </div>
     </sc-if>
 
@@ -513,6 +557,8 @@ class Component extends DCLogic {
     this.state.updatedAt = ov.updatedAt || null;
     this.state.autoPrices = {};
     this.state.autoUpdatedAt = null;
+    this.state.prev1mo = {};
+    this.state.prevAsOf = null;
     this.state.showUpdate = false;
     this.rows = this.computeRows();
   }
@@ -526,7 +572,7 @@ class Component extends DCLogic {
       const res = await fetch('prices.json', { cache: 'no-store' });
       if (!res.ok) return;
       const data = await res.json();
-      if (data && data.cmp) this.setState({ autoPrices: data.cmp, autoUpdatedAt: data.updatedAt || null });
+      if (data && data.cmp) this.setState({ autoPrices: data.cmp, autoUpdatedAt: data.updatedAt || null, prev1mo: data.prev1mo || {}, prevAsOf: data.prevAsOf || null });
     } catch (e) { /* no prices.json available — keep snapshot */ }
   }
 
@@ -746,6 +792,42 @@ class Component extends DCLogic {
     });
   }
 
+  buildMomentum(){
+    // Ranks sectors by their value-weighted price change over the last ~1 month.
+    const prev = this.state.prev1mo || {};
+    const rows = this.computeRows();
+    const gmap = {};
+    rows.forEach(r => {
+      const p = prev[r.ticker];
+      if (p == null || isNaN(Number(p)) || Number(p) <= 0) return;
+      const pp = Number(p);
+      const g = (gmap[r.sector] = gmap[r.sector] || { now: 0, then: 0, n: 0, best: null, worst: null });
+      g.now += r.cmp * r.qty;
+      g.then += pp * r.qty;
+      g.n++;
+      const sm = (r.cmp - pp) / pp * 100;
+      if (!g.best || sm > g.best.mom) g.best = { display: r.display, mom: sm };
+      if (!g.worst || sm < g.worst.mom) g.worst = { display: r.display, mom: sm };
+    });
+    let arr = Object.entries(gmap).map(([name, o]) => ({ name, n: o.n, mom: (o.now - o.then) / o.then * 100, best: o.best }));
+    arr.sort((a, b) => b.mom - a.mom);
+    const maxAbs = Math.max(1, ...arr.map(a => Math.abs(a.mom)));
+    return arr.map((a, i) => ({
+      rank: i + 1,
+      name: a.name,
+      count: a.n + (a.n === 1 ? ' stock' : ' stocks'),
+      dot: this.sectorColor(a.name),
+      momFmt: (a.mom >= 0 ? '+' : '−') + Math.abs(a.mom).toFixed(1) + '%',
+      momColor: this.pnlTextColor(a.mom),
+      barColor: this.pnlColor(a.mom).bg,
+      leftW: a.mom < 0 ? (Math.abs(a.mom) / maxAbs * 100).toFixed(1) : '0',
+      rightW: a.mom >= 0 ? (Math.abs(a.mom) / maxAbs * 100).toFixed(1) : '0',
+      best: a.best ? (a.best.display + ' ' + (a.best.mom >= 0 ? '+' : '−') + Math.abs(a.best.mom).toFixed(1) + '%') : '—',
+      rankBg: i === 0 ? '#1b1b18' : '#efece3',
+      rankFg: i === 0 ? '#f4f2ec' : '#6a6760',
+    }));
+  }
+
   buildSelected(){
     const t=this.state.selected; if(!t) return null;
     const r=this.rows.find(x=>x.ticker===t); if(!r) return null;
@@ -777,7 +859,8 @@ class Component extends DCLogic {
     const sb=this.state.sizeBy, cb=this.state.colorBy, gb=this.state.groupBy, vw=this.state.view;
     const on='#1b1b18', onF='#ffffff', off='transparent', offF='#737067';
     const seg=(a)=>({ bg:a?on:off, fg:a?onF:offF });
-    const m=seg(vw==='map'), tb=seg(vw==='table'), br=seg(vw==='bars'), bu=seg(vw==='bubbles');
+    const m=seg(vw==='map'), tb=seg(vw==='table'), br=seg(vw==='bars'), bu=seg(vw==='bubbles'), mo=seg(vw==='momentum');
+    const momentumRows=this.buildMomentum();
     const sc=seg(sb==='current'), so=seg(sb==='cost');
     const cp=seg(cb==='pnl'), cs=seg(cb==='sector');
     const gs=seg(gb==='sector'), gg=seg(gb==='segment');
@@ -792,7 +875,10 @@ class Component extends DCLogic {
       kpiReturnColor:this.pnlTextColor(retPct),
       kpiHoldings:this.rows.length, kpiSectors:this.nSectors,
 
-      isMap:vw==='map', isTable:vw==='table', isBars:vw==='bars', isBubbles:vw==='bubbles',
+      isMap:vw==='map', isTable:vw==='table', isBars:vw==='bars', isBubbles:vw==='bubbles', isMomentum:vw==='momentum',
+      hasMomentum:momentumRows.length>0, noMomentum:momentumRows.length===0,
+      momentumRows,
+      prevAsOfLabel: this.state.prevAsOf ? ('vs baseline ~'+this.state.prevAsOf) : 'vs ~1 month ago',
       colorPnl:cb==='pnl', colorSector:cb==='sector',
       mapW:this.mapW, mapH:this.mapH,
       breakdownTitle: gb==='segment' ? 'Segment Breakdown' : 'Sector Breakdown',
@@ -815,11 +901,12 @@ class Component extends DCLogic {
 
       sortArrow:{ name:this.arrow('name'), invested:this.arrow('invested'), value:this.arrow('value'), alloc:this.arrow('alloc'), pnl:this.arrow('pnl') },
 
-      ui:{ mapBg:m.bg,mapFg:m.fg, tableBg:tb.bg,tableFg:tb.fg, barsBg:br.bg,barsFg:br.fg, bubblesBg:bu.bg,bubblesFg:bu.fg, sizeCurBg:sc.bg,sizeCurFg:sc.fg, sizeCostBg:so.bg,sizeCostFg:so.fg,
+      ui:{ mapBg:m.bg,mapFg:m.fg, tableBg:tb.bg,tableFg:tb.fg, barsBg:br.bg,barsFg:br.fg, bubblesBg:bu.bg,bubblesFg:bu.fg, momentumBg:mo.bg,momentumFg:mo.fg, sizeCurBg:sc.bg,sizeCurFg:sc.fg, sizeCostBg:so.bg,sizeCostFg:so.fg,
         colorPnlBg:cp.bg,colorPnlFg:cp.fg, colorSectorBg:cs.bg,colorSectorFg:cs.fg, groupSectorBg:gs.bg,groupSectorFg:gs.fg, groupSegmentBg:gg.bg,groupSegmentFg:gg.fg },
 
       setMap:()=>this.setState({view:'map'}), setTable:()=>this.setState({view:'table'}),
       setBars:()=>this.setState({view:'bars'}), setBubbles:()=>this.setState({view:'bubbles'}),
+      setMomentum:()=>this.setState({view:'momentum'}),
       setSizeCur:()=>this.setState({sizeBy:'current'}), setSizeCost:()=>this.setState({sizeBy:'cost'}),
       setColorPnl:()=>this.setState({colorBy:'pnl'}), setColorSector:()=>this.setState({colorBy:'sector'}),
       setGroupSector:()=>this.setState({groupBy:'sector'}), setGroupSegment:()=>this.setState({groupBy:'segment'}),
