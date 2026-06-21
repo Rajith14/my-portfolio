@@ -73,45 +73,59 @@ TICKERS = {
 }
 
 
-def fetch_price(symbol):
-    """Return the latest close price for a Yahoo symbol, or None on failure."""
+def fetch_current_and_prev(symbol):
+    """Return (current_price, price_about_1_month_ago, baseline_date_str).
+    Any of them may be None if the fetch fails."""
     t = yf.Ticker(symbol)
-    # Fast path: live/last price
+    current = prev = prev_date = None
+    # ~6 weeks of history: first close = baseline ~1 month ago, last close = latest
     try:
-        p = t.fast_info["last_price"]
-        if p:
-            return float(p)
+        closes = t.history(period="45d")["Close"].dropna()
+        if not closes.empty:
+            current = float(closes.iloc[-1])
+            prev = float(closes.iloc[0])
+            prev_date = closes.index[0].strftime("%d %b %Y")
     except Exception:
         pass
-    # Fallback: last daily close
+    # Prefer the live/last traded price for "current" when available
     try:
-        hist = t.history(period="5d")
-        if not hist.empty:
-            return float(hist["Close"].dropna().iloc[-1])
+        lp = t.fast_info["last_price"]
+        if lp:
+            current = float(lp)
     except Exception:
         pass
-    return None
+    return current, prev, prev_date
 
 
 def main():
     cmp = {}
-    # Keep any prices we already have, so a single failed fetch doesn't wipe a stock
+    prev1mo = {}
+    # Keep any values we already have, so a single failed fetch doesn't wipe a stock
     try:
         with open("prices.json") as f:
-            cmp = json.load(f).get("cmp", {})
+            old = json.load(f)
+            cmp = old.get("cmp", {})
+            prev1mo = old.get("prev1mo", {})
     except Exception:
         pass
 
+    prev_as_of = None
     for key, symbol in TICKERS.items():
-        price = fetch_price(symbol)
-        if price is not None:
-            cmp[key] = round(price, 2)
-            print(f"  {key:12s} {symbol:14s} -> {price:.2f}")
-        else:
-            print(f"  {key:12s} {symbol:14s} -> FAILED (kept previous)")
+        current, prev, prev_date = fetch_current_and_prev(symbol)
+        if current is not None:
+            cmp[key] = round(current, 2)
+        if prev is not None:
+            prev1mo[key] = round(prev, 2)
+            if prev_as_of is None:
+                prev_as_of = prev_date
+        status = f"{current:.2f}" if current is not None else "FAILED"
+        mom = f"  (1mo base {prev:.2f})" if prev is not None else ""
+        print(f"  {key:12s} {symbol:14s} -> {status}{mom}")
 
     out = {
         "cmp": cmp,
+        "prev1mo": prev1mo,
+        "prevAsOf": prev_as_of,
         "updatedAt": datetime.datetime.utcnow().strftime("%d %b %Y"),
     }
     with open("prices.json", "w") as f:
