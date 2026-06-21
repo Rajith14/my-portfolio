@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#1b1b18"/>
+  <rect x="30" y="30" width="22" height="22" rx="2" fill="oklch(0.72 0.10 0)"/>
+  <rect x="54" y="30" width="16" height="22" rx="2" fill="oklch(0.72 0.10 120)"/>
+  <rect x="30" y="54" width="14" height="16" rx="2" fill="oklch(0.72 0.10 200)"/>
+  <rect x="46" y="54" width="24" height="16" rx="2" fill="oklch(0.72 0.10 280)"/>
+</svg>
+</template>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  @keyframes drawerIn { from { transform: translateX(24px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+  ::-webkit-scrollbar { width: 9px; height: 9px; }
+  ::-webkit-scrollbar-thumb { background: #cfccc2; border-radius: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:#f4f2ec; color:#1b1b18; font-family:'IBM Plex Sans',system-ui,sans-serif; padding:26px 30px 64px;">
+  <div style="max-width:1320px; margin:0 auto;">
+
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:22px;">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9a978c; margin-bottom:7px;">Equity Portfolio · Allocation by Sector</div>
+        <h1 style="margin:0; font-size:30px; font-weight:600; letter-spacing:-0.01em; white-space:nowrap;">Holdings Allocation Map</h1>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:7px; flex:none;">
+        <button onClick="{{ openUpdate }}" style="display:flex; align-items:center; gap:7px; border:1px solid #1b1b18; background:#1b1b18; color:#f4f2ec; cursor:pointer; font-family:inherit; font-size:12.5px; font-weight:500; padding:8px 14px; border-radius:8px;">↻ Update prices</button>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9a978c;">{{ asOf }}</div>
+        <div style="font-size:10px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.08em; color:#b0683c; background:#f6ece3; border:1px solid #ecd9c8; padding:4px 9px; border-radius:5px;">EDUCATIONAL ONLY · NO BUY/SELL RECCO</div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:13px; margin-bottom:18px;">
+      <div style="flex:1; background:#ffffff; border:1px solid #e6e3d9; border-radius:11px; padding:15px 17px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:9px;">Invested</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:23px; font-weight:600;">{{ kpiInvested }}</div>
+      </div>
+      <div style="flex:1; background:#ffffff; border:1px solid #e6e3d9; border-radius:11px; padding:15px 17px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:9px;">Current Value</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:23px; font-weight:600;">{{ kpiCurrent }}</div>
+      </div>
+      <div style="flex:1; background:#ffffff; border:1px solid #e6e3d9; border-radius:11px; padding:15px 17px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:9px;">Total Return</div>
+        <div style="display:flex; align-items:baseline; gap:9px;">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:23px; font-weight:600; color:{{ kpiReturnColor }};">{{ kpiReturnAbs }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500; color:{{ kpiReturnColor }};">{{ kpiReturnPct }}</div>
+        </div>
+      </div>
+      <div style="width:118px; background:#ffffff; border:1px solid #e6e3d9; border-radius:11px; padding:15px 17px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:9px;">Holdings</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:23px; font-weight:600;">{{ kpiHoldings }}</div>
+      </div>
+      <div style="width:118px; background:#ffffff; border:1px solid #e6e3d9; border-radius:11px; padding:15px 17px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:9px;">Sectors</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:23px; font-weight:600;">{{ kpiSectors }}</div>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:18px; margin-bottom:16px;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c;">View</span>
+        <div style="display:inline-flex; background:#e7e4da; border-radius:8px; padding:3px;">
+          <button onClick="{{ setBars }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.barsBg }}; color:{{ ui.barsFg }};">Ranked bars</button>
+          <button onClick="{{ setBubbles }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.bubblesBg }}; color:{{ ui.bubblesFg }};">Bubbles</button>
+          <button onClick="{{ setMap }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.mapBg }}; color:{{ ui.mapFg }};">Treemap</button>
+          <button onClick="{{ setTable }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.tableBg }}; color:{{ ui.tableFg }};">Table</button>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c;">Size by</span>
+        <div style="display:inline-flex; background:#e7e4da; border-radius:8px; padding:3px;">
+          <button onClick="{{ setSizeCur }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.sizeCurBg }}; color:{{ ui.sizeCurFg }};">Current value</button>
+          <button onClick="{{ setSizeCost }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.sizeCostBg }}; color:{{ ui.sizeCostFg }};">Invested</button>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c;">Color</span>
+        <div style="display:inline-flex; background:#e7e4da; border-radius:8px; padding:3px;">
+          <button onClick="{{ setColorPnl }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.colorPnlBg }}; color:{{ ui.colorPnlFg }};">Gain / Loss</button>
+          <button onClick="{{ setColorSector }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.colorSectorBg }}; color:{{ ui.colorSectorFg }};">Sector</button>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c;">Group</span>
+        <div style="display:inline-flex; background:#e7e4da; border-radius:8px; padding:3px;">
+          <button onClick="{{ setGroupSector }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.groupSectorBg }}; color:{{ ui.groupSectorFg }};">Sector</button>
+          <button onClick="{{ setGroupSegment }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.groupSegmentBg }}; color:{{ ui.groupSegmentFg }};">SME / Non-SME</button>
+        </div>
+      </div>
+      <div style="margin-left:auto; display:flex; align-items:center; gap:10px;">
+        <sc-if value="{{ colorPnl }}" hint-placeholder-val="{{ true }}">
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#9a978c;">−40%</span>
+          <div style="width:130px; height:9px; border-radius:5px; background:linear-gradient(90deg,#c2410c,#e8b59a,#ede9df,#9cc7a8,#15803d);"></div>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#9a978c;">+100%</span>
+        </sc-if>
+        <sc-if value="{{ colorSector }}" hint-placeholder-val="{{ true }}">
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#9a978c;">Tiles &amp; bars colored by sector</span>
+        </sc-if>
+      </div>
+    </div>
+
+    <sc-if value="{{ hasHighlight }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#1b1b18; color:#f4f2ec; border-radius:12px; padding:16px 20px; margin-bottom:16px; display:flex; align-items:center; gap:26px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:11px; flex:none;">
+          <span style="width:13px; height:13px; border-radius:4px; background:{{ hl.dot }};"></span>
+          <span style="font-size:17px; font-weight:600;">{{ hl.name }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; background:rgba(244,242,236,0.14); padding:3px 8px; border-radius:5px;">{{ hl.allocLabel }} of portfolio</span>
+        </div>
+        <div style="display:flex; gap:24px; flex:none;">
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:4px;">Value</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600;">{{ hl.valueFmt }}</div>
+          </div>
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:4px;">Invested</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600;">{{ hl.investedFmt }}</div>
+          </div>
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:4px;">Return</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600; color:{{ hl.plColor }};">{{ hl.plPctFmt }}</div>
+          </div>
+        </div>
+        <div style="display:flex; gap:7px; flex-wrap:wrap; flex:1; min-width:200px;">
+          <sc-for list="{{ hl.holdings }}" as="h" hint-placeholder-count="3">
+            <div onClick="{{ h.onSelect }}" style="display:flex; align-items:center; gap:7px; background:rgba(244,242,236,0.08); border:1px solid rgba(244,242,236,0.12); border-radius:7px; padding:5px 10px; cursor:pointer;">
+              <span style="font-size:12px; font-weight:600;">{{ h.display }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#b9b6ab;">{{ h.allocFmt }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:600; color:{{ h.plColor }};">{{ h.plPctFmt }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <button onClick="{{ clearHighlight }}" style="flex:none; border:1px solid rgba(244,242,236,0.2); background:transparent; color:#f4f2ec; cursor:pointer; width:30px; height:30px; border-radius:7px; font-size:14px; line-height:1;">✕</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isMap }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; gap:18px; align-items:flex-start;">
+
+        <div style="flex:1; background:#ffffff; border:1px solid #e6e3d9; border-radius:13px; padding:14px;">
+          <div style="position:relative; width:{{ mapW }}px; height:{{ mapH }}px; margin:0 auto;">
+            <sc-for list="{{ groups }}" as="g" hint-placeholder-count="8">
+              <div style="position:absolute; left:{{ g.left }}px; top:{{ g.top }}px; width:{{ g.width }}px; height:{{ g.height }}px; background:{{ g.tint }}; border:{{ g.bw }}px solid {{ g.border }}; border-radius:6px; overflow:hidden; opacity:{{ g.opacity }}; transition:opacity 0.2s ease, border-color 0.2s ease;">
+                <div style="position:absolute; left:0; top:0; right:0; height:{{ g.labelH }}px; display:flex; align-items:center; justify-content:space-between; padding:0 7px; gap:6px;">
+                  <span style="font-size:10.5px; font-weight:600; color:#3a382f; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ g.name }}</span>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600; color:#6a6760; flex:none;">{{ g.allocLabel }}</span>
+                </div>
+                <sc-for list="{{ g.tiles }}" as="t" hint-placeholder-count="3">
+                  <div onClick="{{ t.onSelect }}" style="position:absolute; left:{{ t.left }}px; top:{{ t.top }}px; width:{{ t.width }}px; height:{{ t.height }}px; background:{{ t.bg }}; color:{{ t.fg }}; border-radius:3px; cursor:pointer; overflow:hidden; padding:4px 5px; display:flex; flex-direction:column; justify-content:space-between;">
+                    <div style="font-size:{{ t.fontSize }}px; font-weight:600; line-height:1.05; letter-spacing:-0.01em;">{{ t.ticker }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:500; opacity:0.92;">{{ t.allocLabel }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="width:362px; flex:none; background:#ffffff; border:1px solid #e6e3d9; border-radius:13px; padding:18px 18px 8px;">
+          <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px;">
+            <h2 style="margin:0; font-size:15px; font-weight:600;">{{ breakdownTitle }}</h2>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#9a978c;">% of {{ sizeLabel }}</span>
+          </div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:#b3b0a6; margin-bottom:11px;">Click a {{ groupLabel }} to highlight it on the map →</div>
+          <sc-for list="{{ sectorBars }}" as="b" hint-placeholder-count="10">
+            <div onClick="{{ b.onSelect }}" style="margin:0 -8px 5px; padding:8px; border-radius:7px; cursor:{{ b.cursor }}; background:{{ b.rowBg }}; opacity:{{ b.opacity }}; transition:background 0.15s ease, opacity 0.15s ease;">
+              <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:5px;">
+                <span style="font-size:12.5px; font-weight:500; color:{{ b.nameColor }};">{{ b.name }} <span style="color:#b3b0a6; font-weight:400; font-size:11px;">{{ b.count }}</span></span>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;">{{ b.pctLabel }}</span>
+              </div>
+              <div style="height:7px; background:#efece3; border-radius:4px; overflow:hidden;">
+                <div style="height:100%; width:{{ b.pct }}%; background:{{ b.color }}; border-radius:4px;"></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isBars }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#ffffff; border:1px solid #e6e3d9; border-radius:13px; padding:22px 26px 14px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:18px;">
+          <h2 style="margin:0; font-size:15px; font-weight:600;">Holdings ranked by allocation</h2>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#9a978c;">bar length = % of {{ sizeLabel }} · sorted high → low</span>
+        </div>
+        <sc-for list="{{ barRows }}" as="r" hint-placeholder-count="12">
+          <div onClick="{{ r.onSelect }}" style="display:grid; grid-template-columns:128px 1fr 96px; gap:14px; align-items:center; padding:6px 0; cursor:pointer; opacity:{{ r.opacity }}; transition:opacity 0.15s ease;">
+            <div style="display:flex; align-items:center; gap:9px; min-width:0;">
+              <span style="width:9px; height:9px; border-radius:2px; background:{{ r.dot }}; flex:none;"></span>
+              <span style="font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ r.display }}</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="flex:1; height:22px; background:#f4f1e9; border-radius:5px; overflow:hidden;">
+                <div style="height:100%; width:{{ r.pct }}%; background:{{ r.bar }}; border-radius:5px; min-width:2px;"></div>
+              </div>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:600; min-width:44px;">{{ r.allocFmt }}</span>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px;">
+              <span style="font-size:10px; color:#b3b0a6; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:50px;">{{ r.sector }}</span>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; color:{{ r.plColor }}; min-width:48px; text-align:right;">{{ r.plPctFmt }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isBubbles }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#ffffff; border:1px solid #e6e3d9; border-radius:13px; padding:20px 22px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:18px;">
+          <h2 style="margin:0; font-size:15px; font-weight:600;">{{ breakdownTitle }} · bubble size = allocation</h2>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#9a978c;">grouped by {{ groupLabel }}</span>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:flex-start;">
+          <sc-for list="{{ bubbleGroups }}" as="g" hint-placeholder-count="9">
+            <div style="background:{{ g.tint }}; border:1px solid {{ g.border }}; border-radius:11px; padding:13px 14px 15px; min-width:{{ g.minW }}px; opacity:{{ g.opacity }}; transition:opacity 0.18s ease;">
+              <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:11px;">
+                <span style="font-size:12px; font-weight:600; color:#3a382f;">{{ g.name }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600; color:#6a6760;">{{ g.allocLabel }}</span>
+              </div>
+              <div style="display:flex; flex-wrap:wrap; gap:9px; align-items:center;">
+                <sc-for list="{{ g.bubbles }}" as="b" hint-placeholder-count="2">
+                  <div onClick="{{ b.onSelect }}" title="{{ b.title }}" style="width:{{ b.size }}px; height:{{ b.size }}px; border-radius:50%; background:{{ b.bg }}; color:{{ b.fg }}; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; overflow:hidden; flex:none;">
+                    <span style="font-size:{{ b.fontSize }}px; font-weight:600; line-height:1.05;">{{ b.ticker }}</span>
+                    <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; opacity:0.9; line-height:1.1;">{{ b.allocLabel }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isTable }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#ffffff; border:1px solid #e6e3d9; border-radius:13px; padding:6px 6px 8px; overflow:hidden;">
+        <div style="display:grid; grid-template-columns:1.6fr 1.3fr 0.8fr 1fr 1fr 1.2fr 1fr; gap:0; align-items:center; padding:12px 16px; border-bottom:1px solid #ece9df;">
+          <div onClick="{{ sortByName }}" style="cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">Stock {{ sortArrow.name }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">Sector</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c; text-align:right;">Qty</div>
+          <div onClick="{{ sortByInvested }}" style="cursor:pointer; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">Invested {{ sortArrow.invested }}</div>
+          <div onClick="{{ sortByValue }}" style="cursor:pointer; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">Value {{ sortArrow.value }}</div>
+          <div onClick="{{ sortByAlloc }}" style="cursor:pointer; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">Allocation {{ sortArrow.alloc }}</div>
+          <div onClick="{{ sortByPnl }}" style="cursor:pointer; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">Return {{ sortArrow.pnl }}</div>
+        </div>
+        <sc-for list="{{ tableRows }}" as="r" hint-placeholder-count="12">
+          <div onClick="{{ r.onSelect }}" style="display:grid; grid-template-columns:1.6fr 1.3fr 0.8fr 1fr 1fr 1.2fr 1fr; gap:0; align-items:center; padding:11px 16px; border-bottom:1px solid #f3f0e8; cursor:pointer;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:8px; height:8px; border-radius:2px; background:{{ r.dot }}; flex:none;"></span>
+              <span style="font-size:13px; font-weight:600;">{{ r.display }}</span>
+              <span style="font-size:9px; font-family:'IBM Plex Mono',monospace; color:#b3b0a6; border:1px solid #e6e3d9; border-radius:3px; padding:1px 4px;">{{ r.segment }}</span>
+            </div>
+            <div style="font-size:12px; color:#6a6760;">{{ r.sector }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; text-align:right;">{{ r.qty }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; text-align:right; color:#6a6760;">{{ r.costFmt }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; text-align:right; font-weight:500;">{{ r.curFmt }}</div>
+            <div style="display:flex; align-items:center; gap:8px; justify-content:flex-end;">
+              <div style="width:54px; height:6px; background:#efece3; border-radius:3px; overflow:hidden;">
+                <div style="height:100%; width:{{ r.allocBar }}%; background:{{ r.dot }};"></div>
+              </div>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; min-width:42px; text-align:right;">{{ r.allocFmt }}</span>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; text-align:right; color:{{ r.plColor }};">{{ r.plPctFmt }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+  </div>
+
+  <sc-if value="{{ hasSelected }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeDetail }}" style="position:fixed; inset:0; background:rgba(27,27,24,0.32); z-index:40;"></div>
+    <div style="position:fixed; top:0; right:0; bottom:0; width:412px; background:#faf8f3; border-left:1px solid #e6e3d9; z-index:41; box-shadow:-18px 0 50px rgba(0,0,0,0.12); overflow-y:auto; animation:drawerIn 0.22s ease;">
+      <div style="padding:24px 26px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
+          <div>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+              <span style="width:11px; height:11px; border-radius:3px; background:{{ sel.dot }};"></span>
+              <h2 style="margin:0; font-size:22px; font-weight:600;">{{ sel.display }}</h2>
+            </div>
+            <div style="font-size:12.5px; color:#6a6760;">{{ sel.sector }} · {{ sel.segment }}</div>
+          </div>
+          <button onClick="{{ closeDetail }}" style="border:1px solid #e0ddd2; background:#fff; cursor:pointer; width:30px; height:30px; border-radius:7px; font-size:15px; color:#6a6760; line-height:1;">✕</button>
+        </div>
+
+        <div style="background:{{ sel.plBg }}; border:1px solid {{ sel.plBorder }}; border-radius:11px; padding:15px 17px; margin-bottom:16px;">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:8px;">Unrealised P&amp;L</div>
+          <div style="display:flex; align-items:baseline; gap:11px;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; color:{{ sel.plColor }};">{{ sel.plFmt }}</span>
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600; color:{{ sel.plColor }};">{{ sel.plPctFmt }}</span>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px;">
+          <div style="background:#fff; border:1px solid #ece9df; border-radius:9px; padding:12px 13px;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:6px;">Allocation</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:600;">{{ sel.allocFmt }}</div>
+          </div>
+          <div style="background:#fff; border:1px solid #ece9df; border-radius:9px; padding:12px 13px;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:6px;">Current Value</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:600;">{{ sel.curFmt }}</div>
+          </div>
+          <div style="background:#fff; border:1px solid #ece9df; border-radius:9px; padding:12px 13px;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:6px;">Invested</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:600;">{{ sel.costFmt }}</div>
+          </div>
+          <div style="background:#fff; border:1px solid #ece9df; border-radius:9px; padding:12px 13px;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:6px;">Quantity</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:18px; font-weight:600;">{{ sel.qty }}</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:18px; padding:13px 4px; border-top:1px solid #ece9df; border-bottom:1px solid #ece9df; margin-bottom:18px;">
+          <div style="flex:1;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:5px;">Buy Price</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:500;">{{ sel.buyPriceFmt }}</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:5px;">CMP</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:500;">{{ sel.cmpFmt }}</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:5px;">Buy Date</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:500;">{{ sel.buyDate }}</div>
+          </div>
+        </div>
+
+        <sc-if value="{{ sel.hasOrder }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:9px;">
+              <h3 style="margin:0; font-size:13px; font-weight:600;">Order Book</h3>
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; color:#15803d;">{{ sel.orderTotal }}</span>
+            </div>
+            <sc-for list="{{ sel.orderBook }}" as="o" hint-placeholder-count="2">
+              <div style="display:flex; gap:8px; margin-bottom:7px;">
+                <span style="color:#b0683c; flex:none; font-size:12px;">▪</span>
+                <span style="font-size:12px; line-height:1.45; color:#42403a;">{{ o }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ sel.hasCapacity }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-bottom:8px;">
+            <h3 style="margin:0 0 9px; font-size:13px; font-weight:600;">Capacity Expansion</h3>
+            <sc-for list="{{ sel.capacity }}" as="c" hint-placeholder-count="2">
+              <div style="display:flex; gap:8px; margin-bottom:7px;">
+                <span style="color:#3a7a52; flex:none; font-size:12px;">▪</span>
+                <span style="font-size:12px; line-height:1.45; color:#42403a;">{{ c }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ sel.noNotes }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:12px; color:#9a978c; padding:10px 0; font-style:italic;">No order-book or capacity updates on file for this holding.</div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showUpdate }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeUpdate }}" style="position:fixed; inset:0; background:rgba(27,27,24,0.32); z-index:50;"></div>
+    <div style="position:fixed; top:0; right:0; bottom:0; width:430px; background:#faf8f3; border-left:1px solid #e6e3d9; z-index:51; box-shadow:-18px 0 50px rgba(0,0,0,0.12); display:flex; flex-direction:column; animation:drawerIn 0.22s ease;">
+      <div style="padding:22px 24px 16px; border-bottom:1px solid #ece9df;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+          <h2 style="margin:0; font-size:19px; font-weight:600;">Update prices</h2>
+          <button onClick="{{ closeUpdate }}" style="border:1px solid #e0ddd2; background:#fff; cursor:pointer; width:30px; height:30px; border-radius:7px; font-size:15px; color:#6a6760; line-height:1;">✕</button>
+        </div>
+        <p style="margin:0; font-size:12px; line-height:1.5; color:#6a6760;">Enter each stock's latest market price (CMP). Changes save to this browser automatically — reopen anytime and your numbers, charts and returns recalculate from here.</p>
+      </div>
+      <div style="flex:1; overflow-y:auto; padding:8px 16px 16px;">
+        <sc-for list="{{ updateRows }}" as="u" hint-placeholder-count="12">
+          <div style="display:flex; align-items:center; gap:12px; padding:9px 8px; border-bottom:1px solid #f1eee6;">
+            <span style="width:9px; height:9px; border-radius:2px; background:{{ u.dot }}; flex:none;"></span>
+            <div style="flex:1; min-width:0;">
+              <div style="font-size:13px; font-weight:600;">{{ u.display }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#9a978c;">buy {{ u.buyRef }} · {{ u.plPctFmt }}</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:5px; flex:none; background:#fff; border:1px solid #ddd9cd; border-radius:8px; padding:5px 10px;">
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#9a978c;">₹</span>
+              <input type="number" step="0.01" value="{{ u.cmpVal }}" onChange="{{ u.onChange }}" style="width:78px; border:none; outline:none; background:transparent; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:#1b1b18; text-align:right;" />
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="padding:14px 22px; border-top:1px solid #ece9df; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <button onClick="{{ resetPrices }}" style="border:1px solid #e0ddd2; background:#fff; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:8px 13px; border-radius:8px; color:#6a6760;">Reset to snapshot</button>
+        <button onClick="{{ closeUpdate }}" style="border:none; background:#1b1b18; color:#f4f2ec; cursor:pointer; font-family:inherit; font-size:12.5px; font-weight:500; padding:9px 18px; border-radius:8px;">Done</button>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1320,&quot;height&quot;:880}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.mapW = 824;
+    this.mapH = 560;
+    this.state = { view: 'map', sizeBy: 'current', colorBy: 'pnl', groupBy: 'sector', selected: null, highlight: null, sortKey: 'alloc', sortDir: -1 };
+
+    const raw = [
+      ['YESBANK','Banking','NON-SME',44049,18,5296,22.26],
+      ['ACE','Engineering','NON-SME',44756,396,132,891.35],
+      ['HDFCAMC','Financial','NON-SME',45019,989,66,2398.9],
+      ['RELIANCE','Oil & Gas','NON-SME',44027,1256,58,1264.5],
+      ['JIOFIN','Financial','NON-SME',45159,249,126,228.2],
+      ['VAIBHAVGBL','Jewellery','NON-SME',44806,287,324,225],
+      ['CDSL','Financial','NON-SME',44847,609,106,1192],
+      ['NSE:HPL','Electricals','NON-SME',44897,93,300,341],
+      ['NMDC','Mining','NON-SME',44530,41,1695,88.75],
+      ['NSLNISP','Steel','NON-SME',44977,43,1516,45.74],
+      ['NSE:AWL','FMCG','NON-SME',45202,331,311,185.9],
+      ['VALIANTORG','Chemicals','NON-SME',45202,410,278,266],
+      ['BEEKAY','Steel','NON-SME',45202,629,100,399],
+      ['ZENTEC','Defence','NON-SME',45328,839,100,1716],
+      ['ICIL','Engineering','NON-SME',45385,378,351,320.15],
+      ['JGCHEM','Chemicals','NON-SME',45397,282,537,429.85],
+      ['AVANTEL','Defence Electronics','NON-SME',45572,140,649,157],
+      ['TDPOWERSYS','Engineering','NON-SME',45699,335,90,1128],
+      ['INDOTECH','Transformer','NON-SME',45733,1931,103,2542],
+      ['KPITTECH','IT Services','NON-SME',45807,1122,38,739.2],
+      ['PROSTARM','Power','SME',45852,180,608,137.95],
+      ['TRANSRAILL','Power','NON-SME',45968,694,1,466.95],
+      ['AARTIPHARM','Pharmaceuticals','NON-SME',45979,707,277,620],
+      ['GRAVITA','Recycling','NON-SME',46097,1428,91,1567.7],
+      ['ARE&M','Auto Ancillary','NON-SME',44397,673,108,798],
+      ['AVANTIFEED','Aquaculture','NON-SME',44280,435,35,1032],
+      ['BANDHANBNK','Banking','NON-SME',44166,217,455,194.1],
+      ['CANBK','Banking','NON-SME',44334,25,625,131.97],
+      ['EQUITASBNK','Banking','NON-SME',44168,66,1260,71.21],
+      ['HSCL','Chemicals','NON-SME',44281,42,250,677],
+      ['IDBI','Banking','NON-SME',44406,38.78,250,72.6],
+      ['IRFC','Financial','NON-SME',44278,26,525,93.45],
+      ['ITC','FMCG','NON-SME',44385,173,353,282.65],
+      ['ITCHOTELS','Hospitality','NON-SME',45693,188,399,149.45],
+      ['MARKSANS','Pharmaceuticals','NON-SME',44116,111,341,250.7],
+      ['PNB','Banking','NON-SME',44281,38,1700,106.43],
+      ['SBILIFE','Insurance','NON-SME',44133,819.25,80,1740],
+      ['TATASTEEL','Steel','NON-SME',44527,118,449,198.4],
+      ['UJJIVANSFB','Banking','NON-SME',44421,29,1185,53.5],
+      ['UNIONBANK','Banking','NON-SME',44446,36,450,164.7],
+      ['NIFTYBEES','ETF','NON-SME',44452,235.5628,1398,262.94],
+      ['GOLDBEES','ETF','NON-SME',44424,58,450,119.25],
+      ['UTKARSHBNK','Banking','NON-SME',45140,48,1525,12.45],
+      ['MSTCLTD','Trading','NON-SME',45219,447,292,558.8],
+      ['POCL','Recycling','NON-SME',45232,222,250,1184.9],
+      ['GLOBUSSPR','Breweries & Distilleries','NON-SME',45260,846,152,836.9],
+      ['AVALON','Electronics (EMS)','NON-SME',45356,551,186,1580],
+      ['SAMHI','Hospitality','NON-SME',45877,206,626,160],
+      ['ASTRAMICRO','Defence Electronics','NON-SME',45902,1032,203,1398.9],
+      ['ROSSTECH','Defence Electronics','NON-SME',46077,696,21,970],
+      ['INDGN','Healthcare IT','NON-SME',46104,458,145,505],
+      ['AARTIDRUGS','Pharmaceuticals','NON-SME',44897,499.58,110,367],
+      ['SUPRIYA','Pharmaceuticals','NON-SME',44834,255.81,75,941],
+      ['DPWIRES','Engineering','NON-SME',45184,449.13,103,171.01],
+      ['TATACHEM','Chemicals','NON-SME',45184,1063.21,40,745.5],
+      ['STEELCAS','Engineering','NON-SME',45281,128.77,195,284.9],
+      ['AXISTECETF','ETF','NON-SME',45494,415.92,89,307.95],
+      ['COCHINSHIP','Shipbuilding','NON-SME',45586,1598.01,56,1385],
+      ['TRIDENT','Textiles','NON-SME',43269,6.23,900,23.57],
+    ];
+
+    this.notes = {
+      'ACE': { order:['FY26 — Secured largest-ever order of ₹420Cr for 1,121 RTFLTs to Ministry of Defence'], total:null, cap:['FY26 — Expanded manufacturing capacity to ₹5,000Cr revenue capacity','2026 — JV with KATO WORKS Co. Ltd (Japan) to manufacture heavy cranes in India'] },
+      'NSE:HPL': { order:['Dec 25 — Order book stands at ₹3,100Cr (smart meters ~99% of book)','Recent — Orders worth ₹242.2Cr from GMR Triveni & GMR Kashi for smart meters'], total:'₹3,100Cr+', cap:[] },
+      'VALIANTORG': { order:[], total:null, cap:['FY25-26 — Expanding Chloro Phenols capacity at Sarigam & Jhagadia plants','Apr 25 — Acquired 26.25% stake in renewable-energy SPV for captive solar (₹2.9Cr)'] },
+      'ZENTEC': { order:['30 Sep 25 — Order book stands at ₹675Cr','Oct 25 — ₹289Cr from MoD for anti-drone systems upgrade','10 Oct 25 — ₹37Cr from MoD for anti-drone hard-kill systems','25 Nov 25 — ₹108Cr from MoD for simulators','Dec 25 — ₹120Cr from MoD for Comprehensive Training Node'], total:'₹675Cr', cap:[] },
+      'ICIL': { order:[], total:null, cap:['Jan 26 — North Carolina (US) greenfield pillow facility commenced commercial production','FY27 — ₹60Cr expansion at Alte, Kolhapur spinning facility to 94,000 spindles (Q2 FY27)'] },
+      'JGCHEM': { order:[], total:null, cap:['H1 FY27 — Dahej (Gujarat) greenfield: 40,000 MTPA zinc chemicals (₹100Cr), Phase-1 commissioning H1 FY27'] },
+      'AVANTEL': { order:['25 Aug 25 — ₹3.36Cr from DRDO for SATCOM Waveform development','Sep 25 — ₹9.88Cr from Dept of Atomic Energy','FY26 — ~₹25.58Cr from BEL for communication systems & power amplifiers','FY26 — ₹13.82Cr from CRIS for railway SATCOM hub equipment','FY26 — ₹10.39Cr from Indian Navy for SATCOM equipment','FY26 — ₹4.16Cr from MoD (Naval Aviation) for SATCOM CAMC','2026 — ₹28.20Cr from Coast Guard for SATCOM products'], total:'~₹210Cr', cap:[] },
+      'TDPOWERSYS': { order:['24 Feb 26 — Order book stands at ₹18.45 billion','21 May 26 — Order book stands at ₹19.7 billion'], total:'₹19.7Bn', cap:[] },
+      'INDOTECH': { order:['9 Jan 26 — ₹66.99Cr from ReNew Wind Energy (JAMB) Pvt Ltd','12 Mar 26 — 9 Jan order terminated'], total:'₹424.63Cr', cap:[] },
+      'PROSTARM': { order:['FY26 — ₹13.43Cr from South Eastern Railway for solar power plant'], total:null, cap:['8 Jul 25 — Setting up 1.2 GWh BESS facility at Reliance MET City, Jhajjar (₹25Cr) — by end FY26','FY25 — Li-ion battery packs capacity: 1,00,000 kWh/annum (Navi Mumbai)'] },
+      'TRANSRAILL': { order:['27 May 26 — Order book incl. L1 stands at ₹16,361Cr','3 Jun 26 — Received new order worth ₹575Cr'], total:'₹16,936Cr', cap:['21 Apr 26 — Tower mfg capacity raised from 84,000 to 1,72,400 MTPA'] },
+      'GRAVITA': { order:[], total:null, cap:['20 May 26 — Phagi (Jaipur) plant recycling capacity reaches 75,819 MTPA','FY26 — Mundra: adding 80,300 MTPA lead capacity (₹49Cr), total 1,45,100 MTPA','FY26-27 — New copper recycling plant at Mandvi (29,400 MTPA, ₹160Cr)','Target — Scale 3.40 lakh TPA to 7 lakh TPA by FY28 (₹1,225Cr capex)'] },
+    };
+
+    this.base = raw.map(r => {
+      const [ticker,sector,segment,bds,buyPrice,qty,cmp] = r;
+      const cost = buyPrice * qty;
+      return { ticker, display: ticker.replace('NSE:',''), sector, segment, bds, buyPrice, qty, cmpBase: cmp, cost };
+    });
+    this.totCost = this.base.reduce((a,b)=>a+b.cost,0);
+    this.nSectors = new Set(this.base.map(r=>r.sector)).size;
+
+    // sector hues (sorted by base current value for stable assignment)
+    const secTot = {};
+    this.base.forEach(r=>{ secTot[r.sector]=(secTot[r.sector]||0)+r.cmpBase*r.qty; });
+    const secOrder = Object.keys(secTot).sort((a,b)=>secTot[b]-secTot[a]);
+    this.sectorHue = {};
+    secOrder.forEach((s,i)=>{ this.sectorHue[s] = (i * 360 / secOrder.length); });
+
+    // load saved price updates from this browser
+    let ov = { cmp:{}, updatedAt:null };
+    try { const s = localStorage.getItem('portfolioOverrides_v1'); if (s) ov = JSON.parse(s); } catch(e) {}
+    this.state.priceOverrides = ov.cmp || {};
+    this.state.updatedAt = ov.updatedAt || null;
+    this.state.autoPrices = {};
+    this.state.autoUpdatedAt = null;
+    this.state.showUpdate = false;
+    this.rows = this.computeRows();
+  }
+
+  componentDidMount(){ this.loadAutoPrices(); }
+
+  async loadAutoPrices(){
+    // Reads prices.json sitting next to this file (written monthly by GitHub Actions).
+    // Silently falls back to the snapshot when offline or opened as a local file.
+    try {
+      const res = await fetch('prices.json', { cache: 'no-store' });
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data && data.cmp) this.setState({ autoPrices: data.cmp, autoUpdatedAt: data.updatedAt || null });
+    } catch (e) { /* no prices.json available — keep snapshot */ }
+  }
+
+  computeRows(){
+    // Priority: your manual override  >  auto-fetched price  >  original snapshot
+    const ov = this.state.priceOverrides || {};
+    const auto = this.state.autoPrices || {};
+    return this.base.map(b => {
+      let cmp = b.cmpBase;
+      const a = auto[b.ticker];
+      if (a != null && !isNaN(Number(a))) cmp = Number(a);
+      const m = ov[b.ticker];
+      if (m != null && m !== '' && !isNaN(Number(m))) cmp = Number(m);
+      const cur = cmp * b.qty;
+      return { ...b, cmp, cur, pl: cur - b.cost, plpct: (cur - b.cost) / b.cost * 100 };
+    });
+  }
+
+  todayStr(){ const d=new Date(); const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]; return String(d.getDate()).padStart(2,'0')+' '+mo+' '+d.getFullYear(); }
+  persistOverrides(updatedAt){ try{ localStorage.setItem('portfolioOverrides_v1', JSON.stringify({ cmp:this.state.priceOverrides, updatedAt })); }catch(e){} }
+  setCmp(ticker,val){ const ov={...this.state.priceOverrides}; if(val===''||val==null){ delete ov[ticker]; } else { ov[ticker]=val; } const stamp=this.todayStr(); this.setState({ priceOverrides:ov, updatedAt:stamp }); this.persistOverrides(stamp); }
+  resetPrices(){ this.setState({ priceOverrides:{}, updatedAt:null }); try{ localStorage.removeItem('portfolioOverrides_v1'); }catch(e){} }
+  openUpdate(){ this.setState({ showUpdate:true }); }
+  closeUpdate(){ this.setState({ showUpdate:false }); }
+
+  buildUpdateRows(){
+    const rows = this.computeRows();
+    return rows.map(r => ({
+      ticker:r.ticker, display:r.display, dot:this.sectorColor(r.sector), sector:r.sector,
+      buyRef:this.fmtPrice(r.buyPrice), cmpVal:String(r.cmp),
+      edited: this.state.priceOverrides[r.ticker]!=null && this.state.priceOverrides[r.ticker]!=='',
+      plPctFmt:(r.plpct>=0?'+':'−')+Math.abs(r.plpct).toFixed(1)+'%', plColor:this.pnlTextColor(r.plpct),
+      onChange:(e)=>this.setCmp(r.ticker, e.target.value),
+    }));
+  }
+
+  // ---------- helpers ----------
+  fmtInr(v){ v=Math.round(v); const neg=v<0; const s=String(Math.abs(v)); let l3=s.slice(-3); let rest=s.slice(0,-3); rest=rest.replace(/\B(?=(\d{2})+(?!\d))/g,','); const num = rest ? rest+','+l3 : l3; return (neg?'−₹':'₹')+num; }
+  fmtL(v){ const neg=v<0; return (neg?'−₹':'₹')+(Math.abs(v)/100000).toFixed(2)+'L'; }
+  fmtPrice(v){ return '₹'+v.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  fmtDate(s){ const d=new Date(Date.UTC(1899,11,30)+s*86400000); const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getUTCMonth()]; return String(d.getUTCDate()).padStart(2,'0')+' '+mo+' '+d.getUTCFullYear(); }
+  sizeVal(r){ return this.state.sizeBy==='cost' ? r.cost : r.cur; }
+  groupKey(r){ return this.state.groupBy==='segment' ? r.segment : r.sector; }
+  sectorColor(s){ return 'oklch(0.72 0.10 '+(this.sectorHue[s]||0)+')'; }
+  sectorTint(s){ return 'oklch(0.965 0.013 '+(this.sectorHue[s]||0)+')'; }
+  sectorBorder(s){ return 'oklch(0.90 0.035 '+(this.sectorHue[s]||0)+')'; }
+
+  pnlColor(p){
+    if (p >= 0){ const t=Math.min(p/100,1); const L=0.93-0.31*t, C=0.035+0.115*t; const fg = L<0.72 ? '#ffffff' : '#15391f'; return { bg:`oklch(${L.toFixed(3)} ${C.toFixed(3)} 150)`, fg }; }
+    const t=Math.min(-p/45,1); const L=0.91-0.31*t, C=0.04+0.135*t; const fg = L<0.72 ? '#ffffff' : '#4a1f12'; return { bg:`oklch(${L.toFixed(3)} ${C.toFixed(3)} 32)`, fg };
+  }
+  tileColor(r){
+    if (this.state.colorBy === 'sector'){ return { bg: this.sectorColor(r.sector), fg:'#241f17' }; }
+    return this.pnlColor(r.plpct);
+  }
+  pnlTextColor(p){ return p>=0 ? '#15803d' : '#c2410c'; }
+  pnlBright(p){ return p>=0 ? '#5fcf8f' : '#ef9b6b'; }
+
+  // ---------- squarified treemap ----------
+  squarify(data,x,y,w,h){
+    const out=[];
+    const total=data.reduce((a,b)=>a+b.value,0);
+    if(total<=0||w<=0||h<=0) return data.map(d=>({...d,x,y,w:0,h:0}));
+    const scale=(w*h)/total;
+    const items=data.map(d=>({d,area:d.value*scale}));
+    let rect={x,y,w,h};
+    const worst=(row,side)=>{ const s=row.reduce((a,b)=>a+b.area,0); const mx=Math.max(...row.map(r=>r.area)); const mn=Math.min(...row.map(r=>r.area)); return Math.max(side*side*mx/(s*s), s*s/(side*side*mn)); };
+    const layout=(row,rect)=>{
+      const s=row.reduce((a,b)=>a+b.area,0);
+      if(rect.w>=rect.h){ const colW=s/rect.h; let oy=rect.y; for(const it of row){ const cellH=it.area/colW; out.push({...it.d,x:rect.x,y:oy,w:colW,h:cellH}); oy+=cellH; } return {x:rect.x+colW,y:rect.y,w:rect.w-colW,h:rect.h}; }
+      const rowH=s/rect.w; let ox=rect.x; for(const it of row){ const cellW=it.area/rowH; out.push({...it.d,x:ox,y:rect.y,w:cellW,h:rowH}); ox+=cellW; } return {x:rect.x,y:rect.y+rowH,w:rect.w,h:rect.h-rowH};
+    };
+    let row=[],i=0;
+    while(i<items.length){
+      const side=Math.min(rect.w,rect.h);
+      if(row.length===0){ row.push(items[i]); i++; continue; }
+      if(worst([...row,items[i]],side) <= worst(row,side)){ row.push(items[i]); i++; }
+      else { rect=layout(row,rect); row=[]; }
+    }
+    if(row.length) layout(row,rect);
+    return out;
+  }
+
+  buildGroups(){
+    const total = this.rows.reduce((a,b)=>a+this.sizeVal(b),0);
+    const gmap={};
+    this.rows.forEach(r=>{ (gmap[this.groupKey(r)]=gmap[this.groupKey(r)]||[]).push(r); });
+    let groups=Object.entries(gmap).map(([name,items])=>({ name, items, value: items.reduce((a,b)=>a+this.sizeVal(b),0) }));
+    groups.sort((a,b)=>b.value-a.value);
+    const grects=this.squarify(groups.map(g=>({ ref:g, value:g.value })), 0,0,this.mapW,this.mapH);
+    const gap=4, labelH=22;
+    return grects.map(gr=>{
+      const g=gr.ref;
+      const gw=Math.max(0,gr.w-gap), gh=Math.max(0,gr.h-gap);
+      const cx=4, cy=labelH, cw=Math.max(0,gw-8), ch=Math.max(0,gh-labelH-4);
+      const items=g.items.slice().sort((a,b)=>this.sizeVal(b)-this.sizeVal(a));
+      const irects=this.squarify(items.map(it=>({ ref:it, value:this.sizeVal(it) })), cx,cy,cw,ch);
+      const tiles=irects.map(ir=>{
+        const it=ir.ref; const tg=1.5;
+        const tw=Math.max(0,ir.w-tg), th=Math.max(0,ir.h-tg);
+        const alloc=this.sizeVal(it)/total*100;
+        const col=this.tileColor(it);
+        return {
+          left:ir.x, top:ir.y, width:tw, height:th, bg:col.bg, fg:col.fg,
+          fontSize:Math.max(8,Math.min(13.5, tw/4.6)).toFixed(1),
+          ticker:(tw>30&&th>16)?it.display:'',
+          allocLabel:(tw>40&&th>34)?alloc.toFixed(1)+'%':'',
+          onSelect:()=>this.setState({selected:it.ticker}),
+        };
+      });
+      const hl=this.state.highlight;
+      const active = hl && g.name===hl;
+      const opacity = (!hl || active) ? 1 : 0.16;
+      const border = active ? '#1b1b18' : this.sectorBorder(g.name);
+      const bw = active ? 2 : 1;
+      return { name:g.name, left:gr.x, top:gr.y, width:gw, height:gh, labelH, allocLabel:(g.value/total*100).toFixed(1)+'%', tint:this.sectorTint(g.name), border, bw, opacity, tiles };
+    });
+  }
+
+  buildSectorBars(){
+    const total = this.rows.reduce((a,b)=>a+this.sizeVal(b),0);
+    const gmap={};
+    this.rows.forEach(r=>{ const k=this.groupKey(r); (gmap[k]=gmap[k]||{v:0,n:0}); gmap[k].v+=this.sizeVal(r); gmap[k].n++; });
+    const max=Math.max(...Object.values(gmap).map(o=>o.v));
+    const hl=this.state.highlight;
+    return Object.entries(gmap).map(([name,o])=>{
+      const active = name===hl;
+      return { name, count:o.n, pctLabel:(o.v/total*100).toFixed(1)+'%', pct:(o.v/max*100).toFixed(1),
+        color:this.sectorColor(name), cursor:'pointer', rowBg: active ? '#f1efe7' : 'transparent',
+        nameColor: active ? '#1b1b18' : '#1b1b18', opacity: (!hl||active)?1:0.4,
+        onSelect:()=>this.toggleHighlight(name) };
+    }).sort((a,b)=>parseFloat(b.pctLabel)-parseFloat(a.pctLabel));
+  }
+
+  toggleHighlight(name){ this.setState(s=>({ highlight: s.highlight===name ? null : name })); }
+
+  buildHighlight(){
+    const hl=this.state.highlight; if(!hl) return null;
+    const items=this.rows.filter(r=>this.groupKey(r)===hl);
+    if(!items.length) return null;
+    const total=this.rows.reduce((a,b)=>a+this.sizeVal(b),0);
+    const gVal=items.reduce((a,b)=>a+this.sizeVal(b),0);
+    const gCost=items.reduce((a,b)=>a+b.cost,0), gCur=items.reduce((a,b)=>a+b.cur,0);
+    const gPl=gCur-gCost, gPlPct=gPl/gCost*100;
+    const sorted=items.slice().sort((a,b)=>this.sizeVal(b)-this.sizeVal(a));
+    return {
+      name:hl, dot:this.sectorColor(hl), allocLabel:(gVal/total*100).toFixed(1)+'%',
+      count:items.length+(items.length===1?' holding':' holdings'),
+      valueFmt:this.fmtL(gCur), investedFmt:this.fmtL(gCost),
+      plFmt:this.fmtL(gPl), plPctFmt:(gPl>=0?'+':'−')+Math.abs(gPlPct).toFixed(1)+'%', plColor:this.pnlBright(gPlPct),
+      holdings:sorted.map(r=>({ display:r.display, dot:this.sectorColor(r.sector),
+        allocFmt:(this.sizeVal(r)/total*100).toFixed(1)+'%', valueFmt:this.fmtL(r.cur),
+        plPctFmt:(r.plpct>=0?'+':'−')+Math.abs(r.plpct).toFixed(1)+'%', plColor:this.pnlBright(r.plpct),
+        onSelect:()=>this.setState({selected:r.ticker}) })),
+    };
+  }
+
+  buildTable(){
+    const total = this.rows.reduce((a,b)=>a+this.sizeVal(b),0);
+    const maxAlloc=Math.max(...this.rows.map(r=>this.sizeVal(r)/total*100));
+    const rows=this.rows.map(r=>{
+      const alloc=this.sizeVal(r)/total*100;
+      return { ...r, alloc, _name:r.display, _invested:r.cost, _value:r.cur, _pnl:r.plpct,
+        dot:this.sectorColor(r.sector), costFmt:this.fmtL(r.cost), curFmt:this.fmtL(r.cur),
+        allocFmt:alloc.toFixed(1)+'%', allocBar:(alloc/maxAlloc*100).toFixed(1),
+        plPctFmt:(r.plpct>=0?'+':'−')+Math.abs(r.plpct).toFixed(1)+'%', plColor:this.pnlTextColor(r.plpct),
+        qty:r.qty.toLocaleString('en-IN'),
+        onSelect:()=>this.setState({selected:r.ticker}) };
+    });
+    const { sortKey, sortDir } = this.state;
+    const keyMap={ name:'_name', invested:'_invested', value:'_value', alloc:'alloc', pnl:'_pnl' };
+    const k=keyMap[sortKey]||'alloc';
+    rows.sort((a,b)=>{ if(typeof a[k]==='string') return a[k].localeCompare(b[k])*sortDir; return (a[k]-b[k])*sortDir; });
+    return rows;
+  }
+
+  buildBars(){
+    const total = this.rows.reduce((a,b)=>a+this.sizeVal(b),0);
+    const rows=this.rows.map(r=>{ const alloc=this.sizeVal(r)/total*100; return { r, alloc }; });
+    rows.sort((a,b)=>b.alloc-a.alloc);
+    const max=rows[0].alloc;
+    const hl=this.state.highlight;
+    return rows.map(({r,alloc})=>({
+      display:r.display, sector:r.sector, dot:this.sectorColor(r.sector),
+      bar: this.state.colorBy==='sector' ? this.sectorColor(r.sector) : this.pnlColor(r.plpct).bg,
+      pct:(alloc/max*100).toFixed(1), allocFmt:alloc.toFixed(1)+'%',
+      plPctFmt:(r.plpct>=0?'+':'−')+Math.abs(r.plpct).toFixed(1)+'%', plColor:this.pnlTextColor(r.plpct),
+      opacity: (!hl || this.groupKey(r)===hl) ? 1 : 0.28,
+      onSelect:()=>this.setState({selected:r.ticker}),
+    }));
+  }
+
+  buildBubbles(){
+    const total = this.rows.reduce((a,b)=>a+this.sizeVal(b),0);
+    const maxAlloc=Math.max(...this.rows.map(r=>this.sizeVal(r)/total*100));
+    const gmap={};
+    this.rows.forEach(r=>{ const k=this.groupKey(r); (gmap[k]=gmap[k]||[]).push(r); });
+    let groups=Object.entries(gmap).map(([name,items])=>({ name, items, value:items.reduce((a,b)=>a+this.sizeVal(b),0) }));
+    groups.sort((a,b)=>b.value-a.value);
+    const MIN=34, MAX=104;
+    return groups.map(g=>{
+      const items=g.items.slice().sort((a,b)=>this.sizeVal(b)-this.sizeVal(a));
+      const bubbles=items.map(r=>{
+        const alloc=this.sizeVal(r)/total*100;
+        const size=Math.round(MIN + (MAX-MIN)*Math.sqrt(alloc/maxAlloc));
+        const col=this.state.colorBy==='sector' ? { bg:this.sectorColor(r.sector), fg:'#241f17' } : this.pnlColor(r.plpct);
+        return { size, bg:col.bg, fg:col.fg, ticker: size>=40?r.display:'', allocLabel: size>=52?alloc.toFixed(1)+'%':'',
+          fontSize: size>=78?12:(size>=58?10.5:9), title:r.display+' · '+alloc.toFixed(1)+'%',
+          onSelect:()=>this.setState({selected:r.ticker}) };
+      });
+      const rowW = Math.max(...bubbles.map(b=>b.size));
+      const hl=this.state.highlight;
+      return { name:g.name, tint:this.sectorTint(g.name), border: (hl&&g.name===hl)?'#1b1b18':this.sectorBorder(g.name),
+        opacity: (!hl || g.name===hl) ? 1 : 0.2,
+        allocLabel:(g.value/total*100).toFixed(1)+'%', minW: Math.max(116, Math.min(330, rowW+28)),
+        bubbles };
+    });
+  }
+
+  buildSelected(){
+    const t=this.state.selected; if(!t) return null;
+    const r=this.rows.find(x=>x.ticker===t); if(!r) return null;
+    const total=this.rows.reduce((a,b)=>a+this.sizeVal(b),0);
+    const alloc=this.sizeVal(r)/total*100;
+    const n=this.notes[t]||{order:[],total:null,cap:[]};
+    const hasOrder=n.order && n.order.length>0;
+    const hasCapacity=n.cap && n.cap.length>0;
+    const plPos=r.pl>=0;
+    return {
+      display:r.display, sector:r.sector, segment:r.segment, dot:this.sectorColor(r.sector),
+      qty:r.qty.toLocaleString('en-IN'), buyPriceFmt:this.fmtPrice(r.buyPrice), cmpFmt:this.fmtPrice(r.cmp),
+      buyDate:this.fmtDate(r.bds), costFmt:this.fmtInr(r.cost), curFmt:this.fmtInr(r.cur),
+      allocFmt:alloc.toFixed(1)+'%', plFmt:this.fmtInr(r.pl), plPctFmt:(plPos?'+':'−')+Math.abs(r.plpct).toFixed(1)+'%',
+      plColor:this.pnlTextColor(r.plpct), plBg:plPos?'#eef6f0':'#fbf0ea', plBorder:plPos?'#d6e9dc':'#f0ddd0',
+      hasOrder, hasCapacity, noNotes:!hasOrder&&!hasCapacity,
+      orderBook:n.order||[], orderTotal:n.total||'—', capacity:n.cap||[],
+    };
+  }
+
+  sortBy(key){ this.setState(s=>({ sortKey:key, sortDir: s.sortKey===key ? -s.sortDir : (key==='name'?1:-1) })); }
+  arrow(key){ if(this.state.sortKey!==key) return ''; return this.state.sortDir<0?'↓':'↑'; }
+
+  renderVals(){
+    this.rows = this.computeRows();
+    const totCur = this.rows.reduce((a,b)=>a+b.cur,0);
+    const ret=totCur-this.totCost;
+    const retPct=ret/this.totCost*100;
+    const sb=this.state.sizeBy, cb=this.state.colorBy, gb=this.state.groupBy, vw=this.state.view;
+    const on='#1b1b18', onF='#ffffff', off='transparent', offF='#737067';
+    const seg=(a)=>({ bg:a?on:off, fg:a?onF:offF });
+    const m=seg(vw==='map'), tb=seg(vw==='table'), br=seg(vw==='bars'), bu=seg(vw==='bubbles');
+    const sc=seg(sb==='current'), so=seg(sb==='cost');
+    const cp=seg(cb==='pnl'), cs=seg(cb==='sector');
+    const gs=seg(gb==='sector'), gg=seg(gb==='segment');
+
+    return {
+      asOf: this.state.updatedAt ? ('Prices updated '+this.state.updatedAt+' · manual')
+            : this.state.autoUpdatedAt ? ('Prices auto-updated '+this.state.autoUpdatedAt)
+            : 'Prices from your sheet snapshot',
+      updatedAt: this.state.updatedAt,
+      kpiInvested:this.fmtL(this.totCost), kpiCurrent:this.fmtL(totCur),
+      kpiReturnAbs:this.fmtL(ret), kpiReturnPct:(retPct>=0?'+':'−')+Math.abs(retPct).toFixed(1)+'%',
+      kpiReturnColor:this.pnlTextColor(retPct),
+      kpiHoldings:this.rows.length, kpiSectors:this.nSectors,
+
+      isMap:vw==='map', isTable:vw==='table', isBars:vw==='bars', isBubbles:vw==='bubbles',
+      colorPnl:cb==='pnl', colorSector:cb==='sector',
+      mapW:this.mapW, mapH:this.mapH,
+      breakdownTitle: gb==='segment' ? 'Segment Breakdown' : 'Sector Breakdown',
+      groupLabel: gb==='segment' ? 'segment' : 'sector',
+      sizeLabel: sb==='cost' ? 'invested' : 'current value',
+
+      groups:this.buildGroups(),
+      sectorBars:this.buildSectorBars(),
+      barRows:this.buildBars(),
+      bubbleGroups:this.buildBubbles(),
+      tableRows:this.buildTable(),
+
+      hasSelected:!!this.state.selected, sel:this.buildSelected(),
+      hasHighlight:!!this.state.highlight, hl:this.buildHighlight(),
+      clearHighlight:()=>this.setState({highlight:null}),
+
+      showUpdate:this.state.showUpdate, hasUpdates:!!this.state.updatedAt,
+      updateRows:this.buildUpdateRows(),
+      openUpdate:()=>this.openUpdate(), closeUpdate:()=>this.closeUpdate(), resetPrices:()=>this.resetPrices(),
+
+      sortArrow:{ name:this.arrow('name'), invested:this.arrow('invested'), value:this.arrow('value'), alloc:this.arrow('alloc'), pnl:this.arrow('pnl') },
+
+      ui:{ mapBg:m.bg,mapFg:m.fg, tableBg:tb.bg,tableFg:tb.fg, barsBg:br.bg,barsFg:br.fg, bubblesBg:bu.bg,bubblesFg:bu.fg, sizeCurBg:sc.bg,sizeCurFg:sc.fg, sizeCostBg:so.bg,sizeCostFg:so.fg,
+        colorPnlBg:cp.bg,colorPnlFg:cp.fg, colorSectorBg:cs.bg,colorSectorFg:cs.fg, groupSectorBg:gs.bg,groupSectorFg:gs.fg, groupSegmentBg:gg.bg,groupSegmentFg:gg.fg },
+
+      setMap:()=>this.setState({view:'map'}), setTable:()=>this.setState({view:'table'}),
+      setBars:()=>this.setState({view:'bars'}), setBubbles:()=>this.setState({view:'bubbles'}),
+      setSizeCur:()=>this.setState({sizeBy:'current'}), setSizeCost:()=>this.setState({sizeBy:'cost'}),
+      setColorPnl:()=>this.setState({colorBy:'pnl'}), setColorSector:()=>this.setState({colorBy:'sector'}),
+      setGroupSector:()=>this.setState({groupBy:'sector'}), setGroupSegment:()=>this.setState({groupBy:'segment'}),
+      sortByName:()=>this.sortBy('name'), sortByInvested:()=>this.sortBy('invested'), sortByValue:()=>this.sortBy('value'), sortByAlloc:()=>this.sortBy('alloc'), sortByPnl:()=>this.sortBy('pnl'),
+      closeDetail:()=>this.setState({selected:null}),
+    };
+  }
+}
+</script>
+</body>
+</html>
