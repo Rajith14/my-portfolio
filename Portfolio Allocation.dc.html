@@ -79,6 +79,7 @@
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c;">View</span>
         <div style="display:inline-flex; background:#e7e4da; border-radius:8px; padding:3px;">
+          <button onClick="{{ setGoal }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.goalBg }}; color:{{ ui.goalFg }};">Goal projector</button>
           <button onClick="{{ setMomentum }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.momentumBg }}; color:{{ ui.momentumFg }};">Sector momentum</button>
           <button onClick="{{ setBars }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.barsBg }}; color:{{ ui.barsFg }};">Ranked bars</button>
           <button onClick="{{ setBubbles }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.bubblesBg }}; color:{{ ui.bubblesFg }};">Bubbles</button>
@@ -194,6 +195,79 @@
           </sc-for>
         </div>
 
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isGoal }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#ffffff; border:1px solid #e6e3d9; border-radius:13px; padding:22px 26px 24px;">
+        <h2 style="margin:0 0 4px; font-size:15px; font-weight:600;">Goal projector</h2>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#b3b0a6; margin-bottom:20px;">starting from your current portfolio value + a monthly SIP, projected at your live portfolio CAGR (or a rate you set)</div>
+
+        <div style="display:flex; gap:14px; flex-wrap:wrap; margin-bottom:22px;">
+          <div style="flex:1; min-width:180px; background:#faf8f3; border:1px solid #ece9df; border-radius:10px; padding:13px 15px;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:8px;">Target amount</div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:14px; color:#9a978c;">₹</span>
+              <input type="number" step="100000" value="{{ goalTargetVal }}" onChange="{{ onGoalTargetChange }}" style="width:100%; border:none; outline:none; background:transparent; font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:#1b1b18;" />
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#b3b0a6; margin-top:4px;">{{ goalTargetLabel }}</div>
+          </div>
+          <div style="flex:1; min-width:180px; background:#faf8f3; border:1px solid #ece9df; border-radius:10px; padding:13px 15px;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:8px;">Monthly SIP (avg.)</div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:14px; color:#9a978c;">₹</span>
+              <input type="number" step="1000" value="{{ goalSipVal }}" onChange="{{ onGoalSipChange }}" style="width:100%; border:none; outline:none; background:transparent; font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:#1b1b18;" />
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#b3b0a6; margin-top:4px;">changes month to month? just update this anytime</div>
+          </div>
+          <div style="flex:1; min-width:180px; background:#faf8f3; border:1px solid #ece9df; border-radius:10px; padding:13px 15px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c;">Assumed CAGR</span>
+              <sc-if value="{{ goalRateIsCustom }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ onGoalRateReset }}" style="border:none; background:transparent; cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:#b0683c; text-decoration:underline; padding:0;">use live</button>
+              </sc-if>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <input type="number" step="0.1" value="{{ goalRateVal }}" onChange="{{ onGoalRateChange }}" style="width:100%; border:none; outline:none; background:transparent; font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:#1b1b18;" />
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:14px; color:#9a978c;">%</span>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#b3b0a6; margin-top:4px;">{{ goalRateSourceLabel }}</div>
+          </div>
+        </div>
+
+        <sc-if value="{{ goalReachable }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#1b1b18; color:#f4f2ec; border-radius:12px; padding:20px 22px; margin-bottom:20px; display:flex; align-items:center; gap:26px; flex-wrap:wrap;">
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:6px;">Time to reach {{ goalTargetLabel }}</div>
+              <div style="font-size:26px; font-weight:600;">{{ goalTimeLabel }}</div>
+            </div>
+            <div style="height:38px; width:1px; background:rgba(244,242,236,0.15); flex:none;"></div>
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:6px;">Starting point today</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600;">{{ goalStartLabel }}</div>
+            </div>
+            <div style="height:38px; width:1px; background:rgba(244,242,236,0.15); flex:none;"></div>
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:6px;">Est. corpus at that date</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600;">{{ goalEndLabel }}</div>
+            </div>
+          </div>
+
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:10px;">Projected corpus over time</div>
+          <sc-for list="{{ goalMilestones }}" as="m" hint-placeholder-count="6">
+            <div style="display:flex; align-items:center; gap:14px; padding:8px 0; border-bottom:1px solid #f3f0e8;">
+              <div style="width:56px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#6a6760; flex:none;">{{ m.label }}</div>
+              <div style="flex:1; height:16px; background:#f4f1e9; border-radius:4px; overflow:hidden;">
+                <div style="height:100%; width:{{ m.barPct }}%; background:{{ m.barColor }}; border-radius:4px;"></div>
+              </div>
+              <div style="width:90px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:600; text-align:right; flex:none;">{{ m.valueFmt }}</div>
+            </div>
+          </sc-for>
+        </sc-if>
+
+        <sc-if value="{{ goalUnreachable }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:24px 26px; background:#fbf0ea; border:1px solid #f0ddd0; border-radius:11px; text-align:center; font-size:13px; color:#9a4a24;">At this SIP and rate, the target isn't reached within 50 years — try a higher monthly SIP or check the assumed CAGR.</div>
+        </sc-if>
       </div>
     </sc-if>
 
@@ -473,7 +547,8 @@ class Component extends DCLogic {
     super(props);
     this.mapW = 824;
     this.mapH = 560;
-    this.state = { view: 'map', sizeBy: 'current', colorBy: 'pnl', groupBy: 'sector', selected: null, highlight: null, sortKey: 'alloc', sortDir: -1 };
+    this.state = { view: 'map', sizeBy: 'current', colorBy: 'pnl', groupBy: 'sector', selected: null, highlight: null, sortKey: 'alloc', sortDir: -1,
+      goalTarget: 15000000, goalSip: 40000, goalRate: null };
 
     const raw = [
       ['YESBANK','Banking','NON-SME',44049,18,5337,22.26],
@@ -759,6 +834,56 @@ class Component extends DCLogic {
     return (Math.pow(ratio, 1/years) - 1) * 100;
   }
 
+  setGoalTarget(v){ const n=Number(v); if(!isNaN(n)&&n>0) this.setState({goalTarget:n}); }
+  setGoalSip(v){ const n=Number(v); if(!isNaN(n)&&n>=0) this.setState({goalSip:n}); }
+  setGoalRate(v){ const n=Number(v); if(!isNaN(n)) this.setState({goalRate:n}); }
+  resetGoalRate(){ this.setState({goalRate:null}); }
+
+  buildGoalProjection(){
+    const totCur = this.rows.reduce((a,b)=>a+b.cur,0);
+    const liveCagr = this.buildPortfolioCagr(this.rows);
+    const ratePct = this.state.goalRate != null ? this.state.goalRate : liveCagr;
+    const annualRate = ratePct / 100;
+    const sip = this.state.goalSip || 0;
+    const target = this.state.goalTarget || 0;
+    const i = Math.pow(1+annualRate, 1/12) - 1;
+
+    const valueAt = (months) => {
+      const lump = totCur * Math.pow(1+annualRate, months/12);
+      const sipFV = Math.abs(i) > 1e-9 ? sip * (1+i) * ((Math.pow(1+i, months) - 1) / i) : sip*months;
+      return lump + sipFV;
+    };
+
+    const MAXM = 600; // 50 years
+    let hitMonth = null;
+    for (let m=0; m<=MAXM; m++){ if (valueAt(m) >= target){ hitMonth = m; break; } }
+
+    const milestoneYears = [1,3,5,7,10,15,20,25,30];
+    const capYear = hitMonth ? Math.max(1, Math.ceil(hitMonth/12)) : 30;
+    const relevantYears = milestoneYears.filter(y => y <= capYear + 2).slice(0, 8);
+    const maxVal = Math.max(target, ...relevantYears.map(y=>valueAt(y*12)));
+    const milestones = relevantYears.map(y => {
+      const v = valueAt(y*12);
+      return { label: y+'yr', valueFmt: this.fmtL(v), barPct: Math.min(100,(v/maxVal*100)).toFixed(1), barColor: v>=target ? '#5fa870' : '#c9c4b4' };
+    });
+
+    let timeLabel = '—';
+    if (hitMonth != null){
+      const yrs = Math.floor(hitMonth/12), mos = hitMonth % 12;
+      timeLabel = (yrs>0 ? yrs+'y ' : '') + (mos>0 || yrs===0 ? mos+'m' : '');
+    }
+
+    return {
+      reachable: hitMonth != null,
+      timeLabel,
+      startLabel: this.fmtL(totCur),
+      endLabel: hitMonth != null ? this.fmtL(valueAt(hitMonth)) : '—',
+      milestones,
+      ratePct, liveCagr,
+      isCustomRate: this.state.goalRate != null,
+    };
+  }
+
   buildPortfolioCagr(rows){
     // Invested-weighted average of each holding's own CAGR — so a stock's contribution
     // to the portfolio number scales with how much capital is actually in it.
@@ -901,8 +1026,9 @@ class Component extends DCLogic {
     const sb=this.state.sizeBy, cb=this.state.colorBy, gb=this.state.groupBy, vw=this.state.view;
     const on='#1b1b18', onF='#ffffff', off='transparent', offF='#737067';
     const seg=(a)=>({ bg:a?on:off, fg:a?onF:offF });
-    const m=seg(vw==='map'), tb=seg(vw==='table'), br=seg(vw==='bars'), bu=seg(vw==='bubbles'), mo=seg(vw==='momentum');
+    const m=seg(vw==='map'), tb=seg(vw==='table'), br=seg(vw==='bars'), bu=seg(vw==='bubbles'), mo=seg(vw==='momentum'), go=seg(vw==='goal');
     const momentumRows=this.buildMomentum();
+    const goal=this.buildGoalProjection();
     const sc=seg(sb==='current'), so=seg(sb==='cost');
     const cp=seg(cb==='pnl'), cs=seg(cb==='sector');
     const gs=seg(gb==='sector'), gg=seg(gb==='segment');
@@ -919,7 +1045,7 @@ class Component extends DCLogic {
       kpiReturnColor:this.pnlTextColor(retPct),
       kpiHoldings:this.rows.length, kpiSectors:this.nSectors,
 
-      isMap:vw==='map', isTable:vw==='table', isBars:vw==='bars', isBubbles:vw==='bubbles', isMomentum:vw==='momentum',
+      isMap:vw==='map', isTable:vw==='table', isBars:vw==='bars', isBubbles:vw==='bubbles', isMomentum:vw==='momentum', isGoal:vw==='goal',
       hasMomentum:momentumRows.length>0, noMomentum:momentumRows.length===0,
       momentumRows,
       prevAsOfLabel: this.state.prevAsOf ? ('vs baseline ~'+this.state.prevAsOf) : 'vs ~1 month ago',
@@ -952,12 +1078,22 @@ class Component extends DCLogic {
 
       sortArrow:{ name:this.arrow('name'), invested:this.arrow('invested'), value:this.arrow('value'), alloc:this.arrow('alloc'), pnl:this.arrow('pnl'), cagr:this.arrow('cagr') },
 
-      ui:{ mapBg:m.bg,mapFg:m.fg, tableBg:tb.bg,tableFg:tb.fg, barsBg:br.bg,barsFg:br.fg, bubblesBg:bu.bg,bubblesFg:bu.fg, momentumBg:mo.bg,momentumFg:mo.fg, sizeCurBg:sc.bg,sizeCurFg:sc.fg, sizeCostBg:so.bg,sizeCostFg:so.fg,
+      ui:{ mapBg:m.bg,mapFg:m.fg, tableBg:tb.bg,tableFg:tb.fg, barsBg:br.bg,barsFg:br.fg, bubblesBg:bu.bg,bubblesFg:bu.fg, momentumBg:mo.bg,momentumFg:mo.fg, goalBg:go.bg,goalFg:go.fg, sizeCurBg:sc.bg,sizeCurFg:sc.fg, sizeCostBg:so.bg,sizeCostFg:so.fg,
         colorPnlBg:cp.bg,colorPnlFg:cp.fg, colorSectorBg:cs.bg,colorSectorFg:cs.fg, groupSectorBg:gs.bg,groupSectorFg:gs.fg, groupSegmentBg:gg.bg,groupSegmentFg:gg.fg },
 
       setMap:()=>this.setState({view:'map'}), setTable:()=>this.setState({view:'table'}),
       setBars:()=>this.setState({view:'bars'}), setBubbles:()=>this.setState({view:'bubbles'}),
-      setMomentum:()=>this.setState({view:'momentum'}),
+      setMomentum:()=>this.setState({view:'momentum'}), setGoal:()=>this.setState({view:'goal'}),
+
+      goalTargetVal:String(this.state.goalTarget), goalSipVal:String(this.state.goalSip), goalRateVal:goal.ratePct.toFixed(1),
+      goalTargetLabel:this.fmtL(this.state.goalTarget), goalRateIsCustom:goal.isCustomRate,
+      goalRateSourceLabel: goal.isCustomRate ? 'custom rate' : ('using live portfolio CAGR ('+goal.liveCagr.toFixed(1)+'%)'),
+      goalReachable:goal.reachable, goalUnreachable:!goal.reachable,
+      goalTimeLabel:goal.timeLabel, goalStartLabel:goal.startLabel, goalEndLabel:goal.endLabel, goalMilestones:goal.milestones,
+      onGoalTargetChange:(e)=>this.setGoalTarget(e.target.value),
+      onGoalSipChange:(e)=>this.setGoalSip(e.target.value),
+      onGoalRateChange:(e)=>this.setGoalRate(e.target.value),
+      onGoalRateReset:()=>this.resetGoalRate(),
       setSizeCur:()=>this.setState({sizeBy:'current'}), setSizeCost:()=>this.setState({sizeBy:'cost'}),
       setColorPnl:()=>this.setState({colorBy:'pnl'}), setColorSector:()=>this.setState({colorBy:'sector'}),
       setGroupSector:()=>this.setState({groupBy:'sector'}), setGroupSegment:()=>this.setState({groupBy:'segment'}),
