@@ -61,6 +61,10 @@
           <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500; color:{{ kpiReturnColor }};">{{ kpiReturnPct }}</div>
         </div>
       </div>
+      <div style="flex:1; background:#ffffff; border:1px solid #e6e3d9; border-radius:11px; padding:15px 17px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:9px;">Portfolio CAGR</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:23px; font-weight:600; color:{{ kpiCagrColor }};">{{ kpiCagrFmt }}</div>
+      </div>
       <div style="width:118px; background:#ffffff; border:1px solid #e6e3d9; border-radius:11px; padding:15px 17px;">
         <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:9px;">Holdings</div>
         <div style="font-family:'IBM Plex Mono',monospace; font-size:23px; font-weight:600;">{{ kpiHoldings }}</div>
@@ -292,7 +296,7 @@
 
     <sc-if value="{{ isTable }}" hint-placeholder-val="{{ true }}">
       <div style="background:#ffffff; border:1px solid #e6e3d9; border-radius:13px; padding:6px 6px 8px; overflow:hidden;">
-        <div style="display:grid; grid-template-columns:1.6fr 1.3fr 0.8fr 1fr 1fr 1.2fr 1fr; gap:0; align-items:center; padding:12px 16px; border-bottom:1px solid #ece9df;">
+        <div style="display:grid; grid-template-columns:1.5fr 1.15fr 0.7fr 0.9fr 0.9fr 1.1fr 0.85fr 0.85fr; gap:0; align-items:center; padding:12px 16px; border-bottom:1px solid #ece9df;">
           <div onClick="{{ sortByName }}" style="cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">Stock {{ sortArrow.name }}</div>
           <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">Sector</div>
           <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c; text-align:right;">Qty</div>
@@ -300,9 +304,10 @@
           <div onClick="{{ sortByValue }}" style="cursor:pointer; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">Value {{ sortArrow.value }}</div>
           <div onClick="{{ sortByAlloc }}" style="cursor:pointer; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">Allocation {{ sortArrow.alloc }}</div>
           <div onClick="{{ sortByPnl }}" style="cursor:pointer; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">Return {{ sortArrow.pnl }}</div>
+          <div onClick="{{ sortByCagr }}" style="cursor:pointer; text-align:right; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">CAGR {{ sortArrow.cagr }}</div>
         </div>
         <sc-for list="{{ tableRows }}" as="r" hint-placeholder-count="12">
-          <div onClick="{{ r.onSelect }}" style="display:grid; grid-template-columns:1.6fr 1.3fr 0.8fr 1fr 1fr 1.2fr 1fr; gap:0; align-items:center; padding:11px 16px; border-bottom:1px solid #f3f0e8; cursor:pointer;">
+          <div onClick="{{ r.onSelect }}" style="display:grid; grid-template-columns:1.5fr 1.15fr 0.7fr 0.9fr 0.9fr 1.1fr 0.85fr 0.85fr; gap:0; align-items:center; padding:11px 16px; border-bottom:1px solid #f3f0e8; cursor:pointer;">
             <div style="display:flex; align-items:center; gap:8px;">
               <span style="width:8px; height:8px; border-radius:2px; background:{{ r.dot }}; flex:none;"></span>
               <span style="font-size:13px; font-weight:600;">{{ r.display }}</span>
@@ -319,9 +324,21 @@
               <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; min-width:42px; text-align:right;">{{ r.allocFmt }}</span>
             </div>
             <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; text-align:right; color:{{ r.plColor }};">{{ r.plPctFmt }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; text-align:right; color:{{ r.cagrColor }};">{{ r.cagrFmt }}</div>
           </div>
         </sc-for>
+        <div style="display:grid; grid-template-columns:1.5fr 1.15fr 0.7fr 0.9fr 0.9fr 1.1fr 0.85fr 0.85fr; gap:0; align-items:center; padding:13px 16px; background:#faf8f3; border-top:2px solid #1b1b18;">
+          <div style="font-size:13px; font-weight:700;">Total</div>
+          <div></div>
+          <div></div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:700; text-align:right;">{{ totals.investedFmt }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:700; text-align:right;">{{ totals.valueFmt }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:700; text-align:right;">100.0%</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:700; text-align:right; color:{{ totals.plColor }};">{{ totals.plPctFmt }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:700; text-align:right; color:{{ totals.cagrColor }};">{{ totals.cagrFmt }}</div>
+        </div>
       </div>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#b3b0a6; padding:10px 8px 4px;">CAGR = annualised return since buy date. * = held under 1 year (shown as plain return, not annualised). Portfolio CAGR is invested-weighted across all holdings.</div>
     </sc-if>
 
   </div>
@@ -731,20 +748,44 @@ class Component extends DCLogic {
     };
   }
 
+  cagrOf(r){
+    // Annualised return from buy date to today. bds = Excel serial date.
+    const buyDate = new Date(Date.UTC(1899,11,30) + r.bds*86400000);
+    const now = new Date();
+    const years = Math.max((now - buyDate) / (365.25*86400000), 1/365.25);
+    const ratio = r.cur / r.cost;
+    if (ratio <= 0) return -100;
+    if (years < 1) return (ratio - 1) * 100; // under a year: show plain return, CAGR is noisy/misleading
+    return (Math.pow(ratio, 1/years) - 1) * 100;
+  }
+
+  buildPortfolioCagr(rows){
+    // Invested-weighted average of each holding's own CAGR — so a stock's contribution
+    // to the portfolio number scales with how much capital is actually in it.
+    const totCost = rows.reduce((a,b)=>a+b.cost,0);
+    if (totCost <= 0) return 0;
+    return rows.reduce((a,b)=>a + this.cagrOf(b) * (b.cost/totCost), 0);
+  }
+
   buildTable(){
     const total = this.rows.reduce((a,b)=>a+this.sizeVal(b),0);
     const maxAlloc=Math.max(...this.rows.map(r=>this.sizeVal(r)/total*100));
     const rows=this.rows.map(r=>{
       const alloc=this.sizeVal(r)/total*100;
-      return { ...r, alloc, _name:r.display, _invested:r.cost, _value:r.cur, _pnl:r.plpct,
+      const cagr=this.cagrOf(r);
+      const buyDate = new Date(Date.UTC(1899,11,30) + r.bds*86400000);
+      const heldYears = (new Date() - buyDate) / (365.25*86400000);
+      const cagrLabel = heldYears < 1 ? cagr.toFixed(1)+'%*' : cagr.toFixed(1)+'%';
+      return { ...r, alloc, cagr, _name:r.display, _invested:r.cost, _value:r.cur, _pnl:r.plpct,
         dot:this.sectorColor(r.sector), costFmt:this.fmtL(r.cost), curFmt:this.fmtL(r.cur),
         allocFmt:alloc.toFixed(1)+'%', allocBar:(alloc/maxAlloc*100).toFixed(1),
         plPctFmt:(r.plpct>=0?'+':'−')+Math.abs(r.plpct).toFixed(1)+'%', plColor:this.pnlTextColor(r.plpct),
+        cagrFmt:(cagr>=0?'+':'−')+Math.abs(cagr).toFixed(1)+'%'+(heldYears<1?'*':''), cagrColor:this.pnlTextColor(cagr),
         qty:r.qty.toLocaleString('en-IN'),
         onSelect:()=>this.setState({selected:r.ticker}) };
     });
     const { sortKey, sortDir } = this.state;
-    const keyMap={ name:'_name', invested:'_invested', value:'_value', alloc:'alloc', pnl:'_pnl' };
+    const keyMap={ name:'_name', invested:'_invested', value:'_value', alloc:'alloc', pnl:'_pnl', cagr:'cagr' };
     const k=keyMap[sortKey]||'alloc';
     rows.sort((a,b)=>{ if(typeof a[k]==='string') return a[k].localeCompare(b[k])*sortDir; return (a[k]-b[k])*sortDir; });
     return rows;
@@ -872,6 +913,8 @@ class Component extends DCLogic {
             : 'Prices from your sheet snapshot',
       updatedAt: this.state.updatedAt,
       kpiInvested:this.fmtL(this.totCost), kpiCurrent:this.fmtL(totCur),
+      kpiCagrFmt: (()=>{ const c=this.buildPortfolioCagr(this.rows); return (c>=0?'+':'−')+Math.abs(c).toFixed(1)+'%'; })(),
+      kpiCagrColor: this.pnlTextColor(this.buildPortfolioCagr(this.rows)),
       kpiReturnAbs:this.fmtL(ret), kpiReturnPct:(retPct>=0?'+':'−')+Math.abs(retPct).toFixed(1)+'%',
       kpiReturnColor:this.pnlTextColor(retPct),
       kpiHoldings:this.rows.length, kpiSectors:this.nSectors,
@@ -891,6 +934,13 @@ class Component extends DCLogic {
       barRows:this.buildBars(),
       bubbleGroups:this.buildBubbles(),
       tableRows:this.buildTable(),
+      totals: (()=>{
+        const c=this.rows.reduce((a,b)=>a+b.cost,0), v=this.rows.reduce((a,b)=>a+b.cur,0);
+        const pl=(v-c)/c*100; const cagr=this.buildPortfolioCagr(this.rows);
+        return { investedFmt:this.fmtL(c), valueFmt:this.fmtL(v),
+          plPctFmt:(pl>=0?'+':'−')+Math.abs(pl).toFixed(1)+'%', plColor:this.pnlTextColor(pl),
+          cagrFmt:(cagr>=0?'+':'−')+Math.abs(cagr).toFixed(1)+'%', cagrColor:this.pnlTextColor(cagr) };
+      })(),
 
       hasSelected:!!this.state.selected, sel:this.buildSelected(),
       hasHighlight:!!this.state.highlight, hl:this.buildHighlight(),
@@ -900,7 +950,7 @@ class Component extends DCLogic {
       updateRows:this.buildUpdateRows(),
       openUpdate:()=>this.openUpdate(), closeUpdate:()=>this.closeUpdate(), resetPrices:()=>this.resetPrices(),
 
-      sortArrow:{ name:this.arrow('name'), invested:this.arrow('invested'), value:this.arrow('value'), alloc:this.arrow('alloc'), pnl:this.arrow('pnl') },
+      sortArrow:{ name:this.arrow('name'), invested:this.arrow('invested'), value:this.arrow('value'), alloc:this.arrow('alloc'), pnl:this.arrow('pnl'), cagr:this.arrow('cagr') },
 
       ui:{ mapBg:m.bg,mapFg:m.fg, tableBg:tb.bg,tableFg:tb.fg, barsBg:br.bg,barsFg:br.fg, bubblesBg:bu.bg,bubblesFg:bu.fg, momentumBg:mo.bg,momentumFg:mo.fg, sizeCurBg:sc.bg,sizeCurFg:sc.fg, sizeCostBg:so.bg,sizeCostFg:so.fg,
         colorPnlBg:cp.bg,colorPnlFg:cp.fg, colorSectorBg:cs.bg,colorSectorFg:cs.fg, groupSectorBg:gs.bg,groupSectorFg:gs.fg, groupSegmentBg:gg.bg,groupSegmentFg:gg.fg },
@@ -911,7 +961,7 @@ class Component extends DCLogic {
       setSizeCur:()=>this.setState({sizeBy:'current'}), setSizeCost:()=>this.setState({sizeBy:'cost'}),
       setColorPnl:()=>this.setState({colorBy:'pnl'}), setColorSector:()=>this.setState({colorBy:'sector'}),
       setGroupSector:()=>this.setState({groupBy:'sector'}), setGroupSegment:()=>this.setState({groupBy:'segment'}),
-      sortByName:()=>this.sortBy('name'), sortByInvested:()=>this.sortBy('invested'), sortByValue:()=>this.sortBy('value'), sortByAlloc:()=>this.sortBy('alloc'), sortByPnl:()=>this.sortBy('pnl'),
+      sortByName:()=>this.sortBy('name'), sortByInvested:()=>this.sortBy('invested'), sortByValue:()=>this.sortBy('value'), sortByAlloc:()=>this.sortBy('alloc'), sortByPnl:()=>this.sortBy('pnl'), sortByCagr:()=>this.sortBy('cagr'),
       closeDetail:()=>this.setState({selected:null}),
     };
   }
