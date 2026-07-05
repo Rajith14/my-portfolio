@@ -205,6 +205,19 @@
 
         <div style="display:flex; gap:14px; flex-wrap:wrap; margin-bottom:22px;">
           <div style="flex:1; min-width:180px; background:#faf8f3; border:1px solid #ece9df; border-radius:10px; padding:13px 15px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;">
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c;">Starting value</span>
+              <sc-if value="{{ goalStartIsCustom }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ onGoalStartReset }}" style="border:none; background:transparent; cursor:pointer; font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:#b0683c; text-decoration:underline; padding:0;">use portfolio value</button>
+              </sc-if>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:14px; color:#9a978c;">₹</span>
+              <input type="number" step="100000" value="{{ goalStartVal }}" onChange="{{ onGoalStartChange }}" style="width:100%; border:none; outline:none; background:transparent; font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:#1b1b18;" />
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#b3b0a6; margin-top:4px;">{{ goalStartSourceLabel }}</div>
+          </div>
+          <div style="flex:1; min-width:180px; background:#faf8f3; border:1px solid #ece9df; border-radius:10px; padding:13px 15px;">
             <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:8px;">Target amount</div>
             <div style="display:flex; align-items:center; gap:6px;">
               <span style="font-family:'IBM Plex Mono',monospace; font-size:14px; color:#9a978c;">₹</span>
@@ -548,7 +561,7 @@ class Component extends DCLogic {
     this.mapW = 824;
     this.mapH = 560;
     this.state = { view: 'map', sizeBy: 'current', colorBy: 'pnl', groupBy: 'sector', selected: null, highlight: null, sortKey: 'alloc', sortDir: -1,
-      goalTarget: 15000000, goalSip: 40000, goalRate: null };
+      goalTarget: 15000000, goalSip: 40000, goalRate: null, goalStartOverride: null };
 
     const raw = [
       ['YESBANK','Banking','NON-SME',44049,18,5337,22.26],
@@ -838,9 +851,12 @@ class Component extends DCLogic {
   setGoalSip(v){ const n=Number(v); if(!isNaN(n)&&n>=0) this.setState({goalSip:n}); }
   setGoalRate(v){ const n=Number(v); if(!isNaN(n)) this.setState({goalRate:n}); }
   resetGoalRate(){ this.setState({goalRate:null}); }
+  setGoalStart(v){ const n=Number(v); if(!isNaN(n)&&n>=0) this.setState({goalStartOverride:n}); }
+  resetGoalStart(){ this.setState({goalStartOverride:null}); }
 
   buildGoalProjection(){
-    const totCur = this.rows.reduce((a,b)=>a+b.cur,0);
+    const portfolioCur = this.rows.reduce((a,b)=>a+b.cur,0);
+    const totCur = this.state.goalStartOverride != null ? this.state.goalStartOverride : portfolioCur;
     const liveCagr = this.buildPortfolioCagr(this.rows);
     const ratePct = this.state.goalRate != null ? this.state.goalRate : liveCagr;
     const annualRate = ratePct / 100;
@@ -881,6 +897,7 @@ class Component extends DCLogic {
       milestones,
       ratePct, liveCagr,
       isCustomRate: this.state.goalRate != null,
+      startValue: totCur, portfolioCur, isCustomStart: this.state.goalStartOverride != null,
     };
   }
 
@@ -1088,12 +1105,16 @@ class Component extends DCLogic {
       goalTargetVal:String(this.state.goalTarget), goalSipVal:String(this.state.goalSip), goalRateVal:goal.ratePct.toFixed(1),
       goalTargetLabel:this.fmtL(this.state.goalTarget), goalRateIsCustom:goal.isCustomRate,
       goalRateSourceLabel: goal.isCustomRate ? 'custom rate' : ('using live portfolio CAGR ('+goal.liveCagr.toFixed(1)+'%)'),
+      goalStartVal:String(Math.round(goal.startValue)), goalStartIsCustom:goal.isCustomStart,
+      goalStartSourceLabel: goal.isCustomStart ? 'custom starting value' : ('using this portfolio\'s value ('+this.fmtL(goal.portfolioCur)+')'),
       goalReachable:goal.reachable, goalUnreachable:!goal.reachable,
       goalTimeLabel:goal.timeLabel, goalStartLabel:goal.startLabel, goalEndLabel:goal.endLabel, goalMilestones:goal.milestones,
       onGoalTargetChange:(e)=>this.setGoalTarget(e.target.value),
       onGoalSipChange:(e)=>this.setGoalSip(e.target.value),
       onGoalRateChange:(e)=>this.setGoalRate(e.target.value),
       onGoalRateReset:()=>this.resetGoalRate(),
+      onGoalStartChange:(e)=>this.setGoalStart(e.target.value),
+      onGoalStartReset:()=>this.resetGoalStart(),
       setSizeCur:()=>this.setState({sizeBy:'current'}), setSizeCost:()=>this.setState({sizeBy:'cost'}),
       setColorPnl:()=>this.setState({colorBy:'pnl'}), setColorSector:()=>this.setState({colorBy:'sector'}),
       setGroupSector:()=>this.setState({groupBy:'sector'}), setGroupSegment:()=>this.setState({groupBy:'segment'}),
