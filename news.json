@@ -1,0 +1,294 @@
+{
+  "updatedAt": "2026-06-23",
+  "schema": "news_v2",
+  "notes": {
+    "ACE": {
+      "total": null,
+      "items": [
+        {
+          "category": "order",
+          "date": "FY26",
+          "text": "Secured largest-ever order of ₹420Cr for 1,121 RTFLTs to Ministry of Defence",
+          "url": ""
+        },
+        {
+          "category": "capacity",
+          "date": "FY26",
+          "text": "Expanded manufacturing capacity to ₹5,000Cr revenue capacity",
+          "url": ""
+        },
+        {
+          "category": "capacity",
+          "date": "2026",
+          "text": "JV with KATO WORKS Co. Ltd (Japan) to manufacture heavy cranes in India",
+          "url": ""
+        }
+      ],
+      "curated": true
+    },
+    "NSE:HPL": {
+      "total": "₹3,100Cr+",
+      "items": [
+        {
+          "category": "orderbook",
+          "date": "Dec 25",
+          "text": "Order book stands at ₹3,100Cr (smart meters ~99% of book)",
+          "url": ""
+        },
+        {
+          "category": "order",
+          "date": "Recent",
+          "text": "Orders worth ₹242.2Cr from GMR Triveni & GMR Kashi for smart meters",
+          "url": ""
+        }
+      ],
+      "curated": true
+    },
+    "VALIANTORG": {
+      "total": null,
+      "items": [
+        {
+          "category": "capacity",
+          "date": "FY25-26",
+          "text": "Expanding Chloro Phenols capacity at Sarigam & Jhagadia plants",
+          "url": ""
+        },
+        {
+          "category": "capacity",
+          "date": "Apr 25",
+          "text": "Acquired 26.25% stake in renewable-energy SPV for captive solar (₹2.9Cr)",
+          "url": ""
+        }
+      ],
+      "curated": true
+    },
+    "ZENTEC": {
+      "total": "₹675Cr",
+      "items": [
+        {
+          "category": "orderbook",
+          "date": "30 Sep 25",
+          "text": "Order book stands at ₹675Cr",
+          "url": ""
+        },
+        {
+          "category": "order",
+          "date": "Oct 25",
+          "text": "₹289Cr from MoD for anti-drone systems upgrade",
+          "url": ""
+        },
+        {
+          "category": "order",
+          "date": "10 Oct 25",
+          "text": "₹37Cr from MoD for anti-drone hard-kill systems",
+          "url": ""
+        },
+        {
+          "category": "order",
+          "date": "25 Nov 25",
+          "text": "₹108Cr from MoD for simulators",
+          "url": ""
+        },
+        {
+          "category": "order",
+          "date": "Dec 25",
+          "text": "₹120Cr from MoD for Comprehensive Training Node",
+          "url": ""
+        }
+      ],
+      "curated": true
+    },
+    "ICIL": {
+      "total": null,
+      "items": [
+        {
+          "category": "capacity",
+          "date": "Jan 26",
+          "text": "North Carolina (US) greenfield pillow facility commenced commercial production",
+          "url": ""
+        },
+        {
+          "category": "capacity",
+          "date": "FY27",
+          "text": "₹60Cr expansion at Alte, Kolhapur spinning facility to 94,000 spindles (Q2 FY27)",
+          "url": ""
+        }
+      ],
+      "curated": true
+    },
+    "JGCHEM": {
+      "total": null,
+      "items": [
+        {
+          "category": "capacity",
+          "date": "H1 FY27",
+          "text": "Dahej (Gujarat) greenfield: 40,000 MTPA zinc chemicals (₹100Cr), Phase-1 commissioning H1 FY27",
+          "url": ""
+        }
+      ],
+      "curated": true
+    },
+    "AVANTEL": {
+      "total": "~₹210Cr",
+      "items": [
+        {
+          "category": "order",
+          "date": "25 Aug 25",
+          "text": "₹3.36Cr from DRDO for SATCOM Waveform development",
+          "url": ""
+        },
+        {
+          "category": "order",
+          "date": "Sep 25",
+          "text": "₹9.88Cr from Dept of Atomic Energy",
+          "url": ""
+        },
+        {
+          "category": "order",
+          "date": "FY26",
+          "text": "~₹25.58Cr from BEL for communication systems & power amplifiers",
+          "url": ""
+        },
+        {
+          "category": "order",
+          "date": "FY26",
+          "text": "₹13.82Cr from CRIS for railway SATCOM hub equipment",
+          "url": ""
+        },
+        {
+          "category": "order",
+          "date": "FY26",
+          "text": "₹10.39Cr from Indian Navy for SATCOM equipment",
+          "url": ""
+        },
+        {
+          "category": "order",
+          "date": "FY26",
+          "text": "₹4.16Cr from MoD (Naval Aviation) for SATCOM CAMC",
+          "url": ""
+        },
+        {
+          "category": "order",
+          "date": "2026",
+          "text": "₹28.20Cr from Coast Guard for SATCOM products",
+          "url": ""
+        }
+      ],
+      "curated": true
+    },
+    "TDPOWERSYS": {
+      "total": "₹19.7Bn",
+      "items": [
+        {
+          "category": "orderbook",
+          "date": "24 Feb 26",
+          "text": "Order book stands at ₹18.45 billion",
+          "url": ""
+        },
+        {
+          "category": "orderbook",
+          "date": "21 May 26",
+          "text": "Order book stands at ₹19.7 billion",
+          "url": ""
+        }
+      ],
+      "curated": true
+    },
+    "INDOTECH": {
+      "total": "₹424.63Cr",
+      "items": [
+        {
+          "category": "order",
+          "date": "9 Jan 26",
+          "text": "₹66.99Cr from ReNew Wind Energy (JAMB) Pvt Ltd",
+          "url": ""
+        },
+        {
+          "category": "order",
+          "date": "12 Mar 26",
+          "text": "9 Jan order terminated",
+          "url": ""
+        }
+      ],
+      "curated": true
+    },
+    "PROSTARM": {
+      "total": null,
+      "items": [
+        {
+          "category": "order",
+          "date": "FY26",
+          "text": "₹13.43Cr from South Eastern Railway for solar power plant",
+          "url": ""
+        },
+        {
+          "category": "capacity",
+          "date": "8 Jul 25",
+          "text": "Setting up 1.2 GWh BESS facility at Reliance MET City, Jhajjar (₹25Cr) — by end FY26",
+          "url": ""
+        },
+        {
+          "category": "capacity",
+          "date": "FY25",
+          "text": "Li-ion battery packs capacity: 1,00,000 kWh/annum (Navi Mumbai)",
+          "url": ""
+        }
+      ],
+      "curated": true
+    },
+    "TRANSRAILL": {
+      "total": "₹16,936Cr",
+      "items": [
+        {
+          "category": "orderbook",
+          "date": "27 May 26",
+          "text": "Order book incl. L1 stands at ₹16,361Cr",
+          "url": ""
+        },
+        {
+          "category": "order",
+          "date": "3 Jun 26",
+          "text": "Received new order worth ₹575Cr",
+          "url": ""
+        },
+        {
+          "category": "capacity",
+          "date": "21 Apr 26",
+          "text": "Tower mfg capacity raised from 84,000 to 1,72,400 MTPA",
+          "url": ""
+        }
+      ],
+      "curated": true
+    },
+    "GRAVITA": {
+      "total": null,
+      "items": [
+        {
+          "category": "capacity",
+          "date": "20 May 26",
+          "text": "Phagi (Jaipur) plant recycling capacity reaches 75,819 MTPA",
+          "url": ""
+        },
+        {
+          "category": "capacity",
+          "date": "FY26",
+          "text": "Mundra: adding 80,300 MTPA lead capacity (₹49Cr), total 1,45,100 MTPA",
+          "url": ""
+        },
+        {
+          "category": "capacity",
+          "date": "FY26-27",
+          "text": "New copper recycling plant at Mandvi (29,400 MTPA, ₹160Cr)",
+          "url": ""
+        },
+        {
+          "category": "capacity",
+          "date": "Target",
+          "text": "Scale 3.40 lakh TPA to 7 lakh TPA by FY28 (₹1,225Cr capex)",
+          "url": ""
+        }
+      ],
+      "curated": true
+    }
+  }
+}

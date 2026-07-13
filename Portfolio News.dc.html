@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  a { color:#b0683c; text-decoration:none; }
+  a:hover { color:#8f5230; }
+  @keyframes drawerIn { from { transform: translateX(28px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  ::-webkit-scrollbar { width: 9px; height: 9px; }
+  ::-webkit-scrollbar-thumb { background: #cfccc2; border-radius: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:#f4f2ec; color:#1b1b18; font-family:'IBM Plex Sans',system-ui,sans-serif; padding:26px 30px 64px;">
+  <div style="max-width:1120px; margin:0 auto;">
+
+    <!-- Header -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:22px;">
+      <div>
+        <a href="Portfolio Allocation.dc.html" style="display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.04em; color:#9a978c; margin-bottom:9px;">← Allocation map</a>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#9a978c; margin-bottom:7px;">Equity Portfolio · News &amp; Updates</div>
+        <h1 style="margin:0; font-size:30px; font-weight:600; letter-spacing:-0.01em; white-space:nowrap;">Portfolio News Feed</h1>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:7px; flex:none;">
+        <button onClick="{{ onRefresh }}" style="display:flex; align-items:center; gap:7px; border:1px solid #1b1b18; background:#1b1b18; color:#f4f2ec; cursor:pointer; font-family:inherit; font-size:12.5px; font-weight:500; padding:8px 14px; border-radius:8px;"><span style="{{ refreshIconStyle }}">↻</span> Check for updates</button>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9a978c;">{{ asOf }}</div>
+        <div style="font-size:10px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.08em; color:#b0683c; background:#f6ece3; border:1px solid #ecd9c8; padding:4px 9px; border-radius:5px;">EDUCATIONAL ONLY · NO BUY/SELL RECCO</div>
+      </div>
+    </div>
+
+    <!-- Stat cards -->
+    <div style="display:flex; gap:13px; margin-bottom:18px;">
+      <div style="flex:1; background:#ffffff; border:1px solid #e6e3d9; border-radius:11px; padding:15px 17px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:9px;">Unread updates</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:23px; font-weight:600; color:{{ unreadColor }};">{{ statUnread }}</div>
+      </div>
+      <div style="flex:1; background:#ffffff; border:1px solid #e6e3d9; border-radius:11px; padding:15px 17px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:9px;">Stocks with news</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:23px; font-weight:600;">{{ statWithNews }}</div>
+      </div>
+      <div style="flex:1; background:#ffffff; border:1px solid #e6e3d9; border-radius:11px; padding:15px 17px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:9px;">Holdings tracked</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:23px; font-weight:600;">{{ statHoldings }}</div>
+      </div>
+      <div style="flex:1; background:#ffffff; border:1px solid #e6e3d9; border-radius:11px; padding:15px 17px;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:9px;">Refresh cadence</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:23px; font-weight:600;">Weekly</div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin-bottom:16px;">
+      <div style="display:inline-flex; background:#e7e4da; border-radius:8px; padding:3px;">
+        <button onClick="{{ setFilterAll }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.allBg }}; color:{{ ui.allFg }};">All <span style="opacity:.55;">{{ countAll }}</span></button>
+        <button onClick="{{ setFilterNews }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.newsBg }}; color:{{ ui.newsFg }};">With news <span style="opacity:.55;">{{ countNews }}</span></button>
+        <button onClick="{{ setFilterUnread }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.unreadBg }}; color:{{ ui.unreadFg }};">Unread <span style="opacity:.55;">{{ countUnread }}</span></button>
+      </div>
+      <div style="position:relative; flex:1; min-width:200px; max-width:320px;">
+        <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#b3b0a5; font-size:13px; font-family:'IBM Plex Mono',monospace;">⌕</span>
+        <input value="{{ query }}" onInput="{{ onSearch }}" placeholder="Search stock or sector" style="width:100%; padding:8px 12px 8px 30px; border:1px solid #e6e3d9; border-radius:8px; font-size:12.5px; font-family:inherit; color:#1b1b18; outline:none; background:#ffffff;" />
+      </div>
+      <div style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">Unread first · tap a row to open</div>
+    </div>
+
+    <!-- Stock list -->
+    <div style="background:#ffffff; border:1px solid #e6e3d9; border-radius:12px; overflow:hidden;">
+      <sc-for list="{{ stocks }}" as="row" hint-placeholder-count="14">
+        <div onClick="{{ row.onClick }}" style="{{ row.rowStyle }}">
+          <div style="display:flex; align-items:center; gap:12px; min-width:0; flex:1;">
+            <span style="{{ row.dotStyle }}"></span>
+            <div style="min-width:0;">
+              <div style="display:flex; align-items:baseline; gap:9px;">
+                <span style="font-size:14.5px; font-weight:600; letter-spacing:-0.01em;">{{ row.display }}</span>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.04em; text-transform:uppercase; color:#9a978c;">{{ row.sector }}</span>
+              </div>
+              <div style="font-size:12px; color:#8f8b80; font-weight:400; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:520px; margin-top:2px;">{{ row.preview }}</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; flex:none;">
+            <span style="{{ row.catStyle }}">{{ row.catLabel }}</span>
+            <span style="{{ row.badgeStyle }}">{{ row.badgeText }}</span>
+            <span style="color:#c9c5b9; font-size:16px; font-family:'IBM Plex Mono',monospace;">›</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="margin-top:22px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#b3b0a5; text-align:center; line-height:1.6;">
+      {{ disclaimer }}<br>News refreshed weekly from company filings &amp; exchange disclosures · read state saved to this browser
+    </div>
+  </div>
+
+  <!-- Drawer backdrop -->
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeDrawer }}" style="position:fixed; inset:0; background:rgba(27,27,24,0.28); animation:fadeIn 0.16s ease; z-index:40;"></div>
+  </sc-if>
+
+  <!-- Drawer -->
+  <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; top:0; right:0; height:100vh; width:498px; max-width:94vw; background:#ffffff; border-left:1px solid #e6e3d9; box-shadow:-18px 0 48px rgba(27,27,24,0.14); z-index:41; display:flex; flex-direction:column; animation:drawerIn 0.22s cubic-bezier(0.2,0.8,0.2,1);">
+
+      <!-- drawer header -->
+      <div style="flex:none; padding:22px 24px 18px; border-bottom:1px solid #efece4;">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:14px;">
+          <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+            <span style="{{ sel.dotStyle }}"></span>
+            <div style="min-width:0;">
+              <h2 style="margin:0; font-size:22px; font-weight:600; letter-spacing:-0.01em;">{{ sel.display }}</h2>
+              <span style="{{ sel.sectorChipStyle }}">{{ sel.sector }}</span>
+            </div>
+          </div>
+          <button onClick="{{ closeDrawer }}" style="flex:none; width:30px; height:30px; border-radius:8px; border:1px solid #e6e3d9; background:#faf8f3; color:#8f8b80; font-size:14px; cursor:pointer; display:flex; align-items:center; justify-content:center;">✕</button>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:15px;">
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#9a978c;">{{ sel.meta }}</div>
+          <button onClick="{{ sel.onMarkAll }}" style="{{ sel.markAllStyle }}">{{ sel.markAllText }}</button>
+        </div>
+      </div>
+
+      <!-- drawer body -->
+      <div style="flex:1; overflow-y:auto; padding:20px 24px 40px;">
+
+        <sc-if value="{{ sel.hasOrderBook }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; padding:14px 16px; background:oklch(0.97 0.012 150); border:1px solid oklch(0.90 0.03 150); border-radius:11px; margin-bottom:22px;">
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#5f7a63;">Current order book</div>
+              <div style="font-size:12px; color:#7d8a7f; margin-top:2px;">Latest reported backlog</div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:21px; font-weight:600; color:#15803d;">{{ sel.orderBook }}</div>
+          </div>
+        </sc-if>
+
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:#9a978c; margin-bottom:13px;">News timeline</div>
+
+        <sc-if value="{{ sel.isEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:44px 20px; text-align:center; border:1px dashed #e2ddd0; border-radius:12px; color:#9a978c;">
+            <div style="font-size:13.5px; font-weight:600; color:#8f8b80;">No updates on file for {{ sel.display }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; margin-top:6px; line-height:1.6;">The weekly refresh drops new orders,<br>filings and commentary here.</div>
+          </div>
+        </sc-if>
+
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <sc-for list="{{ sel.items }}" as="item" hint-placeholder-count="0">
+            <div onClick="{{ item.onToggle }}" style="{{ item.cardStyle }}">
+              <span style="{{ item.dotStyle }}"></span>
+              <div style="flex:1; min-width:0;">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap;">
+                  <span style="{{ item.catStyle }}">{{ item.catLabel }}</span>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:500; color:#a8a498;">{{ item.date }}</span>
+                  <span style="{{ item.newTagStyle }}">NEW</span>
+                </div>
+                <div style="{{ item.textStyle }}">{{ item.text }}</div>
+                <a href="{{ item.url }}" target="_blank" rel="noopener" onClick="{{ item.onSourceClick }}" style="{{ item.linkStyle }}">source ↗</a>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+
+    // Full holdings (shared with the Allocation page) — [ticker, sector, segment, buyDateSerial, buyPrice, qty, cmp]
+    const raw = [
+      ['YESBANK','Banking','NON-SME',44049,18,5337,22.26],
+      ['ACE','Engineering','NON-SME',44756,396,132,891.35],
+      ['HDFCAMC','Financial','NON-SME',45019,989,66,2398.9],
+      ['RELIANCE','Oil & Gas','NON-SME',44027,1258,60,1264.5],
+      ['JIOFIN','Financial','NON-SME',45159,248,134,228.2],
+      ['VAIBHAVGBL','Jewellery','NON-SME',44806,287,324,225],
+      ['CDSL','Financial','NON-SME',44847,609,106,1192],
+      ['NSE:HPL','Electricals','NON-SME',44897,93,300,341],
+      ['NMDC','Mining','NON-SME',44530,41,1706,88.75],
+      ['NSLNISP','Steel','NON-SME',44977,43,1585,45.74],
+      ['NSE:AWL','FMCG','NON-SME',45202,331,311,185.9],
+      ['VALIANTORG','Chemicals','NON-SME',45202,410,278,266],
+      ['BEEKAY','Steel','NON-SME',45202,629,100,399],
+      ['ZENTEC','Defence','NON-SME',45328,839,100,1716],
+      ['ICIL','Textiles','NON-SME',45385,378,351,320.15],
+      ['JGCHEM','Chemicals','NON-SME',45397,282,537,429.85],
+      ['AVANTEL','Defence Electronics','NON-SME',45572,140,651,157],
+      ['INDOTECH','Transformer','NON-SME',45733,1931,103,2542],
+      ['KPITTECH','IT Services','NON-SME',45807,1097,40,739.2],
+      ['PROSTARM','Power','SME',45852,178,633,137.95],
+      ['TRANSRAILL','Power','NON-SME',45968,694,1,466.95],
+      ['AARTIPHARM','Pharmaceuticals','NON-SME',45979,707,283,707],
+      ['GRAVITA','Recycling','NON-SME',46097,1432,93,1711],
+      ['CONCORDBIO','Pharmaceuticals','NON-SME',46196,1327,89,1321],
+      ['ARE&M','Auto Ancillary','NON-SME',44397,673,108,798],
+      ['AVANTIFEED','Aquaculture','NON-SME',44280,435,35,1032],
+      ['BANDHANBNK','Banking','NON-SME',44166,217,465,194.1],
+      ['CANBK','Banking','NON-SME',44334,25,625,131.97],
+      ['EQUITASBNK','Banking','NON-SME',44168,66,1265,71.21],
+      ['HSCL','Chemicals','NON-SME',44281,42,250,677],
+      ['IDBI','Banking','NON-SME',44406,38.78,200,72.6],
+      ['IRFC','Financial','NON-SME',44278,26,525,93.45],
+      ['ITC','FMCG','NON-SME',44385,173,354,282.65],
+      ['ITCHOTELS','Hospitality','NON-SME',45693,186,456,149.45],
+      ['MARKSANS','Pharmaceuticals','NON-SME',44116,111,341,250.7],
+      ['PNB','Banking','NON-SME',44281,38,1700,106.43],
+      ['SBILIFE','Insurance','NON-SME',44133,819.25,80,1740],
+      ['TATASTEEL','Steel','NON-SME',44527,118,449,198.4],
+      ['UJJIVANSFB','Banking','NON-SME',44421,29,1185,53.5],
+      ['UNIONBANK','Banking','NON-SME',44446,36,450,164.7],
+      ['NIFTYBEES','ETF','NON-SME',44452,236.3013,1423,262.94],
+      ['GOLDBEES','ETF','NON-SME',44424,58,451,119.25],
+      ['UTKARSHBNK','Banking','NON-SME',45140,48,1525,12.45],
+      ['MSTCLTD','Trading','NON-SME',45219,447,292,558.8],
+      ['POCL','Recycling','NON-SME',45232,222,250,1184.9],
+      ['GLOBUSSPR','Breweries & Distilleries','NON-SME',45260,847,155,836.9],
+      ['AVALON','Electronics (EMS)','NON-SME',45356,551,186,1580],
+      ['SAMHI','Hospitality','NON-SME',45877,205,646,160],
+      ['ASTRAMICRO','Defence Electronics','NON-SME',45902,1032,203,1398.9],
+      ['ROSSTECH','Defence Electronics','NON-SME',46077,696,21,970],
+      ['INDGN','Healthcare IT','NON-SME',46104,460,207,505],
+      ['AARTIDRUGS','Pharmaceuticals','NON-SME',44897,499.58,110,367],
+      ['SUPRIYA','Pharmaceuticals','NON-SME',44834,255.81,75,941],
+      ['DPWIRES','Engineering','NON-SME',45184,449.13,103,171.01],
+      ['TATACHEM','Chemicals','NON-SME',45184,1063.21,40,745.5],
+      ['STEELCAS','Engineering','NON-SME',45281,128.77,195,284.9],
+      ['AXISTECETF','ETF','NON-SME',45494,415.92,89,307.95],
+      ['COCHINSHIP','Shipbuilding','NON-SME',45586,1598.01,56,1385],
+      ['TRIDENT','Textiles','NON-SME',43269,6.23,900,23.57],
+    ];
+    this.base = raw.map(r=>{
+      const [ticker,sector,segment,bds,buyPrice,qty,cmp]=r;
+      return { ticker, display: ticker.replace('NSE:',''), sector };
+    });
+
+    // sector hues — same formula as the Allocation page so colours match exactly
+    const secTot={}; raw.forEach(r=>{ secTot[r[1]]=(secTot[r[1]]||0)+r[6]*r[5]; });
+    const secOrder=Object.keys(secTot).sort((a,b)=>secTot[b]-secTot[a]);
+    this.sectorHue={}; secOrder.forEach((s,i)=>{ this.sectorHue[s]=(i*360/secOrder.length); });
+
+    this.defaultNotes = {
+      'ACE': { order:['FY26 — Secured largest-ever order of ₹420Cr for 1,121 RTFLTs to Ministry of Defence'], total:null, cap:['FY26 — Expanded manufacturing capacity to ₹5,000Cr revenue capacity','2026 — JV with KATO WORKS Co. Ltd (Japan) to manufacture heavy cranes in India'] },
+      'NSE:HPL': { order:['Dec 25 — Order book stands at ₹3,100Cr (smart meters ~99% of book)','Recent — Orders worth ₹242.2Cr from GMR Triveni & GMR Kashi for smart meters'], total:'₹3,100Cr+', cap:[] },
+      'VALIANTORG': { order:[], total:null, cap:['FY25-26 — Expanding Chloro Phenols capacity at Sarigam & Jhagadia plants','Apr 25 — Acquired 26.25% stake in renewable-energy SPV for captive solar (₹2.9Cr)'] },
+      'ZENTEC': { order:['30 Sep 25 — Order book stands at ₹675Cr','Oct 25 — ₹289Cr from MoD for anti-drone systems upgrade','10 Oct 25 — ₹37Cr from MoD for anti-drone hard-kill systems','25 Nov 25 — ₹108Cr from MoD for simulators','Dec 25 — ₹120Cr from MoD for Comprehensive Training Node'], total:'₹675Cr', cap:[] },
+      'ICIL': { order:[], total:null, cap:['Jan 26 — North Carolina (US) greenfield pillow facility commenced commercial production','FY27 — ₹60Cr expansion at Alte, Kolhapur spinning facility to 94,000 spindles (Q2 FY27)'] },
+      'JGCHEM': { order:[], total:null, cap:['H1 FY27 — Dahej (Gujarat) greenfield: 40,000 MTPA zinc chemicals (₹100Cr), Phase-1 commissioning H1 FY27'] },
+      'AVANTEL': { order:['25 Aug 25 — ₹3.36Cr from DRDO for SATCOM Waveform development','Sep 25 — ₹9.88Cr from Dept of Atomic Energy','FY26 — ~₹25.58Cr from BEL for communication systems & power amplifiers','FY26 — ₹13.82Cr from CRIS for railway SATCOM hub equipment','FY26 — ₹10.39Cr from Indian Navy for SATCOM equipment','FY26 — ₹4.16Cr from MoD (Naval Aviation) for SATCOM CAMC','2026 — ₹28.20Cr from Coast Guard for SATCOM products'], total:'~₹210Cr', cap:[] },
+      'TDPOWERSYS': { order:['24 Feb 26 — Order book stands at ₹18.45 billion','21 May 26 — Order book stands at ₹19.7 billion'], total:'₹19.7Bn', cap:[] },
+      'INDOTECH': { order:['9 Jan 26 — ₹66.99Cr from ReNew Wind Energy (JAMB) Pvt Ltd','12 Mar 26 — 9 Jan order terminated'], total:'₹424.63Cr', cap:[] },
+      'PROSTARM': { order:['FY26 — ₹13.43Cr from South Eastern Railway for solar power plant'], total:null, cap:['8 Jul 25 — Setting up 1.2 GWh BESS facility at Reliance MET City, Jhajjar (₹25Cr) — by end FY26','FY25 — Li-ion battery packs capacity: 1,00,000 kWh/annum (Navi Mumbai)'] },
+      'TRANSRAILL': { order:['27 May 26 — Order book incl. L1 stands at ₹16,361Cr','3 Jun 26 — Received new order worth ₹575Cr'], total:'₹16,936Cr', cap:['21 Apr 26 — Tower mfg capacity raised from 84,000 to 1,72,400 MTPA'] },
+      'GRAVITA': { order:[], total:null, cap:['20 May 26 — Phagi (Jaipur) plant recycling capacity reaches 75,819 MTPA','FY26 — Mundra: adding 80,300 MTPA lead capacity (₹49Cr), total 1,45,100 MTPA','FY26-27 — New copper recycling plant at Mandvi (29,400 MTPA, ₹160Cr)','Target — Scale 3.40 lakh TPA to 7 lakh TPA by FY28 (₹1,225Cr capex)'] },
+    };
+
+    this.state = {
+      notes: this.defaultNotes,
+      asOf: '2026-06-23',
+      readIds: this.loadRead(),
+      query: '',
+      filter: 'all',
+      selected: null,
+      refreshing: false,
+    };
+  }
+
+  componentDidMount(){ this.loadNews(); }
+
+  async loadNews(){
+    // Reads news.json next to this file (rewritten weekly by GitHub Actions). Falls back to the built-in snapshot.
+    try {
+      const res = await fetch('news.json', { cache:'no-store' });
+      if(!res.ok) return;
+      const data = await res.json();
+      if(data && data.notes) this.setState({ notes: data.notes, asOf: data.updatedAt || this.state.asOf });
+    } catch(e){ /* offline / local file — keep snapshot */ }
+  }
+
+  loadRead(){ try { return new Set(JSON.parse(localStorage.getItem('pf_news_read_v1')||'[]')); } catch(e){ return new Set(); } }
+  saveRead(set){ try { localStorage.setItem('pf_news_read_v1', JSON.stringify([...set])); } catch(e){} }
+
+  hashId(str){ let h=5381; for(let i=0;i<str.length;i++){ h=((h<<5)+h+str.charCodeAt(i))|0; } return (h>>>0).toString(36); }
+
+  // Build categorised news items for a ticker. Supports the auto-fed items[] schema
+  // ({category,date,text,url}) and the curated order/total/cap snapshot. Read-state ids
+  // are content-hashed so they stay stable when the weekly feed reorders items.
+  itemsFor(ticker){
+    const n = this.state.notes[ticker];
+    if(!n) return [];
+    let items=[];
+    if(Array.isArray(n.items) && n.items.length){
+      items = n.items.map(x=>({ cat: x.category||'macro', body: x.text||'', date: x.date||'', url: x.url||'' }));
+    } else {
+      (n.order||[]).forEach(text=>{
+        const isBook = /book (stands|incl)/i.test(text) || /order book/i.test(text);
+        items.push({ cat: isBook ? 'orderbook' : 'order', text });
+      });
+      (n.cap||[]).forEach(text=> items.push({ cat:'capacity', text }));
+      items = items.map(it=>{
+        const dash = it.text.indexOf(' — ');
+        return { cat: it.cat, date: dash>0?it.text.slice(0,dash):'', body: dash>0?it.text.slice(dash+3):it.text, url:'' };
+      });
+    }
+    return items.map(it=>({ ...it, _id: ticker+'#'+this.hashId(it.cat+'|'+it.body) }));
+  }
+  unreadCount(ticker){ return this.itemsFor(ticker).filter(it=> !this.state.readIds.has(it._id)).length; }
+  totalItems(ticker){ return this.itemsFor(ticker).length; }
+
+  catMeta(cat){
+    const H = { order:150, orderbook:200, capacity:60, dividend:305, management:270, legal:25, client:190, guidance:100, macro:35 };
+    const L = { order:'New Order', orderbook:'Order Book', capacity:'Capacity', dividend:'Dividend / Split', management:'Management', legal:'Legal / Regulatory', client:'Client Win / Loss', guidance:'Guidance', macro:'Macro / Sector' };
+    const h = H[cat] != null ? H[cat] : 30;
+    return { label: L[cat] || 'Update', hue: h };
+  }
+  chipStyle(cat){ const {hue}=this.catMeta(cat); return `display:inline-block; padding:3px 9px; border-radius:6px; font-size:10.5px; font-weight:600; font-family:'IBM Plex Sans',sans-serif; background:oklch(0.965 0.022 ${hue}); color:oklch(0.47 0.10 ${hue}); border:1px solid oklch(0.90 0.04 ${hue});`; }
+  sectorColor(s){ return 'oklch(0.72 0.10 '+(this.sectorHue[s]||0)+')'; }
+
+  // actions
+  selectStock(t){ this.setState({ selected: t }); }
+  closeDrawer = ()=> this.setState({ selected: null });
+  onSearch = (e)=> this.setState({ query: e.target.value });
+  setFilter(f){ this.setState({ filter: f }); }
+  markAllRead(ticker){
+    const set = new Set(this.state.readIds);
+    this.itemsFor(ticker).forEach(it=> set.add(it._id));
+    this.saveRead(set); this.setState({ readIds:set });
+  }
+  toggleRead(id){
+    const set = new Set(this.state.readIds);
+    if(set.has(id)) set.delete(id); else set.add(id);
+    this.saveRead(set); this.setState({ readIds:set });
+  }
+  onRefresh = ()=>{
+    if(this.state.refreshing) return;
+    this.setState({ refreshing:true });
+    this.loadNews();
+    setTimeout(()=> this.setState({ refreshing:false }), 1000);
+  };
+
+  seg(active){ return active
+    ? { bg:'#1b1b18', fg:'#f4f2ec' }
+    : { bg:'transparent', fg:'#6f6b60' }; }
+
+  fmtDate(iso){ if(!iso) return '—'; const d=new Date(iso); if(isNaN(d)) return iso; return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+
+  renderVals(){
+    const { query, filter, readIds } = this.state;
+    const q = query.trim().toLowerCase();
+    const matches = s=> !q || s.display.toLowerCase().includes(q) || s.sector.toLowerCase().includes(q);
+    const hasNews = s=> this.totalItems(s.ticker)>0;
+
+    let list = this.base.filter(matches);
+    if(filter==='news') list = list.filter(hasNews);
+    if(filter==='unread') list = list.filter(s=> this.unreadCount(s.ticker)>0);
+    list = list.slice().sort((a,b)=>{
+      const ua=this.unreadCount(a.ticker), ub=this.unreadCount(b.ticker);
+      if(ub!==ua) return ub-ua;
+      const na=hasNews(a)?1:0, nb=hasNews(b)?1:0;
+      if(nb!==na) return nb-na;
+      return a.display.localeCompare(b.display);
+    });
+
+    const ACCENT='#c2410c';
+    const rows = list.map(s=>{
+      const items = this.itemsFor(s.ticker);
+      const unread = items.filter(it=>!readIds.has(it._id)).length;
+      const latest = items.length ? items[items.length-1] : null;
+      const active = s.ticker===this.state.selected;
+      return {
+        display: s.display,
+        sector: s.sector,
+        onClick: ()=> this.selectStock(s.ticker),
+        dotStyle: `flex:none; width:11px; height:11px; border-radius:4px; background:${this.sectorColor(s.sector)};`,
+        rowStyle: `display:flex; align-items:center; justify-content:space-between; gap:14px; padding:13px 18px; cursor:pointer; border-bottom:1px solid #f1eee6; background:${active?'#f6f4ee':'transparent'};`,
+        preview: latest ? (latest.date ? latest.date+' · ' : '') + latest.body : (hasNews(s)?'':'No updates on file yet'),
+        catLabel: latest ? this.catMeta(latest.cat).label : '',
+        catStyle: latest ? this.chipStyle(latest.cat) : 'display:none;',
+        badgeText: unread>0 ? String(unread) : '',
+        badgeStyle: unread>0
+          ? `min-width:20px; height:20px; padding:0 6px; border-radius:10px; background:${ACCENT}; color:#fff; font-size:11px; font-weight:600; display:inline-flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace;`
+          : 'display:none;',
+      };
+    });
+
+    // selected detail
+    const s = this.base.find(x=>x.ticker===this.state.selected);
+    let sel = { display:'', sector:'', items:[], isEmpty:true, hasOrderBook:false };
+    if(s){
+      const n = this.state.notes[s.ticker];
+      const items = this.itemsFor(s.ticker).slice().reverse().map(it=>{
+        const unread = !readIds.has(it._id);
+        const {hue} = this.catMeta(it.cat);
+        return {
+          text: it.body,
+          date: it.date || '—',
+          catLabel: this.catMeta(it.cat).label,
+          catStyle: this.chipStyle(it.cat),
+          dotStyle: `flex:none; width:8px; height:8px; border-radius:50%; margin-top:6px; background:${unread?ACCENT:'#d4cfc2'}; ${unread?'box-shadow:0 0 0 3px oklch(0.62 0.17 32 / 0.16);':''}`,
+          newTagStyle: unread ? `font-family:'IBM Plex Mono',monospace; font-size:9px; font-weight:600; letter-spacing:0.08em; color:${ACCENT}; background:#f9ece4; padding:2px 5px; border-radius:4px;` : 'display:none;',
+          textStyle: `font-size:13.5px; line-height:1.55; font-weight:${unread?'500':'400'}; color:${unread?'#2a251d':'#98948a'};`,
+          cardStyle: `display:flex; gap:11px; align-items:flex-start; padding:13px 15px; background:${unread?'#fffdf9':'#faf8f3'}; border:1px solid ${unread?'#efe0d4':'#efece4'}; border-radius:11px; cursor:pointer;`,
+          url: it.url || '',
+          linkStyle: it.url ? "display:inline-block; margin-top:7px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#b0683c;" : 'display:none;',
+          onSourceClick: (e)=> { if(e && e.stopPropagation) e.stopPropagation(); },
+          onToggle: ()=> this.toggleRead(it._id),
+        };
+      });
+      const unread = items.filter((_,i)=>true).length && this.unreadCount(s.ticker);
+      const total = this.itemsFor(s.ticker).length;
+      const uc = this.unreadCount(s.ticker);
+      sel = {
+        display: s.display,
+        sector: s.sector,
+        dotStyle: `flex:none; width:14px; height:14px; border-radius:5px; background:${this.sectorColor(s.sector)};`,
+        sectorChipStyle: `display:inline-block; margin-top:5px; padding:3px 10px; border-radius:7px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.04em; text-transform:uppercase; background:oklch(0.965 0.02 ${this.sectorHue[s.sector]||0}); color:oklch(0.45 0.06 ${this.sectorHue[s.sector]||0});`,
+        meta: total ? (total+' update'+(total>1?'s':'')+' · '+(uc>0? uc+' unread' : 'all read')) : 'No updates on file',
+        isEmpty: total===0,
+        hasOrderBook: !!(n && n.total),
+        orderBook: n && n.total ? n.total : '',
+        items,
+        markAllText: uc>0 ? 'Mark all read' : 'All read ✓',
+        markAllStyle: uc>0
+          ? 'flex:none; padding:7px 13px; border-radius:8px; border:none; background:#1b1b18; color:#f4f2ec; font-size:11.5px; font-weight:500; cursor:pointer; font-family:inherit;'
+          : 'flex:none; padding:7px 13px; border-radius:8px; border:1px solid oklch(0.90 0.03 150); background:oklch(0.97 0.012 150); color:#15803d; font-size:11.5px; font-weight:500; cursor:default; font-family:inherit;',
+        onMarkAll: ()=> uc>0 && this.markAllRead(s.ticker),
+      };
+    }
+
+    const totalUnread = this.base.reduce((a,s)=> a+this.unreadCount(s.ticker), 0);
+    const withNews = this.base.filter(hasNews).length;
+
+    return {
+      asOf: 'News updated ' + this.fmtDate(this.state.asOf),
+      refreshIconStyle: this.state.refreshing ? "display:inline-block; animation:spin 0.9s linear infinite;" : "display:inline-block;",
+      statUnread: String(totalUnread),
+      unreadColor: totalUnread>0 ? '#c2410c' : '#1b1b18',
+      statWithNews: String(withNews),
+      statHoldings: String(this.base.length),
+      disclaimer: 'Educational purpose only · No buy/sell recommendation',
+      query,
+      onSearch: this.onSearch,
+      onRefresh: this.onRefresh,
+      countAll: this.base.filter(matches).length,
+      countNews: this.base.filter(x=>matches(x)&&hasNews(x)).length,
+      countUnread: this.base.filter(x=> this.unreadCount(x.ticker)>0).length,
+      ui: {
+        allBg:this.seg(filter==='all').bg, allFg:this.seg(filter==='all').fg,
+        newsBg:this.seg(filter==='news').bg, newsFg:this.seg(filter==='news').fg,
+        unreadBg:this.seg(filter==='unread').bg, unreadFg:this.seg(filter==='unread').fg,
+      },
+      setFilterAll: ()=> this.setFilter('all'),
+      setFilterNews: ()=> this.setFilter('news'),
+      setFilterUnread: ()=> this.setFilter('unread'),
+      stocks: rows,
+      drawerOpen: !!s,
+      closeDrawer: this.closeDrawer,
+      sel,
+    };
+  }
+}
+</script>
+</body>
+</html>
