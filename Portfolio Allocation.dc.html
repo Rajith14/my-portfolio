@@ -63,7 +63,7 @@
         </div>
       </div>
       <div style="flex:1; background:#ffffff; border:1px solid #e6e3d9; border-radius:11px; padding:15px 17px;">
-        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:9px;">Portfolio CAGR</div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:#9a978c; margin-bottom:9px;">Portfolio XIRR</div>
         <div style="font-family:'IBM Plex Mono',monospace; font-size:23px; font-weight:600; color:{{ kpiCagrColor }};">{{ kpiCagrFmt }}</div>
       </div>
       <div style="width:118px; background:#ffffff; border:1px solid #e6e3d9; border-radius:11px; padding:15px 17px;">
@@ -86,6 +86,7 @@
           <button onClick="{{ setBubbles }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.bubblesBg }}; color:{{ ui.bubblesFg }};">Bubbles</button>
           <button onClick="{{ setMap }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.mapBg }}; color:{{ ui.mapFg }};">Treemap</button>
           <button onClick="{{ setTable }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.tableBg }}; color:{{ ui.tableFg }};">Table</button>
+          <button onClick="{{ setBroker }}" style="border:none; cursor:pointer; font-family:inherit; font-size:12px; font-weight:500; padding:6px 13px; border-radius:6px; background:{{ ui.brokerBg }}; color:{{ ui.brokerFg }};">Brokers</button>
         </div>
       </div>
       <div style="display:flex; align-items:center; gap:8px;">
@@ -285,8 +286,73 @@
       </div>
     </sc-if>
 
+    <sc-if value="{{ isBroker }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px;">
+          <sc-for list="{{ brokerCards }}" as="b" hint-placeholder-count="2">
+            <div style="background:#ffffff; border:1px solid #e6e3d9; border-radius:13px; padding:20px 22px; position:relative; overflow:hidden;">
+              <div style="position:absolute; top:0; left:0; right:0; height:3px; background:{{ b.accent }};"></div>
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <span style="width:11px; height:11px; border-radius:3px; background:{{ b.accent }};"></span>
+                  <span style="font-size:17px; font-weight:600;">{{ b.name }}</span>
+                  <span style="{{ b.winStyle }}">{{ b.winLabel }}</span>
+                </div>
+                <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9a978c;">{{ b.count }} holdings</span>
+              </div>
+              <div style="display:flex; gap:20px; flex-wrap:wrap; margin-bottom:18px;">
+                <div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:4px;">Invested</div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600;">{{ b.investedFmt }}</div>
+                </div>
+                <div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:4px;">Current</div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600;">{{ b.currentFmt }}</div>
+                </div>
+                <div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:4px;">Return</div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:{{ b.plColor }};">{{ b.plPctFmt }}</div>
+                </div>
+                <div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:4px;">XIRR</div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:{{ b.xirrColor }};">{{ b.xirrFmt }}</div>
+                </div>
+                <div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:0.08em; text-transform:uppercase; color:#9a978c; margin-bottom:4px;">Abs P&amp;L</div>
+                  <div style="font-family:'IBM Plex Mono',monospace; font-size:16px; font-weight:600; color:{{ b.plColor }};">{{ b.plAbsFmt }}</div>
+                </div>
+              </div>
+              <div style="display:flex; height:8px; border-radius:4px; overflow:hidden; margin-bottom:14px; background:#f1eee6;">
+                <div style="width:{{ b.shareWidth }}; background:{{ b.accent }};"></div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#9a978c; margin-bottom:12px;">{{ b.shareLabel }} of total invested</div>
+              <div style="display:flex; flex-direction:column; gap:1px;">
+                <div style="display:grid; grid-template-columns:1.4fr 0.8fr 0.9fr; gap:8px; padding:6px 4px; border-bottom:1px solid #ece9df;">
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c;">Best / worst</span>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c; text-align:right;">Value</span>
+                  <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.06em; text-transform:uppercase; color:#9a978c; text-align:right;">Return</span>
+                </div>
+                <sc-for list="{{ b.extremes }}" as="e" hint-placeholder-count="2">
+                  <div onClick="{{ e.onSelect }}" style="display:grid; grid-template-columns:1.4fr 0.8fr 0.9fr; gap:8px; padding:7px 4px; cursor:pointer; border-bottom:1px solid #f4f2ec;">
+                    <span style="display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:500;"><span style="width:7px; height:7px; border-radius:2px; background:{{ e.dot }};"></span>{{ e.display }}</span>
+                    <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; text-align:right;">{{ e.valueFmt }}</span>
+                    <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; text-align:right; color:{{ e.plColor }};">{{ e.plPctFmt }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background:#1b1b18; color:#f4f2ec; border-radius:13px; padding:18px 24px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+          <span style="font-size:15px; font-weight:600;">{{ brokerVerdict }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#b9b6ab;">{{ brokerVerdictSub }}</span>
+        </div>
+      </div>
+    </sc-if>
+
     <sc-if value="{{ isMomentum }}" hint-placeholder-val="{{ false }}">
       <div style="background:#ffffff; border:1px solid #e6e3d9; border-radius:13px; padding:22px 26px 16px;">
+
         <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
           <h2 style="margin:0; font-size:15px; font-weight:600;">Best-performing sectors · last 1 month</h2>
           <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#9a978c;">{{ prevAsOfLabel }}</span>
@@ -569,65 +635,65 @@ class Component extends DCLogic {
       goalTarget: 15000000, goalSip: 40000, goalRate: null, goalStartOverride: null };
 
     const raw = [
-      ['YESBANK','Banking','NON-SME',44049,18,5337,22.26],
-      ['ACE','Engineering','NON-SME',44756,396,132,891.35],
-      ['HDFCAMC','Financial','NON-SME',45019,989,66,2398.9],
-      ['RELIANCE','Oil & Gas','NON-SME',44027,1258,60,1264.5],
-      ['JIOFIN','Financial','NON-SME',45159,248,134,228.2],
-      ['VAIBHAVGBL','Jewellery','NON-SME',44806,287,324,225],
-      ['CDSL','Financial','NON-SME',44847,609,106,1192],
-      ['NSE:HPL','Electricals','NON-SME',44897,93,300,341],
-      ['NMDC','Mining','NON-SME',44530,41,1706,88.75],
-      ['NSLNISP','Steel','NON-SME',44977,43,1585,45.74],
-      ['NSE:AWL','FMCG','NON-SME',45202,331,311,185.9],
-      ['VALIANTORG','Chemicals','NON-SME',45202,410,278,266],
-      ['BEEKAY','Steel','NON-SME',45202,629,100,399],
-      ['ZENTEC','Defence','NON-SME',45328,839,100,1716],
-      ['ICIL','Textiles','NON-SME',45385,378,351,320.15],
-      ['JGCHEM','Chemicals','NON-SME',45397,282,537,429.85],
-      ['AVANTEL','Defence Electronics','NON-SME',45572,140,651,157],
-      ['INDOTECH','Transformer','NON-SME',45733,1931,103,2542],
-      ['KPITTECH','IT Services','NON-SME',45807,1097,40,739.2],
-      ['PROSTARM','Power','SME',45852,178,633,137.95],
-      ['TRANSRAILL','Power','NON-SME',45968,694,1,466.95],
-      ['AARTIPHARM','Pharmaceuticals','NON-SME',45979,707,283,707],
-      ['GRAVITA','Recycling','NON-SME',46097,1432,93,1711],
-      ['CONCORDBIO','Pharmaceuticals','NON-SME',46196,1327,89,1321],
-      ['ARE&M','Auto Ancillary','NON-SME',44397,673,108,798],
-      ['AVANTIFEED','Aquaculture','NON-SME',44280,435,35,1032],
-      ['BANDHANBNK','Banking','NON-SME',44166,217,465,194.1],
-      ['CANBK','Banking','NON-SME',44334,25,625,131.97],
-      ['EQUITASBNK','Banking','NON-SME',44168,66,1265,71.21],
-      ['HSCL','Chemicals','NON-SME',44281,42,250,677],
-      ['IDBI','Banking','NON-SME',44406,38.78,200,72.6],
-      ['IRFC','Financial','NON-SME',44278,26,525,93.45],
-      ['ITC','FMCG','NON-SME',44385,173,354,282.65],
-      ['ITCHOTELS','Hospitality','NON-SME',45693,186,456,149.45],
-      ['MARKSANS','Pharmaceuticals','NON-SME',44116,111,341,250.7],
-      ['PNB','Banking','NON-SME',44281,38,1700,106.43],
-      ['SBILIFE','Insurance','NON-SME',44133,819.25,80,1740],
-      ['TATASTEEL','Steel','NON-SME',44527,118,449,198.4],
-      ['UJJIVANSFB','Banking','NON-SME',44421,29,1185,53.5],
-      ['UNIONBANK','Banking','NON-SME',44446,36,450,164.7],
-      ['NIFTYBEES','ETF','NON-SME',44452,236.3013,1423,262.94],
-      ['GOLDBEES','ETF','NON-SME',44424,58,451,119.25],
-      ['UTKARSHBNK','Banking','NON-SME',45140,48,1525,12.45],
-      ['MSTCLTD','Trading','NON-SME',45219,447,292,558.8],
-      ['POCL','Recycling','NON-SME',45232,222,250,1184.9],
-      ['GLOBUSSPR','Breweries & Distilleries','NON-SME',45260,847,155,836.9],
-      ['AVALON','Electronics (EMS)','NON-SME',45356,551,186,1580],
-      ['SAMHI','Hospitality','NON-SME',45877,205,646,160],
-      ['ASTRAMICRO','Defence Electronics','NON-SME',45902,1032,203,1398.9],
-      ['ROSSTECH','Defence Electronics','NON-SME',46077,696,21,970],
-      ['INDGN','Healthcare IT','NON-SME',46104,460,207,505],
-      ['AARTIDRUGS','Pharmaceuticals','NON-SME',44897,499.58,110,367],
-      ['SUPRIYA','Pharmaceuticals','NON-SME',44834,255.81,75,941],
-      ['DPWIRES','Engineering','NON-SME',45184,449.13,103,171.01],
-      ['TATACHEM','Chemicals','NON-SME',45184,1063.21,40,745.5],
-      ['STEELCAS','Engineering','NON-SME',45281,128.77,195,284.9],
-      ['AXISTECETF','ETF','NON-SME',45494,415.92,89,307.95],
-      ['COCHINSHIP','Shipbuilding','NON-SME',45586,1598.01,56,1385],
-      ['TRIDENT','Textiles','NON-SME',43269,6.23,900,23.57],
+      ['YESBANK','Banking','NON-SME',44049,18,5380,22.26,'Angel'],
+      ['ACE','Engineering','NON-SME',44756,396,132,891.35,'Angel'],
+      ['HDFCAMC','Financial','NON-SME',45019,989,66,2398.9,'Angel'],
+      ['RELIANCE','Oil & Gas','NON-SME',44027,1260,62,1264.5,'Angel'],
+      ['JIOFIN','Financial','NON-SME',45159,249,141,228.2,'Angel'],
+      ['VAIBHAVGBL','Jewellery','NON-SME',44806,287,331,225,'Angel'],
+      ['CDSL','Financial','NON-SME',44847,609,106,1192,'Angel'],
+      ['NSE:HPL','Electricals','NON-SME',44897,93,300,341,'Angel'],
+      ['NMDC','Mining','NON-SME',44530,41,1711,88.75,'Angel'],
+      ['NSLNISP','Steel','NON-SME',44977,43,1654,45.74,'Angel'],
+      ['NSE:AWL','FMCG','NON-SME',45202,331,311,185.9,'Angel'],
+      ['VALIANTORG','Chemicals','NON-SME',45202,410,278,266,'Angel'],
+      ['BEEKAY','Steel','NON-SME',45202,629,100,399,'Angel'],
+      ['ZENTEC','Defence','NON-SME',45328,839,100,1716,'Angel'],
+      ['ICIL','Textiles','NON-SME',45385,378,351,320.15,'Angel'],
+      ['JGCHEM','Chemicals','NON-SME',45397,282,537,429.85,'Angel'],
+      ['AVANTEL','Defence Electronics','NON-SME',45572,140,654,157,'Angel'],
+      ['INDOTECH','Transformer','NON-SME',45733,1931,103,2542,'Angel'],
+      ['KPITTECH','IT Services','NON-SME',45807,1063,43,739.2,'Angel'],
+      ['PROSTARM','Power','SME',45852,177,652,137.95,'Angel'],
+      ['TRANSRAILL','Power','NON-SME',45968,694,1,466.95,'Angel'],
+      ['AARTIPHARM','Pharmaceuticals','NON-SME',45979,706,286,707,'Angel'],
+      ['GRAVITA','Recycling','NON-SME',46097,1436,95,1711,'Angel'],
+      ['CONCORDBIO','Pharmaceuticals','NON-SME',46196,1330,94,1321,'Angel'],
+      ['ARE&M','Auto Ancillary','NON-SME',44397,673,108,798,'Zerodha'],
+      ['AVANTIFEED','Aquaculture','NON-SME',44280,435,35,1032,'Zerodha'],
+      ['BANDHANBNK','Banking','NON-SME',44166,217,470,194.1,'Zerodha'],
+      ['CANBK','Banking','NON-SME',44334,25,625,131.97,'Zerodha'],
+      ['EQUITASBNK','Banking','NON-SME',44168,68,1775,71.21,'Zerodha'],
+      ['HSCL','Chemicals','NON-SME',44281,42,200,677,'Zerodha'],
+      ['IDBI','Banking','NON-SME',44406,38.78,200,72.6,'Zerodha'],
+      ['IRFC','Financial','NON-SME',44278,26,525,93.45,'Zerodha'],
+      ['ITC','FMCG','NON-SME',44385,173,354,282.65,'Zerodha'],
+      ['ITCHOTELS','Hospitality','NON-SME',45693,186,456,149.45,'Zerodha'],
+      ['MARKSANS','Pharmaceuticals','NON-SME',44116,111,341,250.7,'Zerodha'],
+      ['PNB','Banking','NON-SME',44281,38,1700,106.43,'Zerodha'],
+      ['SBILIFE','Insurance','NON-SME',44133,819.25,80,1740,'Zerodha'],
+      ['TATASTEEL','Steel','NON-SME',44527,118,449,198.4,'Zerodha'],
+      ['UJJIVANSFB','Banking','NON-SME',44421,29,1185,53.5,'Zerodha'],
+      ['UNIONBANK','Banking','NON-SME',44446,36,450,164.7,'Zerodha'],
+      ['NIFTYBEES','ETF','NON-SME',44452,236.3013,1423,262.94,'Zerodha'],
+      ['GOLDBEES','ETF','NON-SME',44424,58,451,119.25,'Zerodha'],
+      ['UTKARSHBNK','Banking','NON-SME',45140,48,1525,12.45,'Zerodha'],
+      ['MSTCLTD','Trading','NON-SME',45219,447,292,558.8,'Zerodha'],
+      ['POCL','Recycling','NON-SME',45232,89,625,1184.9,'Zerodha'],
+      ['GLOBUSSPR','Breweries & Distilleries','NON-SME',45260,847,155,836.9,'Zerodha'],
+      ['AVALON','Electronics (EMS)','NON-SME',45356,551,186,1580,'Zerodha'],
+      ['SAMHI','Hospitality','NON-SME',45877,205,646,160,'Zerodha'],
+      ['ASTRAMICRO','Defence Electronics','NON-SME',45902,1032,203,1398.9,'Zerodha'],
+      ['ROSSTECH','Defence Electronics','NON-SME',46077,696,21,970,'Zerodha'],
+      ['INDGN','Healthcare IT','NON-SME',46104,480,280,505,'Zerodha'],
+      ['AARTIDRUGS','Pharmaceuticals','NON-SME',44897,499.58,110,367,'Zerodha'],
+      ['SUPRIYA','Pharmaceuticals','NON-SME',44834,255.81,75,941,'Zerodha'],
+      ['DPWIRES','Engineering','NON-SME',45184,449.13,103,171.01,'Zerodha'],
+      ['TATACHEM','Chemicals','NON-SME',45184,1063.21,40,745.5,'Zerodha'],
+      ['STEELCAS','Engineering','NON-SME',45281,128.77,195,284.9,'Zerodha'],
+      ['AXISTECETF','ETF','NON-SME',45494,415.92,89,307.95,'Zerodha'],
+      ['COCHINSHIP','Shipbuilding','NON-SME',45586,1598.01,56,1385,'Zerodha'],
+      ['TRIDENT','Textiles','NON-SME',43269,6.23,900,23.57,'Zerodha'],
     ];
 
     this.notes = {
@@ -646,9 +712,9 @@ class Component extends DCLogic {
     };
 
     this.base = raw.map(r => {
-      const [ticker,sector,segment,bds,buyPrice,qty,cmp] = r;
+      const [ticker,sector,segment,bds,buyPrice,qty,cmp,broker] = r;
       const cost = buyPrice * qty;
-      return { ticker, display: ticker.replace('NSE:',''), sector, segment, bds, buyPrice, qty, cmpBase: cmp, cost };
+      return { ticker, display: ticker.replace('NSE:',''), sector, segment, bds, buyPrice, qty, cmpBase: cmp, cost, broker: broker || 'Other' };
     });
     this.totCost = this.base.reduce((a,b)=>a+b.cost,0);
     this.nSectors = new Set(this.base.map(r=>r.sector)).size;
@@ -929,6 +995,34 @@ class Component extends DCLogic {
     return rows.reduce((a,b)=>a + this.cagrOf(b) * (b.cost/totCost), 0);
   }
 
+  xirr(rows){
+    // Money-weighted return (XIRR). Each buy is a negative cash flow on its buy date;
+    // today's total current value is one positive cash flow. Solves NPV=0 by bisection.
+    const flows = [];
+    const MS = 365.25*86400000;
+    const now = new Date();
+    let curTotal = 0;
+    rows.forEach(r=>{
+      if(!r.cost || r.cost<=0) return;
+      const d = new Date(Date.UTC(1899,11,30) + r.bds*86400000);
+      flows.push({ t:(d-now)/MS, amt:-r.cost });
+      curTotal += r.cur;
+    });
+    if(flows.length===0 || curTotal<=0) return 0;
+    flows.push({ t:0, amt:curTotal });
+    // NPV as a function of annual rate: sum amt / (1+rate)^t   (t = years BEFORE today)
+    const npv = (rate)=> flows.reduce((a,f)=> a + f.amt/Math.pow(1+rate, f.t), 0);
+    let lo=-0.9999, hi=10;
+    let flo=npv(lo), fhi=npv(hi);
+    if(flo*fhi>0) return this.buildPortfolioCagr(rows); // no sign change — fall back
+    for(let i=0;i<200;i++){
+      const mid=(lo+hi)/2, fm=npv(mid);
+      if(Math.abs(fm)<1e-6) return mid*100;
+      if(flo*fm<0){ hi=mid; fhi=fm; } else { lo=mid; flo=fm; }
+    }
+    return ((lo+hi)/2)*100;
+  }
+
   buildTable(){
     const total = this.rows.reduce((a,b)=>a+this.sizeVal(b),0);
     const maxAlloc=Math.max(...this.rows.map(r=>this.sizeVal(r)/total*100));
@@ -994,6 +1088,58 @@ class Component extends DCLogic {
         allocLabel:(g.value/total*100).toFixed(1)+'%', minW: Math.max(116, Math.min(330, rowW+28)),
         bubbles };
     });
+  }
+
+  buildBrokerView(){
+    const rows = this.computeRows();
+    const accents = { 'Angel':'#b0683c', 'Zerodha':'#3f7cac', 'Other':'#7a8a6b' };
+    const groups = {};
+    rows.forEach(r=>{ const k=r.broker||'Other'; (groups[k]=groups[k]||[]).push(r); });
+    const totInvested = rows.reduce((a,r)=>a+r.cost,0) || 1;
+    let names = Object.keys(groups);
+    const stat = {};
+    names.forEach(n=>{
+      const list = groups[n];
+      const inv = list.reduce((a,r)=>a+r.cost,0);
+      const cur = list.reduce((a,r)=>a+r.cur,0);
+      stat[n] = { inv, cur, pl: cur-inv, plpct: inv>0?(cur-inv)/inv*100:0, xirr:this.xirr(list), list };
+    });
+    names.sort((a,b)=> stat[b].xirr - stat[a].xirr);
+    const best = names[0];
+    const cards = names.map(n=>{
+      const s = stat[n];
+      const sorted = s.list.slice().sort((a,b)=>b.plpct-a.plpct);
+      const top = sorted[0], bottom = sorted[sorted.length-1];
+      const extremes = (top===bottom ? [top] : [top, bottom]).map(r=>({
+        display:r.display, dot:this.sectorColor(r.sector), valueFmt:this.fmtL(r.cur),
+        plColor:this.pnlTextColor(r.plpct), plPctFmt:(r.plpct>=0?'+':'−')+Math.abs(r.plpct).toFixed(1)+'%',
+        onSelect:()=>this.setState({ selected:r.ticker }),
+      }));
+      return {
+        name:n, accent:accents[n]||accents.Other, count:s.list.length,
+        investedFmt:this.fmtL(s.inv), currentFmt:this.fmtL(s.cur),
+        plColor:this.pnlTextColor(s.plpct), plPctFmt:(s.plpct>=0?'+':'−')+Math.abs(s.plpct).toFixed(1)+'%',
+        xirrColor:this.pnlTextColor(s.xirr), xirrFmt:(s.xirr>=0?'+':'−')+Math.abs(s.xirr).toFixed(1)+'%',
+        plAbsFmt:(s.pl>=0?'+':'−')+this.fmtL(Math.abs(s.pl)).replace('−',''),
+        shareWidth:(s.inv/totInvested*100).toFixed(1)+'%', shareLabel:(s.inv/totInvested*100).toFixed(1)+'%',
+        winStyle: n===best
+          ? "font-family:'IBM Plex Mono',monospace; font-size:9.5px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:#15803d; background:oklch(0.95 0.03 150); border:1px solid oklch(0.88 0.05 150); padding:2px 7px; border-radius:5px;"
+          : 'display:none;',
+        winLabel:'Leading',
+        extremes,
+      };
+    });
+    let verdict='—', sub='';
+    if(names.length>=2){
+      const a=stat[names[0]], b=stat[names[1]];
+      const gap=(a.xirr-b.xirr).toFixed(1);
+      verdict = names[0]+' is ahead by '+gap+' pts XIRR';
+      sub = names[0]+' '+(a.xirr>=0?'+':'−')+Math.abs(a.xirr).toFixed(1)+'%  vs  '+names[1]+' '+(b.xirr>=0?'+':'−')+Math.abs(b.xirr).toFixed(1)+'%  ·  money-weighted annual return (XIRR)';
+    } else if(names.length===1){
+      verdict = names[0]+' '+(stat[names[0]].xirr>=0?'+':'−')+Math.abs(stat[names[0]].xirr).toFixed(1)+'% XIRR';
+      sub = 'Only one broker on file';
+    }
+    return { brokerCards:cards, brokerVerdict:verdict, brokerVerdictSub:sub };
   }
 
   buildMomentum(){
@@ -1064,7 +1210,7 @@ class Component extends DCLogic {
     const sb=this.state.sizeBy, cb=this.state.colorBy, gb=this.state.groupBy, vw=this.state.view;
     const on='#1b1b18', onF='#ffffff', off='transparent', offF='#737067';
     const seg=(a)=>({ bg:a?on:off, fg:a?onF:offF });
-    const m=seg(vw==='map'), tb=seg(vw==='table'), br=seg(vw==='bars'), bu=seg(vw==='bubbles'), mo=seg(vw==='momentum'), go=seg(vw==='goal');
+    const m=seg(vw==='map'), tb=seg(vw==='table'), br=seg(vw==='bars'), bu=seg(vw==='bubbles'), mo=seg(vw==='momentum'), go=seg(vw==='goal'), bk=seg(vw==='broker');
     const momentumRows=this.buildMomentum();
     const goal=this.buildGoalProjection();
     const sc=seg(sb==='current'), so=seg(sb==='cost');
@@ -1077,13 +1223,13 @@ class Component extends DCLogic {
             : 'Prices from your sheet snapshot',
       updatedAt: this.state.updatedAt,
       kpiInvested:this.fmtL(totCost), kpiCurrent:this.fmtL(totCur),
-      kpiCagrFmt: (()=>{ const c=this.buildPortfolioCagr(this.rows); return (c>=0?'+':'−')+Math.abs(c).toFixed(1)+'%'; })(),
-      kpiCagrColor: this.pnlTextColor(this.buildPortfolioCagr(this.rows)),
+      kpiCagrFmt: (()=>{ const c=this.xirr(this.rows); return (c>=0?'+':'−')+Math.abs(c).toFixed(1)+'%'; })(),
+      kpiCagrColor: this.pnlTextColor(this.xirr(this.rows)),
       kpiReturnAbs:this.fmtL(ret), kpiReturnPct:(retPct>=0?'+':'−')+Math.abs(retPct).toFixed(1)+'%',
       kpiReturnColor:this.pnlTextColor(retPct),
       kpiHoldings:this.rows.length, kpiSectors:this.nSectors,
 
-      isMap:vw==='map', isTable:vw==='table', isBars:vw==='bars', isBubbles:vw==='bubbles', isMomentum:vw==='momentum', isGoal:vw==='goal',
+      isMap:vw==='map', isTable:vw==='table', isBars:vw==='bars', isBubbles:vw==='bubbles', isMomentum:vw==='momentum', isGoal:vw==='goal', isBroker:vw==='broker',
       hasMomentum:momentumRows.length>0, noMomentum:momentumRows.length===0,
       momentumRows,
       prevAsOfLabel: this.state.prevAsOf ? ('vs baseline ~'+this.state.prevAsOf) : 'vs ~1 month ago',
@@ -1100,7 +1246,7 @@ class Component extends DCLogic {
       tableRows:this.buildTable(),
       totals: (()=>{
         const c=this.rows.reduce((a,b)=>a+b.cost,0), v=this.rows.reduce((a,b)=>a+b.cur,0);
-        const pl=(v-c)/c*100; const cagr=this.buildPortfolioCagr(this.rows);
+        const pl=(v-c)/c*100; const cagr=this.xirr(this.rows);
         return { investedFmt:this.fmtL(c), valueFmt:this.fmtL(v),
           plPctFmt:(pl>=0?'+':'−')+Math.abs(pl).toFixed(1)+'%', plColor:this.pnlTextColor(pl),
           cagrFmt:(cagr>=0?'+':'−')+Math.abs(cagr).toFixed(1)+'%', cagrColor:this.pnlTextColor(cagr) };
@@ -1116,12 +1262,15 @@ class Component extends DCLogic {
 
       sortArrow:{ name:this.arrow('name'), invested:this.arrow('invested'), value:this.arrow('value'), alloc:this.arrow('alloc'), pnl:this.arrow('pnl'), cagr:this.arrow('cagr') },
 
-      ui:{ mapBg:m.bg,mapFg:m.fg, tableBg:tb.bg,tableFg:tb.fg, barsBg:br.bg,barsFg:br.fg, bubblesBg:bu.bg,bubblesFg:bu.fg, momentumBg:mo.bg,momentumFg:mo.fg, goalBg:go.bg,goalFg:go.fg, sizeCurBg:sc.bg,sizeCurFg:sc.fg, sizeCostBg:so.bg,sizeCostFg:so.fg,
+      ui:{ mapBg:m.bg,mapFg:m.fg, tableBg:tb.bg,tableFg:tb.fg, barsBg:br.bg,barsFg:br.fg, bubblesBg:bu.bg,bubblesFg:bu.fg, momentumBg:mo.bg,momentumFg:mo.fg, goalBg:go.bg,goalFg:go.fg, brokerBg:bk.bg,brokerFg:bk.fg, sizeCurBg:sc.bg,sizeCurFg:sc.fg, sizeCostBg:so.bg,sizeCostFg:so.fg,
         colorPnlBg:cp.bg,colorPnlFg:cp.fg, colorSectorBg:cs.bg,colorSectorFg:cs.fg, groupSectorBg:gs.bg,groupSectorFg:gs.fg, groupSegmentBg:gg.bg,groupSegmentFg:gg.fg },
+
+      ...this.buildBrokerView(),
 
       setMap:()=>this.setState({view:'map'}), setTable:()=>this.setState({view:'table'}),
       setBars:()=>this.setState({view:'bars'}), setBubbles:()=>this.setState({view:'bubbles'}),
       setMomentum:()=>this.setState({view:'momentum'}), setGoal:()=>this.setState({view:'goal'}),
+      setBroker:()=>this.setState({view:'broker'}),
 
       goalTargetVal:String(this.state.goalTarget), goalSipVal:String(this.state.goalSip), goalRateVal:goal.ratePct.toFixed(1),
       goalTargetLabel:this.fmtL(this.state.goalTarget), goalRateIsCustom:goal.isCustomRate,
