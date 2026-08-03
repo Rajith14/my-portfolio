@@ -530,7 +530,7 @@
           <h2 style="margin:0; font-size:19px; font-weight:600;">Update holdings</h2>
           <button onClick="{{ closeUpdate }}" style="border:1px solid #e0ddd2; background:#fff; cursor:pointer; width:30px; height:30px; border-radius:7px; font-size:15px; color:#6a6760; line-height:1;">✕</button>
         </div>
-        <p style="margin:0; font-size:12px; line-height:1.5; color:#6a6760;">Edit each stock's quantity (shares held) and latest market price (CMP). Changes save to this browser automatically — reopen anytime and your numbers, charts and returns recalculate from here.</p>
+        <p style="margin:0; font-size:12px; line-height:1.5; color:#6a6760;">Edit each stock's quantity and your average buy price — adjust these as you add to positions each month. Current market price is fetched automatically. Changes save to this browser and everything recalculates from here.</p>
       </div>
       <div style="flex:1; overflow-y:auto; padding:8px 16px 16px;">
         <sc-for list="{{ updateRows }}" as="u" hint-placeholder-count="12">
@@ -538,15 +538,15 @@
             <span style="width:9px; height:9px; border-radius:2px; background:{{ u.dot }}; flex:none;"></span>
             <div style="flex:1; min-width:0;">
               <div style="font-size:13px; font-weight:600;">{{ u.display }}</div>
-              <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#9a978c;">buy {{ u.buyRef }} · {{ u.plPctFmt }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace; font-size:10px; color:#9a978c;">CMP {{ u.cmpRef }} · {{ u.plPctFmt }}</div>
             </div>
             <div style="display:flex; align-items:center; gap:5px; flex:none; background:#fff; border:1px solid #ddd9cd; border-radius:8px; padding:5px 10px;">
               <span style="font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.04em; color:#9a978c;">QTY</span>
               <input type="number" step="1" min="0" value="{{ u.qtyVal }}" onChange="{{ u.onQtyChange }}" style="width:58px; border:none; outline:none; background:transparent; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:{{ u.qtyColor }}; text-align:right;" />
             </div>
             <div style="display:flex; align-items:center; gap:5px; flex:none; background:#fff; border:1px solid #ddd9cd; border-radius:8px; padding:5px 10px;">
-              <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#9a978c;">₹</span>
-              <input type="number" step="0.01" value="{{ u.cmpVal }}" onChange="{{ u.onChange }}" style="width:78px; border:none; outline:none; background:transparent; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:#1b1b18; text-align:right;" />
+              <span style="font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.04em; color:#9a978c;">BUY ₹</span>
+              <input type="number" step="0.01" min="0" value="{{ u.buyVal }}" onChange="{{ u.onBuyChange }}" style="width:72px; border:none; outline:none; background:transparent; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:{{ u.buyColor }}; text-align:right;" />
             </div>
           </div>
         </sc-for>
@@ -665,6 +665,7 @@ class Component extends DCLogic {
     try { const s = localStorage.getItem('portfolioOverrides_v1'); if (s) ov = JSON.parse(s); } catch(e) {}
     this.state.priceOverrides = ov.cmp || {};
     this.state.qtyOverrides = ov.qty || {};
+    this.state.buyOverrides = ov.buy || {};
     this.state.updatedAt = ov.updatedAt || null;
     this.state.autoPrices = {};
     this.state.autoUpdatedAt = null;
@@ -701,17 +702,21 @@ class Component extends DCLogic {
       let qty = b.qty;
       const q = qov[b.ticker];
       if (q != null && q !== '' && !isNaN(Number(q))) qty = Number(q);
-      const cost = b.buyPrice * qty;
+      let buyPrice = b.buyPrice;
+      const bp = (this.state.buyOverrides||{})[b.ticker];
+      if (bp != null && bp !== '' && !isNaN(Number(bp))) buyPrice = Number(bp);
+      const cost = buyPrice * qty;
       const cur = cmp * qty;
-      return { ...b, qty, cost, cmp, cur, pl: cur - cost, plpct: cost > 0 ? (cur - cost) / cost * 100 : 0 };
+      return { ...b, qty, buyPrice, cost, cmp, cur, pl: cur - cost, plpct: cost > 0 ? (cur - cost) / cost * 100 : 0 };
     });
   }
 
   todayStr(){ const d=new Date(); const mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]; return String(d.getDate()).padStart(2,'0')+' '+mo+' '+d.getFullYear(); }
-  persistOverrides(updatedAt){ try{ localStorage.setItem('portfolioOverrides_v1', JSON.stringify({ cmp:this.state.priceOverrides, qty:this.state.qtyOverrides, updatedAt })); }catch(e){} }
+  persistOverrides(updatedAt){ try{ localStorage.setItem('portfolioOverrides_v1', JSON.stringify({ cmp:this.state.priceOverrides, qty:this.state.qtyOverrides, buy:this.state.buyOverrides, updatedAt })); }catch(e){} }
   setCmp(ticker,val){ const ov={...this.state.priceOverrides}; if(val===''||val==null){ delete ov[ticker]; } else { ov[ticker]=val; } const stamp=this.todayStr(); this.setState({ priceOverrides:ov, updatedAt:stamp }); this.persistOverrides(stamp); }
   setQty(ticker,val){ const qov={...this.state.qtyOverrides}; if(val===''||val==null){ delete qov[ticker]; } else { qov[ticker]=val; } const stamp=this.todayStr(); this.setState({ qtyOverrides:qov, updatedAt:stamp }); this.persistOverrides(stamp); }
-  resetPrices(){ this.setState({ priceOverrides:{}, qtyOverrides:{}, updatedAt:null }); try{ localStorage.removeItem('portfolioOverrides_v1'); }catch(e){} }
+  setBuy(ticker,val){ const bov={...this.state.buyOverrides}; if(val===''||val==null){ delete bov[ticker]; } else { bov[ticker]=val; } const stamp=this.todayStr(); this.setState({ buyOverrides:bov, updatedAt:stamp }); this.persistOverrides(stamp); }
+  resetPrices(){ this.setState({ priceOverrides:{}, qtyOverrides:{}, buyOverrides:{}, updatedAt:null }); try{ localStorage.removeItem('portfolioOverrides_v1'); }catch(e){} }
   openUpdate(){ this.setState({ showUpdate:true }); }
   closeUpdate(){ this.setState({ showUpdate:false }); }
 
@@ -719,12 +724,14 @@ class Component extends DCLogic {
     const rows = this.computeRows();
     return rows.map(r => ({
       ticker:r.ticker, display:r.display, dot:this.sectorColor(r.sector), sector:r.sector,
-      buyRef:this.fmtPrice(r.buyPrice), cmpVal:String(r.cmp), qtyVal:String(r.qty),
+      buyRef:this.fmtPrice(r.buyPrice), cmpRef:this.fmtPrice(r.cmp), cmpVal:String(r.cmp), qtyVal:String(r.qty), buyVal:String(r.buyPrice),
       qtyColor:(this.state.qtyOverrides[r.ticker]!=null && this.state.qtyOverrides[r.ticker]!=='')?'#b0683c':'#1b1b18',
+      buyColor:((this.state.buyOverrides||{})[r.ticker]!=null && (this.state.buyOverrides||{})[r.ticker]!=='')?'#b0683c':'#1b1b18',
       edited: this.state.priceOverrides[r.ticker]!=null && this.state.priceOverrides[r.ticker]!=='',
       plPctFmt:(r.plpct>=0?'+':'−')+Math.abs(r.plpct).toFixed(1)+'%', plColor:this.pnlTextColor(r.plpct),
       onChange:(e)=>this.setCmp(r.ticker, e.target.value),
       onQtyChange:(e)=>this.setQty(r.ticker, e.target.value),
+      onBuyChange:(e)=>this.setBuy(r.ticker, e.target.value),
     }));
   }
 
