@@ -1,6 +1,6 @@
 {
   "schema": "news_v2",
-  "updatedAt": "2026-08-10",
+  "updatedAt": "2026-08-17",
   "notes": {
     "YESBANK": {
       "items": [
@@ -241,6 +241,36 @@
           "date": "27 Mar 26",
           "text": "Allianz Jio Reinsurance begins underwriting in India",
           "url": "https://www.lifeinsuranceinternational.com/news/allianz-jio-reinsurance-begins-underwriting/"
+        },
+        {
+          "category": "macro",
+          "date": "13 Aug 26",
+          "text": "Bank of America to buy up to 49.9% stake in Jio Credit for $1.9B",
+          "url": "https://www.bankingdive.com/news/bank-of-america-buy-up-to-49-9-stake-india-jio-credit-1-9-billion/827818/"
+        },
+        {
+          "category": "macro",
+          "date": "13 Aug 26",
+          "text": "Bank of America to acquire 49.9% of India’s Jio Credit",
+          "url": "https://www.retailbankerinternational.com/news/bank-of-america-to-acquire-49-9-of-indias-jio-credit/"
+        },
+        {
+          "category": "macro",
+          "date": "13 Aug 26",
+          "text": "Bank of America (BAC) Stock Still Looks Like A Bargain Following Its 139% Run",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/bank-america-bac-stock-still-080847018.html"
+        },
+        {
+          "category": "macro",
+          "date": "13 Aug 26",
+          "text": "Factbox-Large foreign investments in India's financial sector in recent months",
+          "url": "https://sg.finance.yahoo.com/news/factbox-large-foreign-investments-indias-021921758.html"
+        },
+        {
+          "category": "macro",
+          "date": "12 Aug 26",
+          "text": "BofA to take 49.9% stake in Jio Credit for $1.9 billion in India push",
+          "url": "https://sg.finance.yahoo.com/news/bofa-invest-1-9-billion-154850725.html"
         }
       ]
     },
@@ -291,6 +321,12 @@
           "date": "03 Nov 25",
           "text": "Central Depository Services (India) Ltd (NSE:CDSL) Q2 2026 Earnings Call Highlights: Navigating ...",
           "url": "https://finance.yahoo.com/news/central-depository-services-india-ltd-170106233.html"
+        },
+        {
+          "category": "guidance",
+          "date": "11 Aug 26",
+          "text": "Central Depository Services (India) Ltd (NSE:CDSL) (Q1 2027) Earnings Call Highlights: Record ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/central-depository-services-india-ltd-010218910.html"
         }
       ]
     },
@@ -319,6 +355,12 @@
           "date": "11 Feb 26",
           "text": "HPL Electric & Power Ltd (BOM:540136) Q3 2026 Earnings Call Highlights: Robust Revenue ...",
           "url": "https://finance.yahoo.com/news/hpl-electric-power-ltd-bom-010100856.html"
+        },
+        {
+          "category": "guidance",
+          "date": "13 Aug 26",
+          "text": "HPL Electric & Power Ltd (BOM:540136) (Q1 2027) Earnings Call Highlights: Record Revenue ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/hpl-electric-power-ltd-bom-010802702.html"
         }
       ],
       "total": "₹3,100Cr+"
@@ -501,6 +543,12 @@
           "date": "18 Nov 25",
           "text": "J G Chemicals Ltd (NSE:JGCHEM) Q2 2026 Earnings Call Highlights: Expansion Plans and Market ...",
           "url": "https://finance.yahoo.com/news/j-g-chemicals-ltd-nse-050156979.html"
+        },
+        {
+          "category": "guidance",
+          "date": "13 Aug 26",
+          "text": "J G Chemicals Ltd (NSE:JGCHEM) (Q1 2027) Earnings Call Highlights: Record Quarter and Strategic ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/j-g-chemicals-ltd-nse-010654448.html"
         }
       ]
     },
@@ -655,6 +703,12 @@
           "date": "13 Nov 25",
           "text": "Transrail Lighting Ltd (NSE:TRANSRAILL) Q2 2026 Earnings Call Highlights: Robust Revenue Growth ...",
           "url": "https://finance.yahoo.com/news/transrail-lighting-ltd-nse-transraill-010655740.html"
+        },
+        {
+          "category": "guidance",
+          "date": "13 Aug 26",
+          "text": "Transrail Lighting Ltd (NSE:TRANSRAILL) (Q1 2027) Earnings Call Highlights: Record Q1 Revenue ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/transrail-lighting-ltd-nse-transraill-010629261.html"
         }
       ],
       "total": "₹16,936Cr"
@@ -678,6 +732,12 @@
           "date": "12 Nov 25",
           "text": "Aarti Pharmalabs Ltd (BOM:543748) Q2 2026 Earnings Call Highlights: Navigating Growth Amidst ...",
           "url": "https://finance.yahoo.com/news/aarti-pharmalabs-ltd-bom-543748-050033304.html"
+        },
+        {
+          "category": "guidance",
+          "date": "12 Aug 26",
+          "text": "Aarti Pharmalabs Ltd (BOM:543748) (Q1 2027) Earnings Call Highlights: Record Xanthine Sales and ...",
+          "url": "https://finance.yahoo.com/healthcare/articles/aarti-pharmalabs-ltd-bom-543748-010607701.html"
         }
       ]
     },
@@ -756,6 +816,12 @@
           "date": "12 Feb 26",
           "text": "Amara Raja Energy & Mobility Ltd (BOM:500008) Q3 2026 Earnings Call Highlights: Navigating ...",
           "url": "https://finance.yahoo.com/news/amara-raja-energy-mobility-ltd-210828706.html"
+        },
+        {
+          "category": "guidance",
+          "date": "12 Aug 26",
+          "text": "Amara Raja Energy & Mobility Ltd (BOM:500008) (Q1 2027) Earnings Call Highlights: Revenue ...",
+          "url": "https://finance.yahoo.com/energy/articles/amara-raja-energy-mobility-ltd-030141968.html"
         }
       ]
     },
@@ -1132,6 +1198,12 @@
           "date": "17 Nov 25",
           "text": "Marksans Pharma Ltd (BOM:524404) Q2 2026 Earnings Call Highlights: Strong US Growth and ...",
           "url": "https://finance.yahoo.com/news/marksans-pharma-ltd-bom-524404-130051478.html"
+        },
+        {
+          "category": "guidance",
+          "date": "15 Aug 26",
+          "text": "Marksans Pharma Ltd (BOM:524404) (Q1 2027) Earnings Call Highlights: Record Revenue and Profit ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/marksans-pharma-ltd-bom-524404-010956523.html"
         }
       ]
     },
@@ -1288,6 +1360,12 @@
           "date": "24 Apr 26",
           "text": "India's state-run SAIL wins court block on steel antitrust investigation",
           "url": "https://sg.finance.yahoo.com/news/indias-state-run-sail-wins-095524428.html"
+        },
+        {
+          "category": "management",
+          "date": "12 Aug 26",
+          "text": "India's Tata Group stocks extend slide after chairman Chandrasekaran quits",
+          "url": "https://sg.finance.yahoo.com/news/indias-tata-group-stocks-tumble-055139723.html"
         }
       ]
     },
