@@ -1,6 +1,6 @@
 {
   "schema": "news_v2",
-  "updatedAt": "2026-08-17",
+  "updatedAt": "2026-08-24",
   "notes": {
     "YESBANK": {
       "items": [
@@ -137,6 +137,12 @@
           "date": "13 Oct 25",
           "text": "India's Canara Robeco's IPO fully subscribed on final day, led by institutional buyers",
           "url": "https://sg.finance.yahoo.com/news/indias-canara-robecos-ipo-fully-090702922.html"
+        },
+        {
+          "category": "macro",
+          "date": "21 Jul 26",
+          "text": "India's SBI Funds ends 6.2% higher on debut as investors bet on industry growth",
+          "url": "https://sg.finance.yahoo.com/news/indias-sbi-funds-management-rises-042001305.html"
         }
       ]
     },
@@ -189,6 +195,18 @@
           "date": "17 Jul 26",
           "text": "Ambani's Reliance beats profit view on oil-to-chemicals, telecom strength",
           "url": "https://sg.finance.yahoo.com/news/billionaire-mukesh-ambanis-reliance-beats-135528001.html"
+        },
+        {
+          "category": "macro",
+          "date": "17 Aug 26",
+          "text": "Rolls-Royce Stock Hits First New High In 14 Years. Firm Announces Engine Project.",
+          "url": "https://www.investors.com/news/rolls-royce-jet-engines-india/?src=A00220&yptr=yahoo"
+        },
+        {
+          "category": "guidance",
+          "date": "20 Jul 26",
+          "text": "Margin worries for private banks, Middle East war drag down Indian shares",
+          "url": "https://sg.finance.yahoo.com/news/indian-shares-may-open-tad-023435425.html"
         }
       ]
     },
@@ -271,6 +289,18 @@
           "date": "12 Aug 26",
           "text": "BofA to take 49.9% stake in Jio Credit for $1.9 billion in India push",
           "url": "https://sg.finance.yahoo.com/news/bofa-invest-1-9-billion-154850725.html"
+        },
+        {
+          "category": "macro",
+          "date": "17 Aug 26",
+          "text": "Jio-BlackRock to launch regular mutual fund plans through distributors in India",
+          "url": "https://sg.finance.yahoo.com/news/jio-blackrock-launch-regular-mutual-110811901.html"
+        },
+        {
+          "category": "macro",
+          "date": "04 Aug 26",
+          "text": "Jio-BlackRock enters India's ETF market with Nifty 50 fund",
+          "url": "https://sg.finance.yahoo.com/news/jio-blackrock-enters-indias-etf-073147600.html"
         }
       ]
     },
@@ -641,6 +671,12 @@
           "date": "16 Oct 25",
           "text": "KPIT takes majority stake in AirConsole maker N-Dream",
           "url": "https://www.just-auto.com/news/kpit-takes-majority-stake-n-dream/"
+        },
+        {
+          "category": "client",
+          "date": "21 Aug 26",
+          "text": "KPIT, Vietsol sign MoU for Southeast Asia mobility push",
+          "url": "https://www.just-auto.com/news/kpit-vietsol-mou-southeast-asia/"
         }
       ]
     },
@@ -896,6 +932,12 @@
           "date": "19 Apr 26",
           "text": "How The Bandhan Bank (NSEI:BANDHANBNK) Story Is Shifting As Fair Value Assumptions Evolve",
           "url": "https://finance.yahoo.com/markets/stocks/articles/bandhan-bank-nsei-bandhanbnk-story-001603004.html"
+        },
+        {
+          "category": "macro",
+          "date": "22 Jul 26",
+          "text": "India's equity benchmarks log worst day in 2 weeks on widening Mideast conflict",
+          "url": "https://sg.finance.yahoo.com/news/indian-shares-seen-opening-lower-023143987.html"
         }
       ]
     },
@@ -1074,6 +1116,12 @@
           "date": "10 Apr 26",
           "text": "Indian government begins fresh IDBI Bank valuation – report",
           "url": "https://www.retailbankerinternational.com/news/government-begins-idbi-bank-valuation/"
+        },
+        {
+          "category": "guidance",
+          "date": "20 Aug 26",
+          "text": "Radiant Cash Management Services Ltd (NSE:RADIANTCMS) (Q1 2027) Earnings Call Highlights: ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/radiant-cash-management-services-ltd-010440817.html"
         }
       ]
     },
@@ -1308,6 +1356,12 @@
           "date": "24 Oct 25",
           "text": "India's SBI Life reports lower profit as costs rise, investment income drops",
           "url": "https://sg.finance.yahoo.com/news/indias-sbi-life-reports-lower-111126735.html"
+        },
+        {
+          "category": "guidance",
+          "date": "24 Jul 26",
+          "text": "India's SBI Life posts higher quarterly profit, expects margins to improve",
+          "url": "https://sg.finance.yahoo.com/news/indias-sbi-life-posts-quarterly-092416584.html"
         }
       ]
     },
@@ -1450,6 +1504,12 @@
           "date": "17 Nov 25",
           "text": "MSTC Ltd (BOM:542597) Q2 2026 Earnings Call Highlights: E-Commerce Drives Growth Amidst Challenges",
           "url": "https://finance.yahoo.com/news/mstc-ltd-bom-542597-q2-030036240.html"
+        },
+        {
+          "category": "guidance",
+          "date": "18 Aug 26",
+          "text": "MSTC Ltd (BOM:542597) (Q1 2027) Earnings Call Highlights: Record E-Commerce Revenue and ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/mstc-ltd-bom-542597-q1-010437433.html"
         }
       ]
     },
@@ -1660,6 +1720,12 @@
           "date": "14 Nov 25",
           "text": "Supriya Lifescience Ltd (BOM:543434) Q2 2026 Earnings Call Highlights: Strong Sales Growth and ...",
           "url": "https://finance.yahoo.com/news/supriya-lifescience-ltd-bom-543434-050059531.html"
+        },
+        {
+          "category": "guidance",
+          "date": "17 Aug 26",
+          "text": "Supriya Lifescience Ltd (BOM:543434) (Q1 2027) Earnings Call Highlights: Revenue Surges 31% to ...",
+          "url": "https://finance.yahoo.com/healthcare/articles/supriya-lifescience-ltd-bom-543434-190053598.html"
         }
       ]
     },
