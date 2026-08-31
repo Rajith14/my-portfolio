@@ -43,6 +43,7 @@
       <div style="display:flex; flex-direction:column; align-items:flex-end; gap:7px; flex:none;">
         <div style="display:flex; align-items:center; gap:8px;">
           <button onClick="{{ refreshCmp }}" style="display:flex; align-items:center; gap:6px; border:1px solid #ddd9cd; background:#fff; color:#1b1b18; cursor:pointer; font-family:inherit; font-size:12.5px; font-weight:500; padding:8px 13px; border-radius:8px;"><span style="{{ refreshIconStyle }}">↻</span> {{ refreshLabel }}</button>
+          <span style="{{ refreshMsgStyle }}">{{ refreshMsg }}</span>
           <button onClick="{{ openUpdate }}" style="display:flex; align-items:center; gap:7px; border:1px solid #1b1b18; background:#1b1b18; color:#f4f2ec; cursor:pointer; font-family:inherit; font-size:12.5px; font-weight:500; padding:8px 14px; border-radius:8px;">✎ Update holdings</button>
         </div>
         <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#9a978c;">{{ asOf }}</div>
@@ -666,37 +667,37 @@ class Component extends DCLogic {
       ['ARE&M','Auto Ancillary','NON-SME',44397,673,108,798,'Zerodha'],
       ['BANDHANBNK','Banking','NON-SME',44166,217,470,194.1,'Zerodha'],
       ['CANBK','Banking','NON-SME',44334,25,625,131.97,'Zerodha'],
-      ['EQUITASBNK','Banking','NON-SME',44168,68,1575,71.21,'Zerodha'],
+      ['EQUITASBNK','Banking','NON-SME',44168,68,1775,71.21,'Zerodha'],
       ['HSCL','Chemicals','NON-SME',44281,42,200,677,'Zerodha'],
-      ['IDBI','Banking','NON-SME',44406,38.78,200,72.6,'Zerodha'],
-      ['IRFC','Financial','NON-SME',44278,26,525,93.45,'Zerodha'],
-      ['ITC','FMCG','NON-SME',44385,173,355,282.65,'Zerodha'],
-      ['ITCHOTELS','Hospitality','NON-SME',45693,185,481,149.45,'Zerodha'],
-      ['MARKSANS','Pharmaceuticals','NON-SME',44116,111,341,250.7,'Zerodha'],
-      ['PNB','Banking','NON-SME',44281,38,1700,106.43,'Zerodha'],
-      ['SBILIFE','Insurance','NON-SME',44133,819.25,80,1740,'Zerodha'],
-      ['TATASTEEL','Steel','NON-SME',44527,118,449,198.4,'Zerodha'],
-      ['UJJIVANSFB','Banking','NON-SME',44421,29,1185,53.5,'Zerodha'],
-      ['UNIONBANK','Banking','NON-SME',44446,36,450,164.7,'Zerodha'],
-      ['NIFTYBEES','ETF','NON-SME',44452,237.5925,1469,262.94,'Zerodha'],
-      ['GOLDBEES','ETF','NON-SME',44424,58,452,119.25,'Zerodha'],
-      ['UTKARSHBNK','Banking','NON-SME',45140,48,1525,12.45,'Zerodha'],
-      ['MSTCLTD','Trading','NON-SME',45219,447,292,558.8,'Zerodha'],
-      ['POCL','Recycling','NON-SME',45232,89,625,1184.9,'Zerodha'],
-      ['GLOBUSSPR','Breweries & Distilleries','NON-SME',45260,848,158,836.9,'Zerodha'],
-      ['AVALON','Electronics (EMS)','NON-SME',45356,551,186,1580,'Zerodha'],
-      ['SAMHI','Hospitality','NON-SME',45877,205,666,160,'Zerodha'],
-      ['ASTRAMICRO','Defence Electronics','NON-SME',45902,1032,203,1398.9,'Zerodha'],
-      ['ROSSTECH','Defence Electronics','NON-SME',46077,696,21,970,'Zerodha'],
-      ['INDGN','Healthcare IT','NON-SME',46104,491,323,505,'Zerodha'],
-      ['AARTIDRUGS','Pharmaceuticals','NON-SME',44897,499.58,110,367,'Zerodha'],
-      ['SUPRIYA','Pharmaceuticals','NON-SME',44834,255.81,75,941,'Zerodha'],
-      ['DPWIRES','Engineering','NON-SME',45184,449.13,103,171.01,'Zerodha'],
-      ['TATACHEM','Chemicals','NON-SME',45184,1063.21,40,745.5,'Zerodha'],
-      ['STEELCAS','Engineering','NON-SME',45281,128.77,195,284.9,'Zerodha'],
-      ['AXISTECETF','ETF','NON-SME',45494,405,101,307.95,'Zerodha'],
-      ['COCHINSHIP','Shipbuilding','NON-SME',45586,1598.01,56,1385,'Zerodha'],
-      ['TRIDENT','Textiles','NON-SME',43269,6.23,900,23.57,'Zerodha'],
+      ['IRFC','Financial','NON-SME',44406,26,525,93.45,'Zerodha'],
+      ['ITC','FMCG','NON-SME',44278,173,355,282.65,'Zerodha'],
+      ['ITCHOTELS','Hospitality','NON-SME',44385,185,481,149.45,'Zerodha'],
+      ['MARKSANS','Pharmaceuticals','NON-SME',45693,111,341,250.7,'Zerodha'],
+      ['PNB','Banking','NON-SME',44116,38,1700,106.43,'Zerodha'],
+      ['SBILIFE','Insurance','NON-SME',44281,818,40,1740,'Zerodha'],
+      ['TATASTEEL','Steel','NON-SME',44133,118,449,198.4,'Zerodha'],
+      ['UJJIVANSFB','Banking','NON-SME',44527,29,1185,53.5,'Zerodha'],
+      ['UNIONBANK','Banking','NON-SME',44421,36,450,164.7,'Zerodha'],
+      ['NIFTYBEES','ETF','NON-SME',44446,237.5925,1469,262.94,'Zerodha'],
+      ['GOLDBEES','ETF','NON-SME',44452,58,452,119.25,'Zerodha'],
+      ['UTKARSHBNK','Banking','NON-SME',44424,48,1525,12.45,'Zerodha'],
+      ['MSTCLTD','Trading','NON-SME',45140,447,292,558.8,'Zerodha'],
+      ['POCL','Recycling','NON-SME',45219,89,625,1184.9,'Zerodha'],
+      ['GLOBUSSPR','Breweries & Distilleries','NON-SME',45232,848,158,836.9,'Zerodha'],
+      ['AVALON','Electronics (EMS)','NON-SME',45260,551,186,1580,'Zerodha'],
+      ['SAMHI','Hospitality','NON-SME',45356,205,666,160,'Zerodha'],
+      ['ASTRAMICRO','Defence Electronics','NON-SME',45877,1032,203,1398.9,'Zerodha'],
+      ['ROSSTECH','Defence Electronics','NON-SME',45902,696,10,970,'Zerodha'],
+      ['INDGN','Healthcare IT','NON-SME',46077,491,323,505,'Zerodha'],
+      ['AEQUS','Aerospace','NON-SME',46104,248,300,248,'Zerodha'],
+      ['AARTIDRUGS','Pharmaceuticals','NON-SME',44897,499.58,110,367,'NJ'],
+      ['SUPRIYA','Pharmaceuticals','NON-SME',44834,255.81,75,941,'NJ'],
+      ['DPWIRES','Engineering','NON-SME',45184,449.13,103,171.01,'NJ'],
+      ['TATACHEM','Chemicals','NON-SME',45184,1063.21,40,745.5,'NJ'],
+      ['STEELCAS','Engineering','NON-SME',45281,128.77,195,284.9,'NJ'],
+      ['AXISTECETF','ETF','NON-SME',45494,405,101,307.95,'NJ'],
+      ['COCHINSHIP','Shipbuilding','NON-SME',45586,1598.01,56,1385,'NJ'],
+      ['TRIDENT','Textiles','NON-SME',43269,6.23,900,23.57,'ICICI'],
     ];
 
     this.notes = {
@@ -738,6 +739,7 @@ class Component extends DCLogic {
     this.state.updatedAt = ov.updatedAt || null;
     this.state.autoPrices = {};
     this.state.refreshing = false;
+    this.state.refreshMsg = '';
     this.state.autoUpdatedAt = null;
     this.state.prev1mo = {};
     this.state.prevAsOf = null;
@@ -747,15 +749,33 @@ class Component extends DCLogic {
 
   componentDidMount(){ this.loadAutoPrices(); }
 
-  async loadAutoPrices(){
-    // Reads prices.json sitting next to this file (written monthly by GitHub Actions).
-    // Silently falls back to the snapshot when offline or opened as a local file.
+  refreshCmp(){
+    if (this.state.refreshing) return;
+    this.setState({ refreshing: true, refreshMsg: '' });
+    this.loadAutoPrices(true).then((ok)=>{
+      this.setState({
+        refreshing: false,
+        refreshMsg: ok ? ('Updated ' + new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})) : 'No prices.json found yet',
+      });
+      clearTimeout(this._refreshTimer);
+      this._refreshTimer = setTimeout(()=> this.setState({ refreshMsg: '' }), 4000);
+    });
+  }
+
+  async loadAutoPrices(bust){
+    // Reads prices.json sitting next to this file (rewritten by the GitHub Action).
+    // Cache-busts on manual refresh so GitHub Pages' CDN can't serve a stale copy.
     try {
-      const res = await fetch('prices.json', { cache: 'no-store' });
-      if (!res.ok) return;
+      const url = bust ? ('prices.json?t=' + Date.now()) : 'prices.json';
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) return false;
       const data = await res.json();
-      if (data && data.cmp) this.setState({ autoPrices: data.cmp, autoUpdatedAt: data.updatedAt || null, prev1mo: data.prev1mo || {}, prevAsOf: data.prevAsOf || null });
-    } catch (e) { /* no prices.json available — keep snapshot */ }
+      if (data && data.cmp) {
+        this.setState({ autoPrices: data.cmp, autoUpdatedAt: data.updatedAt || null, prev1mo: data.prev1mo || {}, prevAsOf: data.prevAsOf || null });
+        return true;
+      }
+      return false;
+    } catch (e) { return false; }
   }
 
   computeRows(){
@@ -1096,7 +1116,7 @@ class Component extends DCLogic {
 
   buildBrokerView(){
     const rows = this.computeRows();
-    const accents = { 'Angel':'#b0683c', 'Zerodha':'#3f7cac', 'Other':'#7a8a6b' };
+    const accents = { 'Angel':'#b0683c', 'Zerodha':'#3f7cac', 'NJ':'#5a8f6b', 'ICICI':'#8a6db0', 'Other':'#7a8a6b' };
     const groups = {};
     rows.forEach(r=>{ const k=r.broker||'Other'; (groups[k]=groups[k]||[]).push(r); });
     const totInvested = rows.reduce((a,r)=>a+r.cost,0) || 1;
@@ -1265,6 +1285,8 @@ class Component extends DCLogic {
       refreshing:this.state.refreshing,
       refreshLabel:this.state.refreshing?'Refreshing…':'Refresh CMP',
       refreshIconStyle:this.state.refreshing?'display:inline-block; animation:spin 0.9s linear infinite;':'display:inline-block;',
+      refreshMsg:this.state.refreshMsg||'',
+      refreshMsgStyle:'font-family:\'IBM Plex Mono\',monospace; font-size:10.5px; color:#7a9a6b; min-height:13px;',
       updateRows:this.buildUpdateRows(),
       openUpdate:()=>this.openUpdate(), closeUpdate:()=>this.closeUpdate(), resetPrices:()=>this.resetPrices(),
 
