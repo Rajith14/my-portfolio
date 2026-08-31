@@ -1,6 +1,6 @@
 {
   "schema": "news_v2",
-  "updatedAt": "2026-08-24",
+  "updatedAt": "2026-08-31",
   "notes": {
     "YESBANK": {
       "items": [
@@ -51,6 +51,12 @@
           "date": "20 Jan 26",
           "text": "Yes Bank Ltd (BOM:532648) Q3 2026 Earnings Call Highlights: Strong Profit Growth Amid Strategic ...",
           "url": "https://finance.yahoo.com/news/yes-bank-ltd-bom-532648-010138562.html"
+        },
+        {
+          "category": "macro",
+          "date": "25 Aug 26",
+          "text": "India's Yes Bank, two other peers withdraw dollar debt plan, bankers say",
+          "url": "https://sg.finance.yahoo.com/news/indias-yes-bank-two-other-093110510.html"
         }
       ]
     },
@@ -880,6 +886,12 @@
           "date": "17 Nov 25",
           "text": "Avanti Feeds Ltd (BOM:512573) Q2 2026 Earnings Call Highlights: Strong Revenue Growth Amidst ...",
           "url": "https://finance.yahoo.com/news/avanti-feeds-ltd-bom-512573-070200344.html"
+        },
+        {
+          "category": "guidance",
+          "date": "29 Aug 26",
+          "text": "Avanti Feeds Ltd (BOM:512573) (Q1 2027) Earnings Call Highlights: Revenue Surges 19% but Raw ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/avanti-feeds-ltd-bom-512573-010223455.html"
         }
       ]
     },
@@ -1122,6 +1134,12 @@
           "date": "20 Aug 26",
           "text": "Radiant Cash Management Services Ltd (NSE:RADIANTCMS) (Q1 2027) Earnings Call Highlights: ...",
           "url": "https://finance.yahoo.com/markets/stocks/articles/radiant-cash-management-services-ltd-010440817.html"
+        },
+        {
+          "category": "macro",
+          "date": "24 Aug 26",
+          "text": "Fairfax may get time to align bank stakes for IDBI bid – report",
+          "url": "https://www.retailbankerinternational.com/news/fairfax-idbi-bid/"
         }
       ]
     },
