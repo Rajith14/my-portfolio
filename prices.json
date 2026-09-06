@@ -58,7 +58,9 @@
     "AXISTECETF": 296.77,
     "COCHINSHIP": 1499.1,
     "TRIDENT": 24.16,
-    "CONCORDBIO": 1417.1
+    "CONCORDBIO": 1417.1,
+    "MBEL": 270.15,
+    "OLAELEC": 38.2
   },
   "prev1mo": {
     "YESBANK": 24.26,
@@ -119,8 +121,10 @@
     "STEELCAS": 319.42,
     "AXISTECETF": 320.7,
     "COCHINSHIP": 1506.4,
-    "TRIDENT": 26.25
+    "TRIDENT": 26.25,
+    "MBEL": 332.0,
+    "OLAELEC": 42.39
   },
   "prevAsOf": "06 Jul 2026",
-  "updatedAt": "04 Sep 2026"
+  "updatedAt": "06 Sep 2026"
 }
