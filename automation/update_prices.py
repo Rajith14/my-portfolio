@@ -69,6 +69,8 @@ TICKERS = {
     "STEELCAS":   "STEELCAS.NS",
     "AXISTECETF": "AXISTECETF.NS",
     "COCHINSHIP": "COCHINSHIP.NS",
+    "MBEL":       "MBEL.NS",
+    "OLAELEC":    "OLAELEC.NS",
     "TRIDENT":    "TRIDENT.NS",
 }
 
