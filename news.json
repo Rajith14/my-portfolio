@@ -1,6 +1,6 @@
 {
   "schema": "news_v2",
-  "updatedAt": "2026-08-31",
+  "updatedAt": "2026-09-07",
   "notes": {
     "YESBANK": {
       "items": [
@@ -213,6 +213,18 @@
           "date": "20 Jul 26",
           "text": "Margin worries for private banks, Middle East war drag down Indian shares",
           "url": "https://sg.finance.yahoo.com/news/indian-shares-may-open-tad-023435425.html"
+        },
+        {
+          "category": "macro",
+          "date": "01 Sep 26",
+          "text": "Reliance’s JioHotstar takes its streaming empire global — without sports",
+          "url": "https://finance.yahoo.com/media-advertising/articles/reliance-jiohotstar-takes-streaming-empire-230000359.html"
+        },
+        {
+          "category": "macro",
+          "date": "01 Sep 26",
+          "text": "Meta and Google's Jio Bet Is Heading Toward a $137 Billion Test",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/meta-googles-jio-bet-heading-014514419.html"
         }
       ]
     },
@@ -683,6 +695,12 @@
           "date": "21 Aug 26",
           "text": "KPIT, Vietsol sign MoU for Southeast Asia mobility push",
           "url": "https://www.just-auto.com/news/kpit-vietsol-mou-southeast-asia/"
+        },
+        {
+          "category": "macro",
+          "date": "02 Sep 26",
+          "text": "3 Great Indian AI Stocks To Own In September 2026",
+          "url": "https://finance.yahoo.com/technology/ai/articles/3-great-indian-ai-stocks-221852276.html"
         }
       ]
     },
