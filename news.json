@@ -1,6 +1,6 @@
 {
   "schema": "news_v2",
-  "updatedAt": "2026-09-07",
+  "updatedAt": "2026-09-14",
   "notes": {
     "YESBANK": {
       "items": [
@@ -225,6 +225,12 @@
           "date": "01 Sep 26",
           "text": "Meta and Google's Jio Bet Is Heading Toward a $137 Billion Test",
           "url": "https://finance.yahoo.com/markets/stocks/articles/meta-googles-jio-bet-heading-014514419.html"
+        },
+        {
+          "category": "macro",
+          "date": "07 Sep 26",
+          "text": "Kering Expands Generation Award to India",
+          "url": "https://wwd.com/sustainability/innovation/kering-generation-award-india-reliance-brands-limited-1239199796/"
         }
       ]
     },
@@ -1158,6 +1164,18 @@
           "date": "24 Aug 26",
           "text": "Fairfax may get time to align bank stakes for IDBI bid – report",
           "url": "https://www.retailbankerinternational.com/news/fairfax-idbi-bid/"
+        },
+        {
+          "category": "macro",
+          "date": "08 Sep 26",
+          "text": "Blackstone explores stake in India’s IIFL Finance – report",
+          "url": "https://www.retailbankerinternational.com/news/blackstone-explores-stake-in-indias-iifl-finance-report/"
+        },
+        {
+          "category": "macro",
+          "date": "08 Sep 26",
+          "text": "Market Chatter: Blackstone Eyes Stake in India's IIFL Finance as Fairfax Financial Looks to Exit",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/market-chatter-blackstone-eyes-stake-101014054.html"
         }
       ]
     },
