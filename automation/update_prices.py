@@ -60,7 +60,6 @@ TICKERS = {
     "AVALON":     "AVALON.NS",
     "SAMHI":      "SAMHI.NS",
     "ASTRAMICRO": "ASTRAMICRO.NS",
-    "ROSSTECH":   "ROSSTECH.NS",
     "INDGN":      "INDGN.NS",
     "AARTIDRUGS": "AARTIDRUGS.NS",
     "SUPRIYA":    "SUPRIYA.NS",
