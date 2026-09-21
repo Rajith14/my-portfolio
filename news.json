@@ -1,6 +1,6 @@
 {
   "schema": "news_v2",
-  "updatedAt": "2026-09-14",
+  "updatedAt": "2026-09-21",
   "notes": {
     "YESBANK": {
       "items": [
@@ -231,6 +231,12 @@
           "date": "07 Sep 26",
           "text": "Kering Expands Generation Award to India",
           "url": "https://wwd.com/sustainability/innovation/kering-generation-award-india-reliance-brands-limited-1239199796/"
+        },
+        {
+          "category": "macro",
+          "date": "18 Sep 26",
+          "text": "Reliance (NYSE:RS) Gets A Lift From Tax Relief As Valuation Looks Nearly Fair",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/reliance-nyse-rs-gets-lift-101251758.html"
         }
       ]
     },
@@ -1474,6 +1480,12 @@
           "date": "12 Aug 26",
           "text": "India's Tata Group stocks extend slide after chairman Chandrasekaran quits",
           "url": "https://sg.finance.yahoo.com/news/indias-tata-group-stocks-tumble-055139723.html"
+        },
+        {
+          "category": "macro",
+          "date": "19 Sep 26",
+          "text": "Tata Steel seeks new government funding as industry crisis deepens",
+          "url": "https://uk.finance.yahoo.com/news/tata-steel-seeks-government-funding-081100944.html"
         }
       ]
     },
