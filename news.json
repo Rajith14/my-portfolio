@@ -1,6 +1,6 @@
 {
   "schema": "news_v2",
-  "updatedAt": "2026-09-21",
+  "updatedAt": "2026-09-28",
   "notes": {
     "YESBANK": {
       "items": [
@@ -237,6 +237,12 @@
           "date": "18 Sep 26",
           "text": "Reliance (NYSE:RS) Gets A Lift From Tax Relief As Valuation Looks Nearly Fair",
           "url": "https://finance.yahoo.com/markets/stocks/articles/reliance-nyse-rs-gets-lift-101251758.html"
+        },
+        {
+          "category": "macro",
+          "date": "25 Sep 26",
+          "text": "Oil Refiners In Focus After Saudi Exports Rise and Brent Nears $110",
+          "url": "https://finance.yahoo.com/energy/articles/oil-refiners-focus-saudi-exports-201455221.html"
         }
       ]
     },
@@ -713,6 +719,18 @@
           "date": "02 Sep 26",
           "text": "3 Great Indian AI Stocks To Own In September 2026",
           "url": "https://finance.yahoo.com/technology/ai/articles/3-great-indian-ai-stocks-221852276.html"
+        },
+        {
+          "category": "macro",
+          "date": "28 Sep 26",
+          "text": "Indian AI Stocks To Watch In September 2026",
+          "url": "https://finance.yahoo.com/technology/ai/articles/indian-ai-stocks-watch-september-090902535.html"
+        },
+        {
+          "category": "macro",
+          "date": "23 Sep 26",
+          "text": "Tanla Platforms And 2 Indian AI Stocks To Watch",
+          "url": "https://finance.yahoo.com/technology/ai/articles/tanla-platforms-2-indian-ai-071331500.html"
         }
       ]
     },
@@ -856,6 +874,12 @@
           "date": "27 Jan 26",
           "text": "Gravita India Ltd (BOM:533282) Q3 2026 Earnings Call Highlights: Strong PAT Growth Amidst ...",
           "url": "https://finance.yahoo.com/news/gravita-india-ltd-bom-533282-010313812.html"
+        },
+        {
+          "category": "macro",
+          "date": "26 Sep 26",
+          "text": "3 Aluminium Stocks With Pricing Power In Clean Energy Demand",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/3-aluminium-stocks-pricing-power-220808584.html"
         }
       ]
     },
@@ -1870,6 +1894,12 @@
           "date": "11 Aug 25",
           "text": "India begins construction of first green hydrogen-powered ships",
           "url": "https://www.ship-technology.com/news/india-construction-first-green-hydrogen-powered-ships/"
+        },
+        {
+          "category": "macro",
+          "date": "24 Sep 26",
+          "text": "Containership Stocks With Pricing Power As Fleet Growth Tests Shipyard Demand",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/containership-stocks-pricing-power-fleet-211855884.html"
         }
       ]
     }
