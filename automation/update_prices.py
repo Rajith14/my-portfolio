@@ -6,6 +6,7 @@ or locally:  pip install yfinance  &&  python automation/update_prices.py
 """
 
 import json
+import time
 import datetime
 import yfinance as yf
 
@@ -72,34 +73,38 @@ TICKERS = {
 }
 
 
-def fetch_current_and_prev(symbol):
-    """Return (current_price, price_about_1_month_ago, baseline_date_str).
-    Any of them may be None if the fetch fails."""
-    t = yf.Ticker(symbol)
-    current = prev = prev_date = None
-    # ~6 weeks of history: first close = baseline ~1 month ago, last close = latest
+def fetch_all(symbols):
+    """One batched request for ~6 weeks of daily closes for every ticker.
+    Returns {symbol: (current, prev_1mo, prev_date_str)}."""
+    out = {}
+    data = yf.download(symbols, period="45d", interval="1d", group_by="ticker",
+                       auto_adjust=False, progress=False, threads=True)
+    for sym in symbols:
+        try:
+            closes = (data[sym]["Close"] if len(symbols) > 1 else data["Close"]).dropna()
+        except Exception:
+            continue
+        if closes.empty:
+            continue
+        out[sym] = (float(closes.iloc[-1]), float(closes.iloc[0]),
+                    closes.index[0].strftime("%d %b %Y"))
+    return out
+
+
+def fetch_one(symbol):
+    """Fallback for any ticker the batch missed."""
     try:
-        closes = t.history(period="45d")["Close"].dropna()
+        closes = yf.Ticker(symbol).history(period="45d")["Close"].dropna()
         if not closes.empty:
-            current = float(closes.iloc[-1])
-            prev = float(closes.iloc[0])
-            prev_date = closes.index[0].strftime("%d %b %Y")
+            return (float(closes.iloc[-1]), float(closes.iloc[0]),
+                    closes.index[0].strftime("%d %b %Y"))
     except Exception:
         pass
-    # Prefer the live/last traded price for "current" when available
-    try:
-        lp = t.fast_info["last_price"]
-        if lp:
-            current = float(lp)
-    except Exception:
-        pass
-    return current, prev, prev_date
+    return None
 
 
 def main():
-    cmp = {}
-    prev1mo = {}
-    # Keep any values we already have, so a single failed fetch doesn't wipe a stock
+    cmp, prev1mo = {}, {}
     try:
         with open("prices.json") as f:
             old = json.load(f)
@@ -108,28 +113,42 @@ def main():
     except Exception:
         pass
 
-    prev_as_of = None
+    symbols = list(TICKERS.values())
+    try:
+        batch = fetch_all(symbols)
+    except Exception as e:
+        print("Batch download failed:", e)
+        batch = {}
+
+    ok, prev_as_of = 0, None
     for key, symbol in TICKERS.items():
-        current, prev, prev_date = fetch_current_and_prev(symbol)
-        if current is not None:
-            cmp[key] = round(current, 2)
-        if prev is not None:
-            prev1mo[key] = round(prev, 2)
-            if prev_as_of is None:
-                prev_as_of = prev_date
-        status = f"{current:.2f}" if current is not None else "FAILED"
-        mom = f"  (1mo base {prev:.2f})" if prev is not None else ""
-        print(f"  {key:12s} {symbol:14s} -> {status}{mom}")
+        res = batch.get(symbol)
+        if res is None:
+            time.sleep(1)
+            res = fetch_one(symbol)
+        if res is None:
+            print(f"  {key:12s} {symbol:14s} -> FAILED")
+            continue
+        current, prev, prev_date = res
+        cmp[key] = round(current, 2)
+        prev1mo[key] = round(prev, 2)
+        prev_as_of = prev_as_of or prev_date
+        ok += 1
+        print(f"  {key:12s} {symbol:14s} -> {current:.2f}  (1mo base {prev:.2f})")
+
+    if ok == 0:
+        # Fail the job loudly so it shows red in GitHub Actions instead of silently keeping stale data
+        raise SystemExit("No prices fetched at all — Yahoo may be blocking/rate-limiting. Re-run later.")
 
     out = {
         "cmp": cmp,
         "prev1mo": prev1mo,
         "prevAsOf": prev_as_of,
-        "updatedAt": datetime.datetime.utcnow().strftime("%d %b %Y"),
+        "updatedAt": datetime.datetime.now(datetime.timezone.utc).strftime("%d %b %Y"),
     }
     with open("prices.json", "w") as f:
         json.dump(out, f, indent=2)
-    print(f"\nWrote prices.json with {len(cmp)} prices, dated {out['updatedAt']}.")
+    print(f"\nWrote prices.json: {ok}/{len(TICKERS)} fetched, dated {out['updatedAt']}.")
 
 
 if __name__ == "__main__":
