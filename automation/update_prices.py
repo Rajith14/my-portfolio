@@ -39,7 +39,6 @@ TICKERS = {
     "BANDHANBNK": "BANDHANBNK.NS",
     "CANBK":      "CANBK.NS",
     "EQUITASBNK": "EQUITASBNK.NS",
-    "HSCL":       "HSCL.NS",
     "IDBI":       "IDBI.NS",
     "IRFC":       "IRFC.NS",
     "ITC":        "ITC.NS",
@@ -68,6 +67,7 @@ TICKERS = {
     "COCHINSHIP": "COCHINSHIP.NS",
     "MBEL":       "MBEL.NS",
     "OLAELEC":    "OLAELEC.NS",
+    "IRCTC":      "IRCTC.NS",
     "TRIDENT":    "TRIDENT.NS",
 }
 
