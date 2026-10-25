@@ -60,7 +60,8 @@
     "TRIDENT": 20.49,
     "CONCORDBIO": 1229.3,
     "MBEL": 253.24,
-    "OLAELEC": 29.93
+    "OLAELEC": 29.93,
+    "IRCTC": 441.4
   },
   "prev1mo": {
     "YESBANK": 22.74,
@@ -123,8 +124,9 @@
     "COCHINSHIP": 1483.33,
     "TRIDENT": 24.49,
     "MBEL": 277.45,
-    "OLAELEC": 37.28
+    "OLAELEC": 37.28,
+    "IRCTC": 487.83
   },
   "prevAsOf": "19 Aug 2026",
-  "updatedAt": "23 Oct 2026"
+  "updatedAt": "25 Oct 2026"
 }
