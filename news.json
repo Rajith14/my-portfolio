@@ -1,6 +1,6 @@
 {
   "schema": "news_v2",
-  "updatedAt": "2026-11-02",
+  "updatedAt": "2026-11-09",
   "notes": {
     "YESBANK": {
       "items": [
@@ -149,6 +149,12 @@
           "date": "21 Jul 26",
           "text": "India's SBI Funds ends 6.2% higher on debut as investors bet on industry growth",
           "url": "https://sg.finance.yahoo.com/news/indias-sbi-funds-management-rises-042001305.html"
+        },
+        {
+          "category": "macro",
+          "date": "29 Sep 26",
+          "text": "Higher Bond Yields Are Reshaping Invesco Stock And Other Income Plays",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/higher-bond-yields-reshaping-invesco-010908093.html"
         }
       ]
     },
@@ -243,6 +249,48 @@
           "date": "25 Sep 26",
           "text": "Oil Refiners In Focus After Saudi Exports Rise and Brent Nears $110",
           "url": "https://finance.yahoo.com/energy/articles/oil-refiners-focus-saudi-exports-201455221.html"
+        },
+        {
+          "category": "guidance",
+          "date": "03 Nov 26",
+          "text": "Reliance Industries Ltd (WBO:RLI) (Q2 2027) Earnings Call Highlights: Record EBITDA and PAT as ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/reliance-industries-ltd-wbo-rli-070425946.html"
+        },
+        {
+          "category": "macro",
+          "date": "02 Nov 26",
+          "text": "Reliance Adds Record $19 Billion in Market Value on Profit Beat",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/reliance-adds-record-19-billion-111336617.html"
+        },
+        {
+          "category": "macro",
+          "date": "02 Nov 26",
+          "text": "3 Oil Stocks Worth Watching If Energy Prices Stay High",
+          "url": "https://finance.yahoo.com/energy/articles/3-oil-stocks-worth-watching-021124324.html"
+        },
+        {
+          "category": "macro",
+          "date": "28 Oct 26",
+          "text": "Jio Platforms breaks India's IPO record",
+          "url": "https://www.axios.com/2026/10/28/jio-platforms-ipo-india#utm_source=yahoo_finance&utm_medium=partner&utm_campaign=subs-partner-yahoo-finance-media"
+        },
+        {
+          "category": "macro",
+          "date": "28 Oct 26",
+          "text": "Billionaire Ambani's Jio soars in market debut after India's biggest IPO",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/billionaire-ambanis-jio-jumps-21-051824469.html"
+        },
+        {
+          "category": "macro",
+          "date": "28 Oct 26",
+          "text": "Jio shares surge over 20% in blockbuster market debut",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/jio-shares-surge-over-20-061143874.html"
+        },
+        {
+          "category": "macro",
+          "date": "28 Oct 26",
+          "text": "Jio shares surge 21% in market debut after blockbuster India IPO",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/jio-shares-surge-21-market-052032079.html"
         }
       ]
     },
@@ -393,6 +441,18 @@
           "date": "11 Aug 26",
           "text": "Central Depository Services (India) Ltd (NSE:CDSL) (Q1 2027) Earnings Call Highlights: Record ...",
           "url": "https://finance.yahoo.com/markets/stocks/articles/central-depository-services-india-ltd-010218910.html"
+        },
+        {
+          "category": "guidance",
+          "date": "03 Nov 26",
+          "text": "Central Depository Services (India) Ltd (NSE:CDSL) (Q2 2027) Earnings Call Highlights: Strong ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/central-depository-services-india-ltd-091845544.html"
+        },
+        {
+          "category": "macro",
+          "date": "14 Oct 26",
+          "text": "Caught Out By CDSL's Slide? What Investors Overlooked",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/caught-cdsls-slide-investors-overlooked-141045965.html"
         }
       ]
     },
@@ -615,6 +675,12 @@
           "date": "13 Aug 26",
           "text": "J G Chemicals Ltd (NSE:JGCHEM) (Q1 2027) Earnings Call Highlights: Record Quarter and Strategic ...",
           "url": "https://finance.yahoo.com/markets/stocks/articles/j-g-chemicals-ltd-nse-010654448.html"
+        },
+        {
+          "category": "guidance",
+          "date": "06 Nov 26",
+          "text": "J G Chemicals Ltd (NSE:JGCHEM) (Q2 2027) Earnings Call Highlights: Record Revenue Surge and ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/j-g-chemicals-ltd-nse-032140118.html"
         }
       ]
     },
@@ -918,6 +984,12 @@
           "date": "12 Aug 26",
           "text": "Amara Raja Energy & Mobility Ltd (BOM:500008) (Q1 2027) Earnings Call Highlights: Revenue ...",
           "url": "https://finance.yahoo.com/energy/articles/amara-raja-energy-mobility-ltd-030141968.html"
+        },
+        {
+          "category": "macro",
+          "date": "31 Oct 26",
+          "text": "What Investors Got Wrong About Amara Raja Before The Drop",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/investors-got-wrong-amara-raja-161206404.html"
         }
       ]
     },
@@ -1004,6 +1076,24 @@
           "date": "22 Jul 26",
           "text": "India's equity benchmarks log worst day in 2 weeks on widening Mideast conflict",
           "url": "https://sg.finance.yahoo.com/news/indian-shares-seen-opening-lower-023143987.html"
+        },
+        {
+          "category": "macro",
+          "date": "31 Oct 26",
+          "text": "Bandhan Bank (NSEI:BANDHANBNK) Stock Fair Value Edges Lower On Cautious Analyst Revisions",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/bandhan-bank-nsei-bandhanbnk-stock-131419652.html"
+        },
+        {
+          "category": "macro",
+          "date": "07 Oct 26",
+          "text": "3 Asia Pacific Bank Stocks Built For Higher Interest Rates",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/3-asia-pacific-bank-stocks-101521063.html"
+        },
+        {
+          "category": "macro",
+          "date": "04 Apr 26",
+          "text": "How Recent Developments Are Shaping The Bandhan Bank (NSEI:BANDHANBNK) Investment Narrative",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/recent-developments-shaping-bandhan-bank-150945324.html"
         }
       ]
     },
@@ -1130,6 +1220,18 @@
           "date": "27 Feb 26",
           "text": "How The Himadri Speciality Chemical (BSE:500184) Narrative Is Shifting Around A Steady ₹470 Target",
           "url": "https://finance.yahoo.com/news/himadri-speciality-chemical-bse-500184-131205751.html"
+        },
+        {
+          "category": "macro",
+          "date": "12 Feb 26",
+          "text": "Why The Story On Himadri Speciality Chemical (BSE:500184) Is Shifting Without Moving The ₹470 Target",
+          "url": "https://finance.yahoo.com/news/why-story-himadri-speciality-chemical-043332024.html"
+        },
+        {
+          "category": "guidance",
+          "date": "23 Jan 26",
+          "text": "Himadri Speciality Chemical Ltd (BOM:500184) Q3 2026 Earnings Call Highlights: Robust Growth ...",
+          "url": "https://finance.yahoo.com/news/himadri-speciality-chemical-ltd-bom-010035643.html"
         }
       ]
     },
@@ -1206,6 +1308,54 @@
           "date": "08 Sep 26",
           "text": "Market Chatter: Blackstone Eyes Stake in India's IIFL Finance as Fairfax Financial Looks to Exit",
           "url": "https://finance.yahoo.com/markets/stocks/articles/market-chatter-blackstone-eyes-stake-101014054.html"
+        },
+        {
+          "category": "guidance",
+          "date": "09 Nov 26",
+          "text": "Fairfax Financial Q3 Earnings Call Highlights",
+          "url": "https://www.marketbeat.com/instant-alerts/transcript-fairfax-financial-q3-earnings-call-highlights-2026-11-08/?utm_source=yahoofinance&utm_medium=yahoofinance"
+        },
+        {
+          "category": "guidance",
+          "date": "05 Nov 26",
+          "text": "Can Fairfax Financial Holdings (TSX:FFH) Earnings Justify Its 5 Year Run?",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/fairfax-financial-holdings-tsx-ffh-002437596.html"
+        },
+        {
+          "category": "guidance",
+          "date": "03 Nov 26",
+          "text": "Fairfax third-quarter profit falls as investment losses offset insurance gains",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/fairfax-third-quarter-profit-falls-234809289.html"
+        },
+        {
+          "category": "macro",
+          "date": "16 Oct 26",
+          "text": "This TSX stock could see nearly 32% upside after a huge India deal, analyst says",
+          "url": "https://financialpost.com/investing/this-tsx-stock-could-see-nearly-32-upside-after-a-huge-india-deal-analyst-says"
+        },
+        {
+          "category": "macro",
+          "date": "16 Oct 26",
+          "text": "Fairfax India Holdings (TSX:FIH.U) Stock May Be 19% Undervalued On IDBI Bank Plans",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/fairfax-india-holdings-tsx-fih-121120258.html"
+        },
+        {
+          "category": "macro",
+          "date": "16 Oct 26",
+          "text": "Fairfax Financial Holdings (TSX:FFH) Buys Into IDBI Bank As Undervalued Narrative Faces A Test",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/fairfax-financial-holdings-tsx-ffh-002058102.html"
+        },
+        {
+          "category": "macro",
+          "date": "15 Oct 26",
+          "text": "Does Fairfax Financial Holdings (TSX:FFH) Sit Below Fair Value Now?",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/does-fairfax-financial-holdings-tsx-231730081.html"
+        },
+        {
+          "category": "capacity",
+          "date": "15 Oct 26",
+          "text": "Fairfax Financial Targets $5.6B IDBI Bank Stake in India Expansion",
+          "url": "https://www.marketbeat.com/instant-alerts/event-fairfax-financial-targets-56b-idbi-bank-stake-in-india-expansion-2026-10-15/?utm_source=yahoofinance&utm_medium=yahoofinance"
         }
       ]
     },
@@ -1336,6 +1486,12 @@
           "date": "15 Aug 26",
           "text": "Marksans Pharma Ltd (BOM:524404) (Q1 2027) Earnings Call Highlights: Record Revenue and Profit ...",
           "url": "https://finance.yahoo.com/markets/stocks/articles/marksans-pharma-ltd-bom-524404-010956523.html"
+        },
+        {
+          "category": "guidance",
+          "date": "06 Nov 26",
+          "text": "Marksans Pharma Ltd (BOM:524404) (Q2 2027) Earnings Call Highlights: Record Revenue, 30. ...",
+          "url": "https://finance.yahoo.com/healthcare/articles/marksans-pharma-ltd-bom-524404-090816465.html"
         }
       ]
     },
@@ -1510,6 +1666,36 @@
           "date": "19 Sep 26",
           "text": "Tata Steel seeks new government funding as industry crisis deepens",
           "url": "https://uk.finance.yahoo.com/news/tata-steel-seeks-government-funding-081100944.html"
+        },
+        {
+          "category": "guidance",
+          "date": "09 Nov 26",
+          "text": "Tata Steel Ltd (STU:HWHG) (Q2 2027) Earnings Call Highlights: Record India Performance and ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/tata-steel-ltd-stu-hwhg-070527589.html"
+        },
+        {
+          "category": "guidance",
+          "date": "06 Nov 26",
+          "text": "Indian Metals & Ferro Alloys Ltd (BOM:533047) (Q2 2027) Earnings Call Highlights: Record ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/indian-metals-ferro-alloys-ltd-231053515.html"
+        },
+        {
+          "category": "guidance",
+          "date": "27 Oct 26",
+          "text": "Earnings Report Could Be A Key Test For Linde Stock (LIN)",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/earnings-report-could-key-test-160800247.html"
+        },
+        {
+          "category": "order",
+          "date": "01 Oct 26",
+          "text": "Ministers hand EY contract to scrutinise Tata Steel funding request",
+          "url": "https://uk.finance.yahoo.com/news/ministers-hand-ey-contract-scrutinise-111800948.html"
+        },
+        {
+          "category": "macro",
+          "date": "23 Aug 26",
+          "text": "‘The line’s running half-empty’: Llanwern steelworks feels the heat from cheap steel imports",
+          "url": "https://uk.news.yahoo.com/line-running-half-empty-llanwern-090028580.html"
         }
       ]
     },
@@ -1538,6 +1724,12 @@
           "date": "27 Jan 26",
           "text": "Ujjivan Small Finance Bank Ltd (BOM:542904) Q3 2026 Earnings Call Highlights: Strong Growth in ...",
           "url": "https://finance.yahoo.com/news/ujjivan-small-finance-bank-ltd-010157716.html"
+        },
+        {
+          "category": "macro",
+          "date": "07 Oct 26",
+          "text": "3 Indian Bank Stocks That Could Benefit Most From Higher RBI Rates",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/3-indian-bank-stocks-could-071607961.html"
         }
       ]
     },
@@ -1644,6 +1836,12 @@
           "date": "15 Jan 26",
           "text": "Globus Spirits Ltd (BOM:533104) Q3 2026 Earnings Call Highlights: Strong Volume Growth and ...",
           "url": "https://finance.yahoo.com/news/globus-spirits-ltd-bom-533104-010043670.html"
+        },
+        {
+          "category": "guidance",
+          "date": "02 Nov 26",
+          "text": "Globus Spirits Ltd (BOM:533104) (Q2 2027) Earnings Call Highlights: Revenue Climbs 15% as ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/globus-spirits-ltd-bom-533104-070322861.html"
         }
       ]
     },
@@ -1666,6 +1864,18 @@
           "date": "05 Feb 26",
           "text": "Avalon Technologies Ltd (NSE:AVALON) Q3 2026 Earnings Call Highlights: Record Revenue and ...",
           "url": "https://finance.yahoo.com/news/avalon-technologies-ltd-nse-avalon-170110433.html"
+        },
+        {
+          "category": "macro",
+          "date": "04 Nov 26",
+          "text": "What Comes Next For Avalon Technologies After A 126% Gain",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/comes-next-avalon-technologies-126-111139045.html"
+        },
+        {
+          "category": "client",
+          "date": "01 Oct 26",
+          "text": "Avalon Technologies (NSEI:AVALON) Stock Fair Value Rises After Joint Venture And Higher Growth Outlook",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/avalon-technologies-nsei-avalon-stock-210709543.html"
         }
       ]
     },
@@ -1700,6 +1910,12 @@
           "date": "31 Oct 25",
           "text": "SAMHI Hotels Ltd (NSE:SAMHI) Q2 2026 Earnings Call Highlights: Strong Financial Performance and ...",
           "url": "https://finance.yahoo.com/news/samhi-hotels-ltd-nse-samhi-070037775.html"
+        },
+        {
+          "category": "guidance",
+          "date": "06 Nov 26",
+          "text": "SAMHI Hotels Ltd (NSE:SAMHI) (Q2 2027) Earnings Call Highlights: Strong RevPAR Growth and ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/samhi-hotels-ltd-nse-samhi-051728907.html"
         }
       ]
     },
@@ -1710,6 +1926,12 @@
           "date": "13 Nov 25",
           "text": "Astra Microwave Products Ltd (BOM:532493) Q2 2026 Earnings Call Highlights: Strong Financial ...",
           "url": "https://finance.yahoo.com/news/astra-microwave-products-ltd-bom-190112889.html"
+        },
+        {
+          "category": "guidance",
+          "date": "16 Feb 26",
+          "text": "Astra Microwave Products Ltd (BOM:532493) Q3 2026 Earnings Call Highlights: Record Performance ...",
+          "url": "https://finance.yahoo.com/news/astra-microwave-products-ltd-bom-010134681.html"
         }
       ]
     },
@@ -1760,6 +1982,12 @@
           "date": "22 Sep 25",
           "text": "Datavant and Indegene partner to improve trial subject recruitment",
           "url": "https://www.clinicaltrialsarena.com/news/datavant-indegene-trial/"
+        },
+        {
+          "category": "macro",
+          "date": "28 Sep 26",
+          "text": "3 Indian Stocks That Could Benefit If The Rupee Keeps Falling",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/3-indian-stocks-could-benefit-111017685.html"
         }
       ]
     },
@@ -1788,6 +2016,12 @@
           "date": "11 Nov 25",
           "text": "Aarti Drugs Ltd (BOM:524348) Q2 2026 Earnings Call Highlights: Strong Revenue Growth Amidst ...",
           "url": "https://finance.yahoo.com/news/aarti-drugs-ltd-bom-524348-090035941.html"
+        },
+        {
+          "category": "guidance",
+          "date": "05 Nov 26",
+          "text": "Aarti Drugs Ltd (BOM:524348) (Q2 2027) Earnings Call Highlights: Record Revenue and 83% PAT ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/aarti-drugs-ltd-bom-524348-051242226.html"
         }
       ]
     },
@@ -1816,6 +2050,12 @@
           "date": "17 Aug 26",
           "text": "Supriya Lifescience Ltd (BOM:543434) (Q1 2027) Earnings Call Highlights: Revenue Surges 31% to ...",
           "url": "https://finance.yahoo.com/healthcare/articles/supriya-lifescience-ltd-bom-543434-190053598.html"
+        },
+        {
+          "category": "guidance",
+          "date": "08 Nov 26",
+          "text": "Supriya Lifescience Ltd (BOM:543434) (Q2 2027) Earnings Call Highlights: Margin Guidance ...",
+          "url": "https://finance.yahoo.com/healthcare/articles/supriya-lifescience-ltd-bom-543434-010820000.html"
         }
       ]
     },
@@ -1900,6 +2140,12 @@
           "date": "24 Sep 26",
           "text": "Containership Stocks With Pricing Power As Fleet Growth Tests Shipyard Demand",
           "url": "https://finance.yahoo.com/markets/stocks/articles/containership-stocks-pricing-power-fleet-211855884.html"
+        },
+        {
+          "category": "macro",
+          "date": "29 Oct 26",
+          "text": "3 Defense Stocks to Watch After India’s 2.12 Trillion Rupee Military Upgrade",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/3-defense-stocks-watch-india-010918691.html"
         }
       ]
     }
