@@ -1,6 +1,6 @@
 {
   "schema": "news_v2",
-  "updatedAt": "2026-11-09",
+  "updatedAt": "2026-11-16",
   "notes": {
     "YESBANK": {
       "items": [
@@ -291,6 +291,12 @@
           "date": "28 Oct 26",
           "text": "Jio shares surge 21% in market debut after blockbuster India IPO",
           "url": "https://finance.yahoo.com/markets/stocks/articles/jio-shares-surge-21-market-052032079.html"
+        },
+        {
+          "category": "macro",
+          "date": "13 Nov 26",
+          "text": "Reliance plans $4.6bn investment in Andhra Pradesh coal-to-gas project",
+          "url": "https://www.offshore-technology.com/news/reliance-investment-coal-to-gas-project/"
         }
       ]
     },
@@ -487,6 +493,12 @@
           "date": "13 Aug 26",
           "text": "HPL Electric & Power Ltd (BOM:540136) (Q1 2027) Earnings Call Highlights: Record Revenue ...",
           "url": "https://finance.yahoo.com/markets/stocks/articles/hpl-electric-power-ltd-bom-010802702.html"
+        },
+        {
+          "category": "guidance",
+          "date": "10 Nov 26",
+          "text": "HPL Electric & Power Ltd (BOM:540136) (Q2 2027) Earnings Call Highlights: Record Revenue ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/hpl-electric-power-ltd-bom-050553741.html"
         }
       ],
       "total": "₹3,100Cr+"
@@ -819,6 +831,12 @@
           "date": "FY25",
           "text": "Li-ion battery packs capacity: 1,00,000 kWh/annum (Navi Mumbai)",
           "url": ""
+        },
+        {
+          "category": "guidance",
+          "date": "13 Nov 26",
+          "text": "Prostarm Info Systems Ltd (NSE:PROSTARM) (Q2 2027) Earnings Call Highlights: Strong Revenue ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/prostarm-systems-ltd-nse-prostarm-170317366.html"
         }
       ]
     },
@@ -865,6 +883,12 @@
           "date": "13 Aug 26",
           "text": "Transrail Lighting Ltd (NSE:TRANSRAILL) (Q1 2027) Earnings Call Highlights: Record Q1 Revenue ...",
           "url": "https://finance.yahoo.com/markets/stocks/articles/transrail-lighting-ltd-nse-transraill-010629261.html"
+        },
+        {
+          "category": "guidance",
+          "date": "11 Nov 26",
+          "text": "Transrail Lighting Ltd (NSE:TRANSRAILL) (Q2 2027) Earnings Call Highlights: Record Revenue, Rs ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/transrail-lighting-ltd-nse-transraill-090130158.html"
         }
       ],
       "total": "₹16,936Cr"
@@ -1094,6 +1118,12 @@
           "date": "04 Apr 26",
           "text": "How Recent Developments Are Shaping The Bandhan Bank (NSEI:BANDHANBNK) Investment Narrative",
           "url": "https://finance.yahoo.com/markets/stocks/articles/recent-developments-shaping-bandhan-bank-150945324.html"
+        },
+        {
+          "category": "macro",
+          "date": "21 Mar 26",
+          "text": "How The Bandhan Bank (NSEI:BANDHANBNK) Narrative Is Evolving With An Unchanged ₹166.25 Fair Value",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/bandhan-bank-nsei-bandhanbnk-narrative-001900766.html"
         }
       ]
     },
@@ -1356,6 +1386,24 @@
           "date": "15 Oct 26",
           "text": "Fairfax Financial Targets $5.6B IDBI Bank Stake in India Expansion",
           "url": "https://www.marketbeat.com/instant-alerts/event-fairfax-financial-targets-56b-idbi-bank-stake-in-india-expansion-2026-10-15/?utm_source=yahoofinance&utm_medium=yahoofinance"
+        },
+        {
+          "category": "macro",
+          "date": "12 Nov 26",
+          "text": "Fairfax prepares IIFL Finance stake sale to back IDBI takeover – report",
+          "url": "https://www.retailbankerinternational.com/news/fairfax-iifl-finance-stake-sale/"
+        },
+        {
+          "category": "guidance",
+          "date": "12 Nov 26",
+          "text": "Mufin Green Finance Ltd (BOM:542774) (Q2 2027) Earnings Call Highlights: AUM Jumps 71% as ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/mufin-green-finance-ltd-bom-030745343.html"
+        },
+        {
+          "category": "management",
+          "date": "10 Nov 26",
+          "text": "India’s LIC may reconsider banking entry if rules change, CEO says",
+          "url": "https://www.retailbankerinternational.com/news/lic-reconsider-banking-entry/"
         }
       ]
     },
@@ -1696,6 +1744,12 @@
           "date": "23 Aug 26",
           "text": "‘The line’s running half-empty’: Llanwern steelworks feels the heat from cheap steel imports",
           "url": "https://uk.news.yahoo.com/line-running-half-empty-llanwern-090028580.html"
+        },
+        {
+          "category": "macro",
+          "date": "05 Mar 26",
+          "text": "Video shows dramatic transformation of old steel mill: 'Laying the foundations for a new ... process'",
+          "url": "https://finance.yahoo.com/news/video-shows-dramatic-transformation-old-001500864.html"
         }
       ]
     },
@@ -1942,6 +1996,12 @@
           "date": "06 Feb 26",
           "text": "Rossell Techsys Ltd (BOM:544294) Q3 2026 Earnings Call Highlights: Record Revenue Growth Amidst ...",
           "url": "https://finance.yahoo.com/news/rossell-techsys-ltd-bom-544294-010047155.html"
+        },
+        {
+          "category": "guidance",
+          "date": "10 Nov 26",
+          "text": "Rossell Techsys Ltd (BOM:544294) (Q2 2027) Earnings Call Highlights: Record Revenue, INR 300 ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/rossell-techsys-ltd-bom-544294-030837092.html"
         }
       ]
     },
