@@ -1,6 +1,6 @@
 {
   "schema": "news_v2",
-  "updatedAt": "2026-11-16",
+  "updatedAt": "2026-11-23",
   "notes": {
     "YESBANK": {
       "items": [
@@ -155,6 +155,12 @@
           "date": "29 Sep 26",
           "text": "Higher Bond Yields Are Reshaping Invesco Stock And Other Income Plays",
           "url": "https://finance.yahoo.com/markets/stocks/articles/higher-bond-yields-reshaping-invesco-010908093.html"
+        },
+        {
+          "category": "macro",
+          "date": "21 Nov 26",
+          "text": "Private Market Stress Puts HDFC Asset Management Stock In Focus",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/private-market-stress-puts-hdfc-231053984.html"
         }
       ]
     },
@@ -297,6 +303,24 @@
           "date": "13 Nov 26",
           "text": "Reliance plans $4.6bn investment in Andhra Pradesh coal-to-gas project",
           "url": "https://www.offshore-technology.com/news/reliance-investment-coal-to-gas-project/"
+        },
+        {
+          "category": "macro",
+          "date": "19 Nov 26",
+          "text": "Reliance Industries (NSEI:RELIANCE) Stock Sees Modest Fair Value Cut As Growth Assumptions Ease",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/reliance-industries-nsei-reliance-stock-011426476.html"
+        },
+        {
+          "category": "macro",
+          "date": "18 Nov 26",
+          "text": "Reliance seeks manufacturing partners for its 1,600-satellite network - Bloomberg",
+          "url": "https://finance.yahoo.com/technology/articles/reliance-seeks-manufacturing-partners-1-020204124.html"
+        },
+        {
+          "category": "macro",
+          "date": "17 Nov 26",
+          "text": "Reliance Bets $1.6 Billion on India's Biogas Boom",
+          "url": "https://finance.yahoo.com/energy/articles/reliance-bets-1-6-billion-163000116.html"
         }
       ]
     },
@@ -970,6 +994,12 @@
           "date": "26 Sep 26",
           "text": "3 Aluminium Stocks With Pricing Power In Clean Energy Demand",
           "url": "https://finance.yahoo.com/markets/stocks/articles/3-aluminium-stocks-pricing-power-220808584.html"
+        },
+        {
+          "category": "macro",
+          "date": "19 Nov 26",
+          "text": "Our Pick Of The Best Indian Growth Stocks In November 2026",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/pick-best-indian-growth-stocks-171735249.html"
         }
       ]
     },
@@ -1042,6 +1072,12 @@
           "date": "29 Aug 26",
           "text": "Avanti Feeds Ltd (BOM:512573) (Q1 2027) Earnings Call Highlights: Revenue Surges 19% but Raw ...",
           "url": "https://finance.yahoo.com/markets/stocks/articles/avanti-feeds-ltd-bom-512573-010223455.html"
+        },
+        {
+          "category": "guidance",
+          "date": "20 Nov 26",
+          "text": "Avanti Feeds Ltd (BOM:512573) (Q2 2027) Earnings Call Highlights: Margins Hit Bottom as Raw ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/avanti-feeds-ltd-bom-512573-190048271.html"
         }
       ]
     },
@@ -1176,6 +1212,12 @@
           "date": "07 Oct 25",
           "text": "India's Canara HSBC Life sets IPO price band at 100–106 rupees, targets $1.14 billion valuation",
           "url": "https://sg.finance.yahoo.com/news/indias-canara-hsbc-life-sets-021409169.html"
+        },
+        {
+          "category": "guidance",
+          "date": "22 Nov 26",
+          "text": "3 Indian Bank Stocks Retail Investors Are Watching For Higher Rate Margins",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/3-indian-bank-stocks-retail-011011227.html"
         }
       ]
     },
@@ -1404,6 +1446,18 @@
           "date": "10 Nov 26",
           "text": "India’s LIC may reconsider banking entry if rules change, CEO says",
           "url": "https://www.retailbankerinternational.com/news/lic-reconsider-banking-entry/"
+        },
+        {
+          "category": "macro",
+          "date": "19 Nov 26",
+          "text": "Foreign banks keep buying into India",
+          "url": "http://www.intellinews.com/foreign-banks-keep-buying-into-india-486547/"
+        },
+        {
+          "category": "macro",
+          "date": "16 Nov 26",
+          "text": "IDBI unions seek apex bank review of proposed Fairfax control transfer",
+          "url": "https://www.retailbankerinternational.com/news/idbi-unions-seek-review/"
         }
       ]
     },
@@ -1750,6 +1804,12 @@
           "date": "05 Mar 26",
           "text": "Video shows dramatic transformation of old steel mill: 'Laying the foundations for a new ... process'",
           "url": "https://finance.yahoo.com/news/video-shows-dramatic-transformation-old-001500864.html"
+        },
+        {
+          "category": "macro",
+          "date": "23 Nov 26",
+          "text": "Tata Steel to acquire 26.4% in APL Apollo Tubes for $1.67 billion",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/tata-steel-acquire-26-4-034343350.html"
         }
       ]
     },
@@ -1930,6 +1990,12 @@
           "date": "01 Oct 26",
           "text": "Avalon Technologies (NSEI:AVALON) Stock Fair Value Rises After Joint Venture And Higher Growth Outlook",
           "url": "https://finance.yahoo.com/markets/stocks/articles/avalon-technologies-nsei-avalon-stock-210709543.html"
+        },
+        {
+          "category": "guidance",
+          "date": "16 Nov 26",
+          "text": "Avalon Technologies Ltd (NSE:AVALON) (Q2 2027) Earnings Call Highlights: Revenue Jumps 37% as ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/avalon-technologies-ltd-nse-avalon-170301796.html"
         }
       ]
     },
@@ -2166,6 +2232,12 @@
           "date": "04 Feb 26",
           "text": "Steelcast Ltd (BOM:513517) Q3 2026 Earnings Call Highlights: Navigating Challenges with ...",
           "url": "https://finance.yahoo.com/news/steelcast-ltd-bom-513517-q3-010306265.html"
+        },
+        {
+          "category": "guidance",
+          "date": "17 Nov 26",
+          "text": "Steelcast Ltd (BOM:513517) (Q2 2027) Earnings Call Highlights: 29% Revenue Surge, Debt-Free ...",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/steelcast-ltd-bom-513517-q2-170119587.html"
         }
       ]
     },
